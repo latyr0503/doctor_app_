@@ -13,7 +13,9 @@ class HomePage extends StatelessWidget {
       height: double.infinity,
       color: const Color.fromARGB(248, 248, 248, 248),
       child: SingleChildScrollView(
-        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center, 
+          children: [
           const SizedBox(
             height: 75,
           ),
