@@ -30,9 +30,10 @@ class ResetPassWord extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
+                    textAlign: TextAlign.center,
                     "Code de Vérification",
                     style: TextStyle(
-                        fontSize: 36.0,
+                        fontSize: 30.0,
                         fontWeight: FontWeight.w400,
                         height: 2.0),
                   ),
