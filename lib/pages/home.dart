@@ -1,3 +1,4 @@
+import 'package:doctor_app/pages/auth/connexion.dart';
 import 'package:doctor_app/pages/introduction_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +14,7 @@ class HomePage extends StatelessWidget {
       height: double.infinity,
       color: const Color.fromARGB(248, 248, 248, 248),
       child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center, 
-          children: [
+        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
           const SizedBox(
             height: 75,
           ),
@@ -82,7 +81,7 @@ class HomePage extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () => (),
                       child: const Text('Se connecter',
                           style: TextStyle(
                             decoration: TextDecoration.underline,
@@ -105,6 +104,12 @@ class HomePage extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) => IntroScreen(),
+      ),
+    );
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const Connexion(),
       ),
     );
   }
