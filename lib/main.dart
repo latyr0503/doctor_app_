@@ -1,4 +1,5 @@
 import 'package:doctor_app/pages/home.dart';
+import 'package:doctor_app/pages/profile.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       // home: IntroScreen(),
-      home: const HomePage(),
+      home: const Profile(),
     );
   }
 }
