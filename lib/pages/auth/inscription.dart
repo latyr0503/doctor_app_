@@ -1,12 +1,18 @@
 import 'package:doctor_app/components/spacement_styles.dart';
-import 'package:doctor_app/pages/auth/inscription.dart';
-import 'package:doctor_app/pages/auth/reset_pass_word.dart';
+import 'package:doctor_app/pages/auth/connexion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-class Connexion extends StatelessWidget {
-  const Connexion({super.key});
+class Inscription extends StatefulWidget {
+  const Inscription({Key? key}) : super(key: key);
 
+  @override
+  // ignore: library_private_types_in_public_api
+  _InscriptionState createState() => _InscriptionState();
+}
+
+class _InscriptionState extends State<Inscription> {
+  bool isChecked = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,17 +22,17 @@ class Connexion extends StatelessWidget {
           child: Column(
             children: [
               const Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                // crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    "Connexion",
+                    "Creer Un Compte",
                     style: TextStyle(
                         fontSize: 36.0,
                         fontWeight: FontWeight.w400,
                         height: 2.0),
                   ),
                   Text(
-                    "Salut ! Bienvenue à nouveau, vous nous avez manqué",
+                    "Remplissez vos informations ci-dessous ou inscrivez-vous avec votre compte social.",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
@@ -39,7 +45,16 @@ class Connexion extends StatelessWidget {
               Form(
                   child: Column(
                 children: [
-                  const Padding(padding: EdgeInsets.all(20.0)),
+                  const Padding(padding: EdgeInsets.all(15.0)),
+                  const TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Nom Complet',
+                      border: OutlineInputBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10.0))),
+                    ),
+                  ),
+                  const Padding(padding: EdgeInsets.all(10.0)),
                   // Email
                   const TextField(
                     decoration: InputDecoration(
@@ -50,7 +65,7 @@ class Connexion extends StatelessWidget {
                     ),
                   ),
                   // mot de passe
-                  const Padding(padding: EdgeInsets.all(20.0)),
+                  const Padding(padding: EdgeInsets.all(10.0)),
                   const TextField(
                     obscureText: true,
                     decoration: InputDecoration(
@@ -62,19 +77,25 @@ class Connexion extends StatelessWidget {
                   ),
                   // mot de passe oublier
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      const Padding(padding: EdgeInsets.all(30.0)),
-                      // Text("mot de passe oublié")
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const ResetPassWord()),
-                          );
+                      const Padding(
+                          padding: EdgeInsets.only(top: 30.0, bottom: 30.0)),
+                      Checkbox(
+                        checkColor: Colors.white,
+                        value: isChecked,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            isChecked = value!;
+                          });
                         },
-                        child: const Text('Mot de passe oublié ?',
+                      ),
+                      const Text("accepter les"),
+                      TextButton(
+                        onPressed: () {},
+                        style:const ButtonStyle(
+                          padding: MaterialStatePropertyAll(EdgeInsets.fromLTRB(5, 5, 5, 5)),
+                        ),
+                        child: const Text('Termes et Conditions',
                             style: TextStyle(
                               decoration: TextDecoration.underline,
                               fontWeight: FontWeight.normal,
@@ -87,11 +108,11 @@ class Connexion extends StatelessWidget {
                     borderRadius: BorderRadius.circular(50),
                     onPressed: () => (),
                     padding: const EdgeInsets.fromLTRB(80, 15, 80, 15),
-                    child: const Text("Se connecter"),
+                    child: const Text("S'Inscrire"),
                   ),
                 ],
               )),
-              const Padding(padding: EdgeInsets.all(20.0)),
+              const Padding(padding: EdgeInsets.all(10.0)),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -101,7 +122,7 @@ class Connexion extends StatelessWidget {
                     thickness: 0.3,
                     endIndent: 10,
                   )),
-                  Text("se connecter avec"),
+                  Text("s'inscrire avec"),
                   Flexible(
                       child: Divider(
                     color: Colors.black,
@@ -110,7 +131,7 @@ class Connexion extends StatelessWidget {
                   )),
                 ],
               ),
-              const Padding(padding: EdgeInsets.all(15.0)),
+              const Padding(padding: EdgeInsets.all(10.0)),
 
               // social icon
               Row(
@@ -163,7 +184,7 @@ class Connexion extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    "Vous n'avez pas de compte ?",
+                    "Vous avez déjà un compte ?",
                     style: TextStyle(
                       fontWeight: FontWeight.normal,
                       color: Colors.black,
@@ -175,10 +196,10 @@ class Connexion extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const Inscription()),
+                            builder: (context) => const Connexion()),
                       );
                     },
-                    child: const Text("S'inscrire",
+                    child: const Text("Se Connecter",
                         style: TextStyle(
                           decoration: TextDecoration.underline,
                           fontWeight: FontWeight.normal,

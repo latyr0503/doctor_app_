@@ -37,13 +37,38 @@ class HomePage extends StatelessWidget {
             padding: const EdgeInsets.all(20.0),
             child: const Column(
               children: [
-                Text(
-                  "Votre application ultime de prise de rendez-vous chez le médecin",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25,
-                  ),
+                Text.rich(
                   textAlign: TextAlign.center,
+                  TextSpan(
+                    text: 'Votre ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                    ),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: 'application ultime ',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromRGBO(21, 101, 192, 1),
+                        ),
+                      ),
+                      TextSpan(
+                        text: 'de prise de rendez-vous chez le ',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
+                        ),
+                      ),
+                      TextSpan(
+                        text: 'médecin ',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromRGBO(21, 101, 192, 1),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 Padding(padding: EdgeInsets.only(top: 10.0)),
                 Text(
@@ -67,7 +92,12 @@ class HomePage extends StatelessWidget {
                   color: Colors.blue[800],
                   borderRadius: BorderRadius.circular(50),
                   child: const Text("Let's Get Started"),
-                  onPressed: () => onDone(context),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => IntroScreen()),
+                    );
+                  },
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -81,7 +111,13 @@ class HomePage extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                     TextButton(
-                      onPressed: () => (),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Connexion()),
+                        );
+                      },
                       child: const Text('Se connecter',
                           style: TextStyle(
                             decoration: TextDecoration.underline,
@@ -97,20 +133,5 @@ class HomePage extends StatelessWidget {
         ]),
       ),
     ));
-  }
-
-  void onDone(context) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => IntroScreen(),
-      ),
-    );
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const Connexion(),
-      ),
-    );
   }
 }
