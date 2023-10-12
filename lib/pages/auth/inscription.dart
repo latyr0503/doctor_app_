@@ -1,5 +1,6 @@
 import 'package:doctor_app/components/spacement_styles.dart';
 import 'package:doctor_app/pages/auth/connexion.dart';
+import 'package:doctor_app/pages/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -92,8 +93,9 @@ class _InscriptionState extends State<Inscription> {
                       const Text("accepter les"),
                       TextButton(
                         onPressed: () {},
-                        style:const ButtonStyle(
-                          padding: MaterialStatePropertyAll(EdgeInsets.fromLTRB(5, 5, 5, 5)),
+                        style: const ButtonStyle(
+                          padding: MaterialStatePropertyAll(
+                              EdgeInsets.fromLTRB(5, 5, 5, 5)),
                         ),
                         child: const Text('Termes et Conditions',
                             style: TextStyle(
@@ -106,7 +108,13 @@ class _InscriptionState extends State<Inscription> {
                   CupertinoButton(
                     color: Colors.blue[800],
                     borderRadius: BorderRadius.circular(50),
-                    onPressed: () => (),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Profile()),
+                      );
+                    },
                     padding: const EdgeInsets.fromLTRB(80, 15, 80, 15),
                     child: const Text("S'Inscrire"),
                   ),
