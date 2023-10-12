@@ -1,3 +1,4 @@
+import 'package:doctor_app/components/navigation_menu.dart';
 import 'package:doctor_app/components/spacement_styles.dart';
 import 'package:doctor_app/pages/auth/inscription.dart';
 import 'package:doctor_app/pages/auth/reset_pass_word.dart';
@@ -85,7 +86,13 @@ class Connexion extends StatelessWidget {
                   CupertinoButton(
                     color: Colors.blue[800],
                     borderRadius: BorderRadius.circular(50),
-                    onPressed: () => (),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const NavigationMenu()),
+                      );
+                    },
                     padding: const EdgeInsets.fromLTRB(80, 15, 80, 15),
                     child: const Text("Se connecter"),
                   ),

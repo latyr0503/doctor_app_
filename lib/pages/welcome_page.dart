@@ -10,7 +10,6 @@ class Welcome_page extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
               "Bienvenue dans la page d'accueil",
@@ -19,11 +18,19 @@ class Welcome_page extends StatelessWidget {
                 fontWeight: FontWeight.w900,
                 color: Color.fromRGBO(21, 101, 192, 1),
               ),
+              textAlign: TextAlign.center,
             ),
             ElevatedButton(
-              onPressed: () => onDone(context),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const AccessLocation()),
+                );
+              },
               style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 15),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 60, vertical: 15),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
@@ -32,15 +39,6 @@ class Welcome_page extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  void onDone(BuildContext context) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const AccessLocation(),
       ),
     );
   }
