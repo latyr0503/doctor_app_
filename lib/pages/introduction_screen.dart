@@ -14,11 +14,11 @@ class IntroScreen extends StatelessWidget {
         child: Image.asset("assets/Medical prescription-pana.png"),
       ),
       decoration: const PageDecoration(
-        titleTextStyle: TextStyle(
-          fontSize: 25.0,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
+          titleTextStyle: TextStyle(
+            fontSize: 25.0,
+            fontWeight: FontWeight.bold,
+          ),
+          bodyTextStyle: TextStyle(fontSize: 15.0)),
     ),
     PageViewModel(
       title: "Deuxieme page",
@@ -28,11 +28,11 @@ class IntroScreen extends StatelessWidget {
         child: Image.asset("assets/Date picker-pana.png"),
       ),
       decoration: const PageDecoration(
-        titleTextStyle: TextStyle(
-          fontSize: 25.0,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
+          titleTextStyle: TextStyle(
+            fontSize: 25.0,
+            fontWeight: FontWeight.bold,
+          ),
+          bodyTextStyle: TextStyle(fontSize: 15.0)),
     ),
     PageViewModel(
       title: "troisième page",
@@ -46,11 +46,11 @@ class IntroScreen extends StatelessWidget {
         child: Image.asset("assets/Doctors-pana.png"),
       ),
       decoration: const PageDecoration(
-        titleTextStyle: TextStyle(
-          fontSize: 25.0,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
+          titleTextStyle: TextStyle(
+            fontSize: 25.0,
+            fontWeight: FontWeight.bold,
+          ),
+          bodyTextStyle: TextStyle(fontSize: 15.0)),
     ),
   ];
 
