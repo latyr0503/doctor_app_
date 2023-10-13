@@ -23,12 +23,11 @@ class _InscriptionState extends State<Inscription> {
           child: Column(
             children: [
               const Column(
-                // crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
                     "Creer Un Compte",
                     style: TextStyle(
-                        fontSize: 36.0,
+                        fontSize: 32.0,
                         fontWeight: FontWeight.w400,
                         height: 2.0),
                   ),

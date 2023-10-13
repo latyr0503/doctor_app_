@@ -22,7 +22,7 @@ class Connexion extends StatelessWidget {
                   Text(
                     "Connexion",
                     style: TextStyle(
-                        fontSize: 36.0,
+                        fontSize: 32.0,
                         fontWeight: FontWeight.w400,
                         height: 2.0),
                   ),

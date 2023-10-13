@@ -18,6 +18,7 @@ dependencies:
   shared_preferences: ^2.2.1
   iconsax: ^0.0.8
   get: ^4.6.6
+  flutter_map: ^6.0.0
   
 dev_dependencies:
   flutter_test:

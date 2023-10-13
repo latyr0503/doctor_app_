@@ -1,3 +1,5 @@
+import 'package:doctor_app/components/card_speciality.dart';
+import 'package:doctor_app/components/teste.dart';
 import 'package:doctor_app/pages/profile.dart';
 import 'package:doctor_app/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
@@ -41,16 +43,13 @@ class NavigationController extends GetxController {
 
   // ignore: non_constant_identifier_names
   final Screens = [
-    
     const Welcome_page(),
-    Container(
-      color: Colors.red,
-    ),
+    const Teste(),
     Container(
       color: Colors.blue,
     ),
     Container(
-      color: Colors.amber,
+      color: const Color.fromRGBO(243, 198, 33, 1),
     ),
     const Profile()
   ];
