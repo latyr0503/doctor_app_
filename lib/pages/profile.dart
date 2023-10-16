@@ -129,7 +129,7 @@ class Profile extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const Welcome_page()),
+                MaterialPageRoute(builder: (context) => Welcome_page()),
               );
             },
             style: ElevatedButton.styleFrom(

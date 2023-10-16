@@ -1,10 +1,8 @@
-import 'package:doctor_app/components/card_speciality.dart';
 import 'package:doctor_app/components/teste.dart';
 import 'package:doctor_app/pages/profile.dart';
 import 'package:doctor_app/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:get/state_manager.dart';
 import 'package:iconsax/iconsax.dart' show Iconsax;
 
 class NavigationMenu extends StatelessWidget {
@@ -43,7 +41,7 @@ class NavigationController extends GetxController {
 
   // ignore: non_constant_identifier_names
   final Screens = [
-    const Welcome_page(),
+    Welcome_page(),
     const Teste(),
     Container(
       color: Colors.blue,
