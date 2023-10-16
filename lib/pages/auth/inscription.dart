@@ -1,8 +1,8 @@
 import 'package:doctor_app/components/spacement_styles.dart';
 import 'package:doctor_app/pages/auth/connexion.dart';
-import 'package:doctor_app/pages/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart';
 
 class Inscription extends StatefulWidget {
   const Inscription({Key? key}) : super(key: key);
@@ -10,6 +10,37 @@ class Inscription extends StatefulWidget {
   @override
   // ignore: library_private_types_in_public_api
   _InscriptionState createState() => _InscriptionState();
+}
+
+bool isChecked = false;
+TextEditingController nameController = TextEditingController();
+TextEditingController emailController = TextEditingController();
+TextEditingController passwordController = TextEditingController();
+
+void signup(BuildContext context ,String name, String password, String email) async {
+  try {
+    // ignore: prefer_typing_uninitialized_variables
+    var response = await post(
+      Uri.parse('https://doctor-app-h45i.onrender.com/users/create-user/'),
+      body: {
+        'name': name,
+        'email': email,
+        'password': password,
+      },
+    );
+    if (response.statusCode == 201) {
+      // ignore: avoid_print
+      print("Inscription réussie");
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Connexion()),
+      );
+    } else {
+      print("Échec de l'inscription");
+    }
+  } catch (e) {
+    print(e.toString());
+  }
 }
 
 class _InscriptionState extends State<Inscription> {
@@ -46,8 +77,10 @@ class _InscriptionState extends State<Inscription> {
                   child: Column(
                 children: [
                   const Padding(padding: EdgeInsets.all(15.0)),
-                  const TextField(
-                    decoration: InputDecoration(
+                  TextField(
+                    controller: nameController,
+                    decoration: const InputDecoration(
+                      hintText: " Entrez votre nom complet",
                       labelText: 'Nom Complet',
                       border: OutlineInputBorder(
                           borderRadius:
@@ -56,8 +89,10 @@ class _InscriptionState extends State<Inscription> {
                   ),
                   const Padding(padding: EdgeInsets.all(10.0)),
                   // Email
-                  const TextField(
-                    decoration: InputDecoration(
+                  TextField(
+                    controller: emailController,
+                    decoration: const InputDecoration(
+                      hintText: " Entrez votre email complet",
                       labelText: 'Email',
                       border: OutlineInputBorder(
                           borderRadius:
@@ -66,13 +101,15 @@ class _InscriptionState extends State<Inscription> {
                   ),
                   // mot de passe
                   const Padding(padding: EdgeInsets.all(10.0)),
-                  const TextField(
+                  TextField(
+                    controller: passwordController,
                     obscureText: true,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius:
                               BorderRadius.all(Radius.circular(10.0))),
                       labelText: 'Mot de passe',
+                      hintText: " Entrez un mot de passe bien sécurisé",
                     ),
                   ),
                   // mot de passe oublier
@@ -108,11 +145,8 @@ class _InscriptionState extends State<Inscription> {
                     color: Colors.blue[800],
                     borderRadius: BorderRadius.circular(50),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Profile()),
-                      );
+                      signup(context,nameController.text, passwordController.text,
+                          emailController.text);
                     },
                     padding: const EdgeInsets.fromLTRB(80, 15, 80, 15),
                     child: const Text("S'Inscrire"),
@@ -203,7 +237,7 @@ class _InscriptionState extends State<Inscription> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const Connexion()),
+                            builder: (context) => Connexion()),
                       );
                     },
                     child: const Text("Se Connecter",

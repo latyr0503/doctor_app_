@@ -1,12 +1,45 @@
-import 'package:doctor_app/components/navigation_menu.dart';
 import 'package:doctor_app/components/spacement_styles.dart';
 import 'package:doctor_app/pages/auth/inscription.dart';
 import 'package:doctor_app/pages/auth/reset_pass_word.dart';
+import 'package:doctor_app/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart';
 
+// ignore: must_be_immutable
 class Connexion extends StatelessWidget {
-  const Connexion({super.key});
+  Connexion({super.key});
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  void signIn(
+      BuildContext context, String name, String password, String email) async {
+    try {
+      // ignore: prefer_typing_uninitialized_variables
+      var response = await post(
+        Uri.parse('https://doctor-app-h45i.onrender.com/users/login/'),
+        body: {
+          'name': name,
+          'email': email,
+          'password': password,
+        },
+      );
+      if (response.statusCode == 200) {
+        // ignore: avoid_print
+        print("Connexion réussie");
+        // ignore: use_build_context_synchronously
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Welcome_page()),
+        );
+      } else {
+        print("Échec de la connexion");
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +75,9 @@ class Connexion extends StatelessWidget {
                 children: [
                   const Padding(padding: EdgeInsets.all(20.0)),
                   // Email
-                  const TextField(
-                    decoration: InputDecoration(
+                  TextField(
+                    controller: emailController,
+                    decoration: const InputDecoration(
                       labelText: 'Email',
                       border: OutlineInputBorder(
                           borderRadius:
@@ -52,9 +86,10 @@ class Connexion extends StatelessWidget {
                   ),
                   // mot de passe
                   const Padding(padding: EdgeInsets.all(20.0)),
-                  const TextField(
+                  TextField(
+                    controller: passwordController,
                     obscureText: true,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius:
                               BorderRadius.all(Radius.circular(10.0))),
@@ -87,11 +122,8 @@ class Connexion extends StatelessWidget {
                     color: Colors.blue[800],
                     borderRadius: BorderRadius.circular(50),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const NavigationMenu()),
-                      );
+                      signIn(context, nameController.text,
+                          passwordController.text, emailController.text);
                     },
                     padding: const EdgeInsets.fromLTRB(80, 15, 80, 15),
                     child: const Text("Se connecter"),
