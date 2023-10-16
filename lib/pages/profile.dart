@@ -27,6 +27,7 @@ class Profile extends StatelessWidget {
                 )),
       ),
       body: Center(
+        child: Form(
         child: Column(children: [
           // ignore: avoid_unnecessary_containers
           Container(
@@ -147,6 +148,7 @@ class Profile extends StatelessWidget {
             ),
           ),
         ]),
+        ),
       ),
     );
   }

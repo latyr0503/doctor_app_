@@ -122,6 +122,7 @@ class Location extends StatelessWidget {
                   color: Colors.grey),
             ),
           ),
+
         ],
       ),
     );
