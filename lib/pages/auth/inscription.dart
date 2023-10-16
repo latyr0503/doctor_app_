@@ -31,6 +31,7 @@ void signup(BuildContext context ,String name, String password, String email) as
     if (response.statusCode == 201) {
       // ignore: avoid_print
       print("Inscription réussie");
+      // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => Connexion()),
