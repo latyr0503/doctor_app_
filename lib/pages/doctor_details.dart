@@ -3,6 +3,7 @@ import 'package:doctor_app/components/icone.dart';
 import 'package:doctor_app/pages/home.dart';
 import 'package:flutter/material.dart';
 
+// ignore: camel_case_types
 class Details_doctor extends StatelessWidget {
   const Details_doctor({super.key});
 
@@ -10,14 +11,6 @@ class Details_doctor extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            leading: Builder(
-                builder: (context) => Container(
-                      margin: const EdgeInsets.only(left: 20),
-                      child: IconButton(
-                        icon: const Icon(Icons.arrow_back),
-                        onPressed: () {},
-                      ),
-                    )),
             title: const Center(
               child: Text(
                 'Réservation',
@@ -26,11 +19,9 @@ class Details_doctor extends StatelessWidget {
         body: ListView(
           children: [
             const Details(),
-
             const SizedBox(
               height: 20,
             ),
-
             const Divider(
               color: Colors.grey,
               thickness: 0.5,
@@ -38,12 +29,10 @@ class Details_doctor extends StatelessWidget {
               endIndent: 35,
               height: 0,
             ),
-
             const SizedBox(
               height: 20,
             ),
             const Icone(),
-            // const MyAppli(),
             Container(
               margin: const EdgeInsets.only(top: 35, left: 33),
               child: const Text(
@@ -70,10 +59,9 @@ class Details_doctor extends StatelessWidget {
                 TextSpan(
                   text: 'Read more',
                   style: TextStyle(
-                    color: Colors.blue, // Couleur du texte du bouton
-                    fontSize: 16.0, // Taille du texte du bouton
-                    decoration: TextDecoration
-                        .underline, // Soulignement du texte du bouton
+                    color: Colors.blue,
+                    fontSize: 15.0,
+                    decoration: TextDecoration.underline,
                   ),
                 ),
               ])),
@@ -110,7 +98,6 @@ class Details_doctor extends StatelessWidget {
                 ],
               ),
             ),
-
             const Padding(
               padding: EdgeInsets.only(top: 10, left: 30, right: 30),
               child: Row(
@@ -159,7 +146,6 @@ class Details_doctor extends StatelessWidget {
                 ],
               ),
             ),
-
             const Padding(
               padding: EdgeInsets.only(top: 10, left: 30, right: 30),
               child: Row(
@@ -208,14 +194,13 @@ class Details_doctor extends StatelessWidget {
                 ],
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.only(top: 10, left: 30, right: 30),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   const Text(
-                    'Adress',
+                    'Adresse',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -228,11 +213,9 @@ class Details_doctor extends StatelessWidget {
                 ],
               ),
             ),
-
-                        const SizedBox(
+            const SizedBox(
               height: 20,
             ),
-
             const Divider(
               color: Colors.grey,
               thickness: 0.5,
@@ -240,11 +223,9 @@ class Details_doctor extends StatelessWidget {
               endIndent: 35,
               height: 0,
             ),
-
             const SizedBox(
               height: 20,
             ),
-
             const Padding(
               padding: EdgeInsets.only(left: 30, right: 30),
               child: Row(
@@ -254,7 +235,7 @@ class Details_doctor extends StatelessWidget {
                   Text(
                     '8502 Preston Rd. Inglewood, Maine 98380',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 13,
                     ),
                   ),
                 ],
@@ -339,7 +320,6 @@ class Details_doctor extends StatelessWidget {
                 style: TextStyle(color: Colors.grey),
               ),
             ),
-
             const Divider(
               color: Colors.grey,
               thickness: 0.5,
@@ -365,7 +345,7 @@ class Details_doctor extends StatelessWidget {
                     child: Container(
                       margin: const EdgeInsets.only(top: 30, left: 30),
                       child: const Icon(
-                       Icons.assignment_turned_in_rounded,
+                        Icons.assignment_turned_in_rounded,
                         size: 20,
                         color: Colors.blue,
                       ),
@@ -407,17 +387,17 @@ class Details_doctor extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Container(
-                    width: 200,
-                    height: 200,
+                  SizedBox(
+                    width: 150,
+                    height: 150,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20.0),
                       child: Image.asset('assets/salle.jpg'),
                     ),
                   ),
-                  Container(
-                    width: 200,
-                    height: 200,
+                  SizedBox(
+                    width: 150,
+                    height: 150,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20.0),
                       child: Image.asset('assets/salle.jpg'),
@@ -438,7 +418,7 @@ class Details_doctor extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue[800],
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 120, vertical: 20),
+                      const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),

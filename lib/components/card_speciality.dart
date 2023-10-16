@@ -39,7 +39,7 @@ class CardSpeciality extends StatelessWidget {
                 ),
                 Text(
                   title,
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
+                  style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
                 ),
               ],
             ),

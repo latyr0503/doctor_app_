@@ -1,4 +1,4 @@
-import 'package:doctor_app/components/teste.dart';
+import 'package:doctor_app/pages/doctor_details.dart';
 import 'package:doctor_app/pages/profile.dart';
 import 'package:doctor_app/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
@@ -42,10 +42,10 @@ class NavigationController extends GetxController {
   // ignore: non_constant_identifier_names
   final Screens = [
     Welcome_page(),
-    const Teste(),
     Container(
-      color: Colors.blue,
+      color:const Color.fromARGB(255, 176, 10, 118),
     ),
+    const Details_doctor(),
     Container(
       color: const Color.fromRGBO(243, 198, 33, 1),
     ),
