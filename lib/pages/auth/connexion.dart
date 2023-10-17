@@ -1,5 +1,5 @@
-import 'package:doctor_app/components/navigation_menu.dart';
 import 'package:doctor_app/components/spacement_styles.dart';
+import 'package:doctor_app/pages/accesslocation.dart';
 import 'package:doctor_app/pages/auth/inscription.dart';
 import 'package:doctor_app/pages/auth/reset_pass_word.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +57,7 @@ class _ConnexionState extends State<Connexion> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const NavigationMenu()),
+                          builder: (context) => const AccessLocation()),
                     );
                   },
                   child: const Text('OK'),

@@ -1,4 +1,4 @@
-import 'package:doctor_app/pages/accesslocation.dart';
+import 'package:doctor_app/pages/auth/inscription.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
@@ -63,7 +63,7 @@ class IntroScreen extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const AccessLocation()),
+                MaterialPageRoute(builder: (context) => const Inscription()),
               );
             },
             child: const Text(
@@ -103,7 +103,7 @@ class IntroScreen extends StatelessWidget {
           onDone: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const AccessLocation()),
+              MaterialPageRoute(builder: (context) => const Inscription()),
             );
           },
           curve: Curves.bounceInOut,
