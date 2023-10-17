@@ -44,8 +44,8 @@ class CardImage extends StatelessWidget {
                 style:
                     const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
-              subtitle: Row(
-                children: [
+              subtitle: 
+              Row(children: [
                   const Icon(
                     Icons.access_time_filled_rounded,
                     color: Color.fromRGBO(13, 71, 161, 1),
