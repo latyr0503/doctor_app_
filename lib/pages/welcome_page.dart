@@ -1,8 +1,6 @@
 import 'package:doctor_app/components/card_image.dart';
-import 'package:doctor_app/components/iconsax_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:doctor_app/components/card_speciality.dart';
-import 'package:get/get.dart';
 
 // ignore: camel_case_types
 class Welcome_page extends StatelessWidget {
