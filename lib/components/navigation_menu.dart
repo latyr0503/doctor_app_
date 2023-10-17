@@ -1,4 +1,3 @@
-import 'package:doctor_app/pages/accesslocation.dart';
 import 'package:doctor_app/pages/doctor_details.dart';
 import 'package:doctor_app/pages/profile.dart';
 import 'package:doctor_app/pages/welcome_page.dart';

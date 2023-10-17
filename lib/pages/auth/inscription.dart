@@ -12,40 +12,89 @@ class Inscription extends StatefulWidget {
   _InscriptionState createState() => _InscriptionState();
 }
 
-bool isChecked = false;
-TextEditingController nameController = TextEditingController();
-TextEditingController emailController = TextEditingController();
-TextEditingController passwordController = TextEditingController();
-
-void signup(BuildContext context ,String name, String password, String email) async {
-  try {
-    // ignore: prefer_typing_uninitialized_variables
-    var response = await post(
-      Uri.parse('https://doctor-app-h45i.onrender.com/users/create-user/'),
-      body: {
-        'name': name,
-        'email': email,
-        'password': password,
-      },
-    );
-    if (response.statusCode == 201) {
-      // ignore: avoid_print
-      print("Inscription réussie");
-      // ignore: use_build_context_synchronously
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => Connexion()),
-      );
-    } else {
-      print("Échec de l'inscription");
-    }
-  } catch (e) {
-    print(e.toString());
-  }
-}
-
 class _InscriptionState extends State<Inscription> {
   bool isChecked = false;
+  bool _isLoading = false;
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  void signup(
+      BuildContext context, String name, String password, String email) async {
+    try {
+      setState(() {
+        _isLoading = true;
+      });
+      // ignore: prefer_typing_uninitialized_variables
+      var response = await post(
+        Uri.parse('https://doctor-app-h45i.onrender.com/users/create-user/'),
+        body: {
+          'name': name,
+          'email': email,
+          'password': password,
+        },
+      );
+      if (response.statusCode == 201) {
+        setState(() {
+          _isLoading = false;
+        });
+        // ignore: avoid_print
+        print("Inscription réussie");
+        // ignore: use_build_context_synchronously
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Inscription réussie'),
+              content: const Text('Vous êtes inscrit avec succès.'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Connexion()),
+                    );
+                  },
+                  child: const Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
+      } else {
+        setState(() {
+          _isLoading = false;
+        });
+        print("Échec de l'inscription");
+        // ignore: use_build_context_synchronously
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("Échec de l'inscription"),
+              content: const Text('Vérifiez vos informations et réessayez.'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
+      }
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
+      print(e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -145,12 +194,16 @@ class _InscriptionState extends State<Inscription> {
                   CupertinoButton(
                     color: Colors.blue[800],
                     borderRadius: BorderRadius.circular(50),
-                    onPressed: () {
-                      signup(context,nameController.text, passwordController.text,
-                          emailController.text);
-                    },
+                    onPressed: _isLoading
+                        ? null
+                        : () {
+                            signup(context, nameController.text,
+                                passwordController.text, emailController.text);
+                          },
                     padding: const EdgeInsets.fromLTRB(80, 15, 80, 15),
-                    child: const Text("S'Inscrire"),
+                    child: _isLoading
+                        ? const CircularProgressIndicator() // Affiche l'indicateur de chargement
+                        : const Text("S'inscrire"),
                   ),
                 ],
               )),
@@ -237,8 +290,7 @@ class _InscriptionState extends State<Inscription> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => Connexion()),
+                        MaterialPageRoute(builder: (context) => Connexion()),
                       );
                     },
                     child: const Text("Se Connecter",
