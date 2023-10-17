@@ -1,4 +1,4 @@
-import 'package:doctor_app/pages/home.dart';
+import 'package:doctor_app/components/navigation_menu.dart';
 import 'package:doctor_app/pages/location.dart';
 import 'package:flutter/material.dart';
 
@@ -52,7 +52,7 @@ class AccessLocation extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const HomePage()),
+                  MaterialPageRoute(builder: (context) => const NavigationMenu()),
                 );
               },
               style: ElevatedButton.styleFrom(
