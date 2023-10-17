@@ -1,4 +1,6 @@
+import 'package:doctor_app/pages/appoitment.dart';
 import 'package:doctor_app/pages/home.dart';
+import 'package:doctor_app/pages/selectpackage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,7 +20,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue.shade700),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: Appoitment(),
     );
   }
 }
