@@ -146,7 +146,7 @@ class Details_doctor extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.only(top: 10, left: 30, right: 30),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
                     'Thursday',
