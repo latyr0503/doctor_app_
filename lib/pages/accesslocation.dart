@@ -1,4 +1,4 @@
-import 'package:doctor_app/pages/home.dart';
+import 'package:doctor_app/components/navigation_menu.dart';
 import 'package:doctor_app/pages/location.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +25,6 @@ class AccessLocation extends StatelessWidget {
                 color: Colors.blue[800],
               ),
             ),
-
             Container(
               margin: const EdgeInsets.only(top: 35),
               child: const Text(
@@ -34,33 +33,32 @@ class AccessLocation extends StatelessWidget {
                   fontSize: 25,
                   fontWeight: FontWeight.w800,
                 ),
+                textAlign: TextAlign.center,
               ),
             ),
-
             Container(
               margin: const EdgeInsets.only(top: 20, bottom: 45),
               child: const Text(
                 "Nous devons connaître votre position afin de vous suggérer \n des services à proximité",
                 style: TextStyle(
-                  fontSize: 15,
+                  fontSize: 13,
                   color: Colors.grey,
                   fontWeight: FontWeight.normal,
                 ),
                 textAlign: TextAlign.center,
               ),
             ),
-
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const HomePage()),
+                  MaterialPageRoute(builder: (context) => const NavigationMenu()),
                 );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue[800],
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 120, vertical: 20),
+                    const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
@@ -73,7 +71,6 @@ class AccessLocation extends StatelessWidget {
                 ),
               ),
             ),
-
             Container(
               margin: const EdgeInsets.only(top: 20, bottom: 20),
               child: TextButton(

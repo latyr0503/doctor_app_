@@ -6,7 +6,7 @@ class listTileWidget extends StatelessWidget {
   IconData leadingIcon, trainingIcon;
   Color? listTileColor, iconColor;
 
-listTileWidget({
+listTileWidget({super.key, 
 required this.title,
 required this.subTitle,
 this.leadingIcon = Icons.label,

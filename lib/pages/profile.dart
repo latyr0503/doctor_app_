@@ -130,13 +130,13 @@ class Profile extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const Welcome_page()),
+                MaterialPageRoute(builder: (context) => Welcome_page()),
               );
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.blue[800],
               padding:
-                  const EdgeInsets.symmetric(horizontal: 150, vertical: 20),
+                  const EdgeInsets.symmetric(horizontal: 80, vertical: 20),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
               ),

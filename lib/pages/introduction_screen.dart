@@ -1,4 +1,4 @@
-import 'package:doctor_app/pages/welcome_page.dart';
+import 'package:doctor_app/pages/accesslocation.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
@@ -60,7 +60,12 @@ class IntroScreen extends StatelessWidget {
       appBar: AppBar(
         actions: [
           TextButton(
-            onPressed: () => onDone(context),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const AccessLocation()),
+              );
+            },
             child: const Text(
               "Skip",
               style: TextStyle(
@@ -85,11 +90,6 @@ class IntroScreen extends StatelessWidget {
             "Done",
             style: TextStyle(fontSize: 20),
           ),
-          // showSkipButton: true,
-          // skip: const Text(
-          //   "Skip",
-          //   style: TextStyle(fontSize: 20),
-          // ),
           showBackButton: true,
           back: const Icon(
             Icons.arrow_back,
@@ -100,19 +100,16 @@ class IntroScreen extends StatelessWidget {
             Icons.arrow_forward,
             size: 25,
           ),
-          onDone: () => onDone(context),
+          onDone: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const AccessLocation()),
+            );
+          },
           curve: Curves.bounceInOut,
         ),
       ),
     );
   }
 
-  void onDone(context) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const Welcome_page(),
-      ),
-    );
-  }
 }
