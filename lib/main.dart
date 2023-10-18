@@ -1,3 +1,5 @@
+import 'package:doctor_app/pages/add_card.dart';
+import 'package:doctor_app/pages/ajoutcard.dart';
 import 'package:doctor_app/pages/home.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +20,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue.shade700),
         useMaterial3: true,
       ),
-      home: HomePage()
+      home: AjoutCard(),
     );
   }
 }

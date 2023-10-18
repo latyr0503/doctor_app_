@@ -18,19 +18,11 @@ class Appoitment extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            leading: Builder(
-                builder: (context) => Container(
-                      margin: const EdgeInsets.only(left: 20),
-                      child: IconButton(
-                        icon: const Icon(Icons.arrow_back),
-                        onPressed: () {},
-                      ),
-                    )),
             title: const Center(
-              child: Text(
-                'Book Appointment',
-              ),
-            )),
+          child: Text(
+            'Book Appointment',
+          ),
+        )),
         body: ListView(
           children: [
             const Details(),
@@ -75,7 +67,7 @@ class Appoitment extends StatelessWidget {
             ),
 
             Container(
-              padding: EdgeInsets.only(top: 10, left: 30, right: 30),
+              padding: const EdgeInsets.only(top: 10, left: 30, right: 30),
               child: Column(children: <Widget>[
                 const SizedBox(
                   height: 10,
@@ -92,13 +84,16 @@ class Appoitment extends StatelessWidget {
                               ElevatedButton(
                                 onPressed: () {},
                                 style: ElevatedButton.styleFrom(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 40, vertical: 25),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 40, vertical: 25),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
                                 ),
-                              ),
-                                child: Text(categories[index]['day'] as String,  textAlign: TextAlign.center, style: TextStyle(color: Colors.black , fontSize: 15)),
+                                child: Text(categories[index]['day'] as String,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 15)),
                               ),
                             ],
                           ),
@@ -113,17 +108,20 @@ class Appoitment extends StatelessWidget {
                 ),
               ]),
             ),
-            
-             Container(
-                  margin: const EdgeInsets.only(top:10, left: 30,),
-                  child: const Text(
-                    "Time",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+
+            Container(
+              margin: const EdgeInsets.only(
+                top: 10,
+                left: 30,
+              ),
+              child: const Text(
+                "Time",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
                 ),
+              ),
+            ),
 
             Container(
               padding: EdgeInsets.only(top: 10, left: 30, right: 30),
@@ -131,8 +129,6 @@ class Appoitment extends StatelessWidget {
                 const SizedBox(
                   height: 5,
                 ),
-                
-               
                 Container(
                   height: 80,
                   child: ListView.separated(
@@ -144,16 +140,18 @@ class Appoitment extends StatelessWidget {
                             children: <Widget>[
                               ElevatedButton(
                                 onPressed: () {},
-                                 style: ElevatedButton.styleFrom(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 50, vertical: 25),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30),
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 50, vertical: 25),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
                                 ),
-                              ),
-                                child: Text(categories[index]['heure'] as String,
-                                style: TextStyle(color: Colors.black,
-                                fontSize: 20),),
+                                child: Text(
+                                  categories[index]['heure'] as String,
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 20),
+                                ),
                               ),
                             ],
                           ),
@@ -169,7 +167,6 @@ class Appoitment extends StatelessWidget {
               ]),
             ),
 
-            
             Padding(
               padding: const EdgeInsets.only(left: 30.0, right: 30.0),
               child: TextField(

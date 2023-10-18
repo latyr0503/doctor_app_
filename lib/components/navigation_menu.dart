@@ -1,4 +1,4 @@
-import 'package:doctor_app/pages/accesslocation.dart';
+import 'package:doctor_app/pages/appoitment.dart';
 import 'package:doctor_app/pages/doctor_details.dart';
 import 'package:doctor_app/pages/profile.dart';
 import 'package:doctor_app/pages/welcome_page.dart';
@@ -43,10 +43,8 @@ class NavigationController extends GetxController {
   // ignore: non_constant_identifier_names
   final Screens = [
     Welcome_page(),
-    Container(
-      color: const Color.fromARGB(255, 176, 10, 118),
-    ),
     const Details_doctor(),
+    Appoitment(),
     Container(
       color: const Color.fromARGB(255, 2, 138, 45),
     ),

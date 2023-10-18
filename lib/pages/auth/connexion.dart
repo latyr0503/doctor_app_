@@ -1,22 +1,33 @@
 import 'package:doctor_app/components/spacement_styles.dart';
+import 'package:doctor_app/pages/accesslocation.dart';
 import 'package:doctor_app/pages/auth/inscription.dart';
 import 'package:doctor_app/pages/auth/reset_pass_word.dart';
-import 'package:doctor_app/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
 
 // ignore: must_be_immutable
-class Connexion extends StatelessWidget {
-  Connexion({super.key});
+class Connexion extends StatefulWidget {
+  const Connexion({Key? key}) : super(key: key);
 
+  @override
+  // ignore: library_private_types_in_public_api
+  _ConnexionState createState() => _ConnexionState();
+}
+
+class _ConnexionState extends State<Connexion> {
+  TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool _isLoading = false;
 
   void signIn(
       BuildContext context, String name, String password, String email) async {
     try {
-      // ignore: prefer_typing_uninitialized_variables
+      setState(() {
+        _isLoading = true;
+      });
+
       var response = await post(
         Uri.parse('https://doctor-app-h45i.onrender.com/users/login/'),
         body: {
@@ -25,18 +36,65 @@ class Connexion extends StatelessWidget {
           'password': password,
         },
       );
+
       if (response.statusCode == 200) {
-        // ignore: avoid_print
+        setState(() {
+          _isLoading = false;
+        });
         print("Connexion réussie");
+
         // ignore: use_build_context_synchronously
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => Welcome_page()),
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Connexion réussie'),
+              content: const Text('Vous êtes connecté avec succès.'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AccessLocation()),
+                    );
+                  },
+                  child: const Text('OK'),
+                ),
+              ],
+            );
+          },
         );
       } else {
+        setState(() {
+          _isLoading = false;
+        });
         print("Échec de la connexion");
+
+        // ignore: use_build_context_synchronously
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Échec de la connexion'),
+              content: const Text('Vérifiez vos informations et réessayez.'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
       }
     } catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
       print(e.toString());
     }
   }
@@ -121,12 +179,16 @@ class Connexion extends StatelessWidget {
                   CupertinoButton(
                     color: Colors.blue[800],
                     borderRadius: BorderRadius.circular(50),
-                    onPressed: () {
-                      signIn(context, nameController.text,
-                          passwordController.text, emailController.text);
-                    },
+                    onPressed: _isLoading
+                        ? null
+                        : () {
+                            signIn(context, nameController.text,
+                                passwordController.text, emailController.text);
+                          },
                     padding: const EdgeInsets.fromLTRB(80, 15, 80, 15),
-                    child: const Text("Se connecter"),
+                    child: _isLoading
+                        ? const CircularProgressIndicator()
+                        : const Text("Se connecter"),
                   ),
                 ],
               )),

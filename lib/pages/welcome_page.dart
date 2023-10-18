@@ -54,10 +54,60 @@ class Welcome_page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            padding: EdgeInsets.only(top: 5,right: 20),
+              onPressed: () {},
+              icon: const Icon(
+                Icons.notifications,
+                size: 35,
+              ))
+        ],
+        leading: const Icon(
+          Icons.place,
+          color: Color.fromRGBO(21, 101, 192, 1),
+          size: 40,
+        ),
+        title: const Text.rich(
+          TextSpan(
+            text: "localisation\n",
+            style: TextStyle(
+              fontWeight: FontWeight.normal,
+              fontSize: 13,
+            ),
+            children: <TextSpan>[
+              TextSpan(
+                text: "Dakar, Sénégal",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+            ],
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(vertical: 15.0),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: const BorderSide(width: 0.8),
+                  ),
+                  hintText: 'Search',
+                  prefixIcon: const Icon(Icons.search, size: 30.0),
+                  suffixIcon: IconButton(
+                    icon: const Icon( Icons.filter_list, ),
+                    onPressed: () {},
+                    color: Colors.blue.shade800,
+                    hoverColor: Colors.blue,
+                  ),
+                ),
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -239,10 +289,8 @@ class Welcome_page extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: CardImage(
                       title: "${dummyHopital[index]['title']}",
-                      subTitle:
-                          " ${dummyHopital[index]['subTitle']}",
-                      subTitleBis:
-                          "${dummyHopital[index]['subTitleBis']}",
+                      subTitle: " ${dummyHopital[index]['subTitle']}",
+                      subTitleBis: "${dummyHopital[index]['subTitleBis']}",
                       imageCard: dummyHopital[index]['imageCard'],
                     ),
                   ),
