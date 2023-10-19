@@ -61,17 +61,16 @@ class Welcome_page extends StatelessWidget {
       appBar: AppBar(
         actions: [
           IconButton(
-              padding: const EdgeInsets.only(top: 5, right: 20),
               onPressed: () {},
               icon: const Icon(
                 Icons.notifications,
-                size: 35,
+                size: 30,
               ))
         ],
         leading: const Icon(
           Icons.place,
           color: Color.fromRGBO(21, 101, 192, 1),
-          size: 40,
+          size: 35,
         ),
         title: const Text.rich(
           TextSpan(
@@ -160,7 +159,10 @@ class Welcome_page extends StatelessWidget {
             const Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
             // entête de section spécialiste
             const BannerTitle(textTitle: "Spécialiste"),
-            const Specialist(),
+            const Specialist(name: "Mareme FALL", profession: "Infirmière", imageProf: AssetImage("assets/doc1.jpg"), note: 3.5),
+            const Specialist(name: "latyr SENE", profession: "Dentiste", imageProf: AssetImage("assets/doc2.jpg"), note: 2.5),
+            const Specialist(name: "Papis Ndiaye", profession: "Assistant", imageProf: AssetImage("assets/doc3.jpg"), note: 4.5),
+            const Specialist(name: "Racky CISSE", profession: "Aide soignant", imageProf: AssetImage("assets/doc4.jpg"), note: 4.8),
           ],
         ),
       ),

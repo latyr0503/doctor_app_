@@ -67,6 +67,7 @@ class _InscriptionState extends State<Inscription> {
         setState(() {
           _isLoading = false;
         });
+        // ignore: avoid_print
         print("Échec de l'inscription");
         // ignore: use_build_context_synchronously
         showDialog(
