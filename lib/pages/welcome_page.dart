@@ -161,7 +161,7 @@ class Welcome_page extends StatelessWidget {
             const BannerTitle(textTitle: "Spécialiste"),
             const Specialist(name: "Mareme FALL", profession: "Infirmière", imageProf: AssetImage("assets/doc1.jpg"), note: 3.5),
             const Specialist(name: "latyr SENE", profession: "Dentiste", imageProf: AssetImage("assets/doc2.jpg"), note: 2.5),
-            const Specialist(name: "Papis Ndiaye", profession: "Assistant", imageProf: AssetImage("assets/doc3.jpg"), note: 4.5),
+            const Specialist(name: "Papis Ndiay", profession: "Assistant", imageProf: AssetImage("assets/doc3.jpg"), note: 4.5),
             const Specialist(name: "Racky CISSE", profession: "Aide soignant", imageProf: AssetImage("assets/doc4.jpg"), note: 4.8),
           ],
         ),

@@ -1,5 +1,6 @@
 import 'package:doctor_app/components/doctor.dart';
 import 'package:doctor_app/components/icone.dart';
+import 'package:doctor_app/pages/selectpackage.dart';
 import 'package:flutter/material.dart';
 
 class Appoitment extends StatelessWidget {
@@ -18,11 +19,14 @@ class Appoitment extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: const Center(
-          child: Text(
-            'Book Appointment',
-          ),
-        )),
+        title: const Text('Reservation',
+        style:  TextStyle(fontWeight: FontWeight.bold),),
+        leading: BackButton(),
+        backgroundColor: Colors.transparent,
+        foregroundColor: Colors.black,
+        elevation: 0,
+        centerTitle: true,
+      ),
         body: ListView(
           children: [
             const Details(),
@@ -189,7 +193,13 @@ class Appoitment extends StatelessWidget {
             Container(
               padding: EdgeInsets.only(top: 10, left: 30, right: 30),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>  SelectPackage()),
+                      );
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue[800],
                   padding:
