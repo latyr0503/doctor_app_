@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CardCalendar  extends StatelessWidget {
-  const CardCalendar ({super.key});
+class CardCalendar extends StatelessWidget {
+  const CardCalendar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +26,7 @@ class CardCalendar  extends StatelessWidget {
                   image: DecorationImage(
                     image: AssetImage(
                         "assets/plan-moyen-medecin-specialiste-bras-dans-poches-regardant-camera.jpg"),
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),

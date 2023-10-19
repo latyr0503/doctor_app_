@@ -1,6 +1,7 @@
 import 'package:doctor_app/components/banner_title.dart';
 import 'package:doctor_app/components/card_calendar.dart';
 import 'package:doctor_app/components/card_image.dart';
+import 'package:doctor_app/components/specialist.dart';
 import 'package:flutter/material.dart';
 import 'package:doctor_app/components/card_speciality.dart';
 
@@ -159,6 +160,7 @@ class Welcome_page extends StatelessWidget {
             const Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
             // entête de section spécialiste
             const BannerTitle(textTitle: "Spécialiste"),
+            const Specialist(),
           ],
         ),
       ),
