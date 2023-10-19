@@ -1,3 +1,4 @@
+import 'package:doctor_app/pages/patients.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -60,17 +61,13 @@ class _SelectPackageState extends State<SelectPackage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: Builder(
-                builder: (context) => Container(
-                      margin: const EdgeInsets.only(left: 20),
-                      child: IconButton(
-                        icon: const Icon(Icons.arrow_back),
-                        onPressed: () {},
-                      ),
-                    )),
-        title: Center(
-          child: Text('Select Package'),
-        ),
+        title: const Text('Select Packages',
+        style:  TextStyle(fontWeight: FontWeight.bold),),
+        leading: BackButton(),
+        backgroundColor: Colors.transparent,
+        foregroundColor: Colors.black,
+        elevation: 0,
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -89,7 +86,7 @@ class _SelectPackageState extends State<SelectPackage> {
     padding: const EdgeInsets.symmetric(horizontal: 10),
    child: Container(
       padding: const EdgeInsets.symmetric(),
-     margin:EdgeInsets.only(left: 340),
+      width: double.infinity,
       child: DropdownButton<String>(
       hint: Text('30min'),
       dropdownColor: Colors.blue[100],
@@ -156,7 +153,13 @@ class _SelectPackageState extends State<SelectPackage> {
             Container(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>  Patient()),
+                      );
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue[800],
                   padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 20),

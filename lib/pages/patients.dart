@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:doctor_app/pages/payer.dart';
 
 class Patient extends StatefulWidget {
   Patient({Key? key}) : super(key: key);
@@ -9,46 +10,46 @@ class Patient extends StatefulWidget {
 
 class _PatientState extends State<Patient> {
   String? valueChoose;
-  List<String> listItem = ['item1', 'item2', 'item3', 'item4', 'item5'];
+  String? valueGenre;
+  String? valueAge;
+  List<String> listItem = ['self1', 'self2', 'self3', 'self4', 'self5'];
+  List<String> genre = ['male', 'female', 'other'];
+  List<String> age = ['24 years', '23 years', '22 years', '21 years', '20 years'];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Builder(
-            builder: (context) => Container(
-                  margin: const EdgeInsets.only(left: 20),
-                  child: IconButton(
-                    icon: const Icon(Icons.arrow_back),
-                    onPressed: () {},
-                  ),
-                )),
-        title: Center(
-          child: Text('Patient Details'),
+        title: Text(
+          'Patient Details',
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
+        leading: BackButton(),
+        backgroundColor: Colors.transparent,
+        foregroundColor: Colors.black,
+        elevation: 0,
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            
             SizedBox(height: 30),
             Container(
               child: Text('Booking for'),
             ),
             Container(
               decoration: BoxDecoration(
-                border: Border.all(
-                    width: 1.0, color: Color.fromRGBO(243, 237, 237, 1)),
+                border: Border.all(width: 1.0, color: Color.fromRGBO(243, 237, 237, 1)),
                 borderRadius: BorderRadius.circular(4.0),
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Container(
-                  margin: EdgeInsets.only(left: 340),
+                  width: double.infinity,
                   child: DropdownButton<String>(
-                    hint: Text('Male'),
+                    hint: Text('Self'),
                     dropdownColor: Colors.blue[100],
                     icon: Icon(Icons.arrow_drop_down),
                     style: TextStyle(
@@ -77,29 +78,28 @@ class _PatientState extends State<Patient> {
             ),
             Container(
               decoration: BoxDecoration(
-                border: Border.all(
-                    width: 1.0, color: Color.fromRGBO(243, 237, 237, 1)),
+                border: Border.all(width: 1.0, color: Color.fromRGBO(243, 237, 237, 1)),
                 borderRadius: BorderRadius.circular(4.0),
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Container(
-                   margin: EdgeInsets.only(left: 340),
+                  width: double.infinity,
                   child: DropdownButton<String>(
-                    hint: Text('30min'),
+                    hint: Text('Male'),
                     dropdownColor: Colors.blue[100],
                     icon: Icon(Icons.arrow_drop_down),
                     style: TextStyle(
                       color: Colors.black,
                     ),
                     iconSize: 36,
-                    value: valueChoose,
+                    value: valueGenre,
                     onChanged: (String? newValue) {
                       setState(() {
-                        valueChoose = newValue;
+                        valueGenre = newValue;
                       });
                     },
-                    items: listItem.map((String valueItem) {
+                    items: genre.map((String valueItem) {
                       return DropdownMenuItem<String>(
                         value: valueItem,
                         child: Text(valueItem),
@@ -115,14 +115,13 @@ class _PatientState extends State<Patient> {
             ),
             Container(
               decoration: BoxDecoration(
-                border: Border.all(
-                    width: 1.0, color: Color.fromRGBO(243, 237, 237, 1)),
+                border: Border.all(width: 1.0, color: Color.fromRGBO(243, 237, 237, 1)),
                 borderRadius: BorderRadius.circular(4.0),
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Container(
-                  margin: EdgeInsets.only(left: 326),
+                  width: double.infinity,
                   child: DropdownButton<String>(
                     hint: Text('24 years'),
                     dropdownColor: Colors.blue[100],
@@ -131,13 +130,13 @@ class _PatientState extends State<Patient> {
                       color: Colors.black,
                     ),
                     iconSize: 36,
-                    value: valueChoose,
+                    value: valueAge,
                     onChanged: (String? newValue) {
                       setState(() {
-                        valueChoose = newValue;
+                        valueAge = newValue;
                       });
                     },
-                    items: listItem.map((String valueItem) {
+                    items: age.map((String valueItem) {
                       return DropdownMenuItem<String>(
                         value: valueItem,
                         child: Text(valueItem),
@@ -154,12 +153,11 @@ class _PatientState extends State<Patient> {
             Container(
               width: double.infinity,
               decoration: BoxDecoration(
-                border: Border.all(
-                    width: 2.0, color: Color.fromRGBO(243, 237, 237, 1)),
+                border: Border.all(width: 2.0, color: Color.fromRGBO(243, 237, 237, 1)),
                 borderRadius: BorderRadius.circular(4.0),
               ),
               child: TextField(
-                maxLines: 5, // Maximum number of lines
+                maxLines: 5,
                 decoration: InputDecoration(
                   hintText: 'Enter your text here',
                 ),
@@ -172,16 +170,20 @@ class _PatientState extends State<Patient> {
             Container(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Payer()),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue[800],
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
+                  primary: Colors.blue[800],
+                  padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ),
-                child: const Text(
+                child: Text(
                   "Réservation",
                   style: TextStyle(
                     fontWeight: FontWeight.normal,
