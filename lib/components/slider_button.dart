@@ -21,70 +21,60 @@ class SliderBouton extends StatelessWidget {
               ),
       )),
 
-      Expanded(child: Container(
-         child: ElevatedButton(
-                onPressed: () {},
-                child: const Text(
-                  "verified",
-                  style: TextStyle(
-                    fontWeight: FontWeight.normal,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-      )),
+      Expanded(child: ElevatedButton(
+             onPressed: () {},
+             child: const Text(
+               "verified",
+               style: TextStyle(
+                 fontWeight: FontWeight.normal,
+                 color: Colors.white,
+               ),
+             ),
+           )),
 
-      Expanded(child: Container(
-         child: ElevatedButton(
-                onPressed: () {},
-                child: const Text(
-                  "lastest",
-                  style: TextStyle(
-                    fontWeight: FontWeight.normal,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-      )),
+      Expanded(child: ElevatedButton(
+             onPressed: () {},
+             child: const Text(
+               "lastest",
+               style: TextStyle(
+                 fontWeight: FontWeight.normal,
+                 color: Colors.white,
+               ),
+             ),
+           )),
 
-      Expanded(child: Container(
-         child: ElevatedButton(
-                onPressed: () {},
-                child: const Text(
-                  "with photos",
-                  style: TextStyle(
-                    fontWeight: FontWeight.normal,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-      )),
+      Expanded(child: ElevatedButton(
+             onPressed: () {},
+             child: const Text(
+               "with photos",
+               style: TextStyle(
+                 fontWeight: FontWeight.normal,
+                 color: Colors.white,
+               ),
+             ),
+           )),
 
-      Expanded(child: Container(
-         child: ElevatedButton(
-                onPressed: () {},
-                child: const Text(
-                  "details",
-                  style: TextStyle(
-                    fontWeight: FontWeight.normal,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-      )),
+      Expanded(child: ElevatedButton(
+             onPressed: () {},
+             child: const Text(
+               "details",
+               style: TextStyle(
+                 fontWeight: FontWeight.normal,
+                 color: Colors.white,
+               ),
+             ),
+           )),
 
-      Expanded(child: Container(
-         child: ElevatedButton(
-                onPressed: () {},
-                child: const Text(
-                  "patients",
-                  style: TextStyle(
-                    fontWeight: FontWeight.normal,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-      )),
+      Expanded(child: ElevatedButton(
+             onPressed: () {},
+             child: const Text(
+               "patients",
+               style: TextStyle(
+                 fontWeight: FontWeight.normal,
+                 color: Colors.white,
+               ),
+             ),
+           )),
       ],
     );
   }

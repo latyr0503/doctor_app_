@@ -28,7 +28,7 @@ class Book extends StatelessWidget {
                   child: Center(
                     child: Text(
                       "Card $index",
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                     ),
                   ),
                 ),
@@ -37,7 +37,7 @@ class Book extends StatelessWidget {
             Flexible(
               child: ListView.builder(
                 itemCount: 15,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemBuilder: (context, index) => ListTile(
                   title: Text("List $index"),
