@@ -1,3 +1,5 @@
+import 'package:doctor_app/components/banner_title.dart';
+import 'package:doctor_app/components/card_calendar.dart';
 import 'package:doctor_app/components/card_image.dart';
 import 'package:flutter/material.dart';
 import 'package:doctor_app/components/card_speciality.dart';
@@ -5,7 +7,7 @@ import 'package:doctor_app/components/card_speciality.dart';
 // ignore: camel_case_types
 class Welcome_page extends StatelessWidget {
   Welcome_page({Key? key}) : super(key: key);
-
+  // liste des spécialité
   final List<Map<String, dynamic>> dummySpecialities = [
     {
       'title': 'Dentist',
@@ -24,6 +26,7 @@ class Welcome_page extends StatelessWidget {
       'images': const AssetImage('assets/brain.png'),
     },
   ];
+  // list des hopitaux
   final List<Map<String, dynamic>> dummyHopital = [
     {
       'title': 'Dentist',
@@ -57,7 +60,7 @@ class Welcome_page extends StatelessWidget {
       appBar: AppBar(
         actions: [
           IconButton(
-            padding: EdgeInsets.only(top: 5,right: 20),
+              padding: const EdgeInsets.only(top: 5, right: 20),
               onPressed: () {},
               icon: const Icon(
                 Icons.notifications,
@@ -88,6 +91,7 @@ class Welcome_page extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            // section de l'input recherche
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: TextField(
@@ -100,7 +104,9 @@ class Welcome_page extends StatelessWidget {
                   hintText: 'Search',
                   prefixIcon: const Icon(Icons.search, size: 30.0),
                   suffixIcon: IconButton(
-                    icon: const Icon( Icons.filter_list, ),
+                    icon: const Icon(
+                      Icons.filter_list,
+                    ),
                     onPressed: () {},
                     color: Colors.blue.shade800,
                     hoverColor: Colors.blue,
@@ -108,145 +114,13 @@ class Welcome_page extends StatelessWidget {
                 ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                const Text(
-                  "Upcoming Schedule",
-                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 22),
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    "See All",
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.all(15.0),
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                color: Colors.blue.shade600,
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Container(
-                        width: 50,
-                        height: 50,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: AssetImage(
-                                "assets/plan-moyen-medecin-specialiste-bras-dans-poches-regardant-camera.jpg"),
-                          ),
-                        ),
-                      ),
-                      const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Dr Alana Ruete",
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            "Dentist consultation",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                        ],
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        color: Colors.white,
-                        icon: const Icon(
-                          Icons.phone_rounded,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const Padding(padding: EdgeInsets.all(10.0)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: Colors.blue.shade800,
-                        ),
-                        width: 300.0,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15.0, vertical: 15.0),
-                        child: const Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Icon(Icons.calendar_month,
-                                    size: 25, color: Colors.white),
-                                Text(
-                                  "Monday, 26 July",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                Text(
-                                  '|',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                                Icon(Icons.alarm,
-                                    size: 25, color: Colors.white),
-                                Text(
-                                  "09:00 - 10:00",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                const Text(
-                  "Doctor Speciality",
-                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 22),
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    "See All",
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            // entête de section card medecin
+            const BannerTitle(textTitle: "Calendrier à venir"),
+            // card d'un medecin
+            const CardCalendar(),
+            // entête de section spécialité
+            const BannerTitle(textTitle: "Spécialité du docteur"),
+            // section des spécialité en mappant les données
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
@@ -262,24 +136,9 @@ class Welcome_page extends StatelessWidget {
               ),
             ),
             const Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                const Text(
-                  "Nearby Hospitals",
-                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 22),
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    "See All",
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            // entête de section hopitaux
+            const BannerTitle(textTitle: "hôpitaux à proximité"),
+            // section des hopitaux en mappant les données
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
@@ -297,27 +156,9 @@ class Welcome_page extends StatelessWidget {
                 ),
               ),
             ),
-
-            // const CardImage(title: "teste", subTitle: "nojcv", subTitleBis: "dcbvpdskn", imageCard: AssetImage("assets/salle.jpg") ),
             const Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                const Text(
-                  "Top Specialist",
-                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 22),
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    "See All",
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            // entête de section spécialiste
+            const BannerTitle(textTitle: "Spécialiste"),
           ],
         ),
       ),
