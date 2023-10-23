@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class Specialist extends StatelessWidget {
-  final String name;
-  final String proffession;
-  final double note;
+  final String? name;
+  final String? proffession;
+  final double? note;
   final ImageProvider image;
 
   const Specialist({
@@ -12,7 +12,7 @@ class Specialist extends StatelessWidget {
     required this.name,
     required this.proffession,
     required this.note,
-    this.image = const AssetImage("assets/salle.jpg"),
+    this.image = const AssetImage("assets/doc2.jpg"),
     // required NetworkImage image,
     required Type id,
     // required proffession,
@@ -34,12 +34,13 @@ class Specialist extends StatelessWidget {
                     margin: const EdgeInsets.all(10.0),
                     width: 100,
                     height: 125,
-                    decoration: BoxDecoration(
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(20.0)),
-                      image: DecorationImage(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20.0),
+                      child: Image(
                         image: image,
                         fit: BoxFit.cover,
+                        width: 100,
+                        height: 125,
                       ),
                     ),
                   ),
@@ -82,7 +83,7 @@ class Specialist extends StatelessWidget {
                             ),
                             children: <TextSpan>[
                               TextSpan(
-                                text: name,
+                                text: name ?? "No Name",
                                 style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -92,7 +93,7 @@ class Specialist extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          proffession,
+                          proffession.toString() ?? "No profession",
                           style: const TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.normal,
@@ -101,7 +102,7 @@ class Specialist extends StatelessWidget {
                         Row(
                           children: [
                             RatingBarIndicator(
-                              rating: note,
+                              rating: note!.toDouble() ?? 0,
                               itemBuilder: (context, index) => const Icon(
                                 Icons.star,
                                 color: Color.fromARGB(255, 240, 144, 0),
@@ -112,7 +113,7 @@ class Specialist extends StatelessWidget {
                             ),
                             const SizedBox(width: 5),
                             Text(
-                              note.toString(),
+                              note.toString() ?? "No Note",
                               style: const TextStyle(
                                 fontSize: 11.0,
                                 fontWeight: FontWeight.bold,

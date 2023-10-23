@@ -64,59 +64,60 @@ class _WelcomePageState extends State<Welcome_page> {
     },
   ];
 // Liste de spécialistes
-  final List<Map<String, dynamic>> dummySpecialists = [
-    {
-      'name': 'Mareme FALL',
-      'profession': 'Infirmière',
-      'image': const AssetImage('assets/doc1.jpg'),
-      'note': 3.5,
-    },
-    {
-      'name': 'latyr SENE',
-      'profession': 'Dentiste',
-      'image': const AssetImage('assets/doc2.jpg'),
-      'note': 2.5,
-    },
-    {
-      'name': 'Pape Ndiaye',
-      'profession': 'Assistant',
-      'image': const AssetImage('assets/doc3.jpg'),
-      'note': 4.5,
-    },
-    {
-      'name': 'Racky CISSé',
-      'profession': 'Aide soignant',
-      'image': const AssetImage('assets/doc4.jpg'),
-      'note': 4.8,
-    },
-  ];
+  // final List<Map<String, dynamic>> dummySpecialists = [
+  //   {
+  //     'name': 'Mareme FALL',
+  //     'profession': 'Infirmière',
+  //     'image': const AssetImage('assets/doc1.jpg'),
+  //     'note': 3.5,
+  //   },
+  //   {
+  //     'name': 'latyr SENE',
+  //     'profession': 'Dentiste',
+  //     'image': const AssetImage('assets/doc2.jpg'),
+  //     'note': 2.5,
+  //   },
+  //   {
+  //     'name': 'Pape Ndiaye',
+  //     'profession': 'Assistant',
+  //     'image': const AssetImage('assets/doc3.jpg'),
+  //     'note': 4.5,
+  //   },
+  //   {
+  //     'name': 'Racky CISSé',
+  //     'profession': 'Aide soignant',
+  //     'image': const AssetImage('assets/doc4.jpg'),
+  //     'note': 4.8,
+  //   },
+  // ];
 
   // Votre liste de spécialistes
-  // List<Map<String, dynamic>> dummySpecialists = [];
-  // // Votre fonction fetchSpecialists
-  // Future<List<Map<String, dynamic>>> fetchSpecialists() async {
-  //   final response = await http.get(
-  //       Uri.parse('https://doctor-app-h45i.onrender.com/doctor/list_doctor/'));
-  //   if (response.statusCode == 200) {
-  //     // Si la requête est réussie, convertissez la réponse en une liste de Map
-  //     List<dynamic> data = json.decode(response.body);
-  //     return data.map((item) => item as Map<String, dynamic>).toList();
-  //   } else {
-  //     // Si la requête échoue, lancez une exception.
-  //     throw Exception('Échec de la récupération des données depuis l\'API');
-  //   }
-  // }
+  List<Map<String, dynamic>> dummySpecialists = [];
+  // Votre fonction fetchSpecialists
+  Future<List<Map<String, dynamic>>> fetchSpecialists() async {
+    final response = await http.get(
+        Uri.parse('https://doctor-app-h45i.onrender.com/doctor/list_doctor/'));
+    if (response.statusCode == 200) {
+      // Si la requête est réussie, convertissez la réponse en une liste de Map
+      List<dynamic> data = json.decode(response.body);
+      return data.map((item) => item as Map<String, dynamic>).toList();
+    } else {
+      // Si la requête échoue, lancez une exception.
+      throw Exception('Échec de la récupération des données depuis l\'API');
+    }
+  }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   fetchSpecialists().then((data) {
-  //     setState(() {
-  //       // Mettez à jour votre liste de spécialistes avec les données obtenues
-  //       dummySpecialists = data;
-  //     });
-  //   });
-  // }
+  @override
+  void initState() {
+    super.initState();
+    fetchSpecialists().then((data) {
+      setState(() {
+        // Mettez à jour votre liste de spécialistes avec les données obtenues
+        dummySpecialists = data;
+        // print(dummySpecialists);
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -222,14 +223,20 @@ class _WelcomePageState extends State<Welcome_page> {
             const Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
             // entête de section spécialiste
             const BannerTitle(textTitle: "Spécialiste"),
-            // azertyuio
+            // map des donnés des doctors au niveau de la base de donné
             Column(
               children: dummySpecialists.map((specialist) {
+                print(specialist['id']);
+                print(specialist['name']);
+                print(specialist['proffession']);
+                print(specialist['image']);
+                print(specialist['note']);
                 return Specialist(
-                  id:Key,
+                  id: Key,
                   name: specialist['name'],
-                  proffession: specialist['profession'],
-                  image: specialist['image'],
+                  proffession: specialist['proffession'],
+                  image: NetworkImage(
+                      'https://doctor-app-h45i.onrender.com${specialist['image']}'),
                   note: specialist['note'],
                 );
               }).toList(),
