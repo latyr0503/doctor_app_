@@ -1,5 +1,6 @@
 import 'package:doctor_app/components/doctor.dart';
 import 'package:doctor_app/components/icone.dart';
+import 'package:doctor_app/pages/selectpackage.dart';
 import 'package:flutter/material.dart';
 
 class Appoitment extends StatelessWidget {
@@ -18,11 +19,14 @@ class Appoitment extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: const Center(
-          child: Text(
-            'Book Appointment',
-          ),
-        )),
+        title: const Text('Reservation',
+        style:  TextStyle(fontWeight: FontWeight.bold),),
+        leading: const BackButton(),
+        backgroundColor: Colors.transparent,
+        foregroundColor: Colors.black,
+        elevation: 0,
+        centerTitle: true,
+      ),
         body: ListView(
           children: [
             const Details(),
@@ -78,25 +82,23 @@ class Appoitment extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       return SingleChildScrollView(
-                        child: Container(
-                          child: Column(
-                            children: <Widget>[
-                              ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 40, vertical: 25),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50),
-                                  ),
+                        child: Column(
+                          children: <Widget>[
+                            ElevatedButton(
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 40, vertical: 25),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50),
                                 ),
-                                child: Text(categories[index]['day'] as String,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color: Colors.black, fontSize: 15)),
                               ),
-                            ],
-                          ),
+                              child: Text(categories[index]['day'] as String,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                      color: Colors.black, fontSize: 15)),
+                            ),
+                          ],
                         ),
                       );
                     },
@@ -124,37 +126,35 @@ class Appoitment extends StatelessWidget {
             ),
 
             Container(
-              padding: EdgeInsets.only(top: 10, left: 30, right: 30),
+              padding: const EdgeInsets.only(top: 10, left: 30, right: 30),
               child: Column(children: <Widget>[
                 const SizedBox(
                   height: 5,
                 ),
-                Container(
+                SizedBox(
                   height: 80,
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       return SingleChildScrollView(
-                        child: Container(
-                          child: Column(
-                            children: <Widget>[
-                              ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 50, vertical: 25),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                ),
-                                child: Text(
-                                  categories[index]['heure'] as String,
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 20),
+                        child: Column(
+                          children: <Widget>[
+                            ElevatedButton(
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 50, vertical: 25),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30),
                                 ),
                               ),
-                            ],
-                          ),
+                              child: Text(
+                                categories[index]['heure'] as String,
+                                style: const TextStyle(
+                                    color: Colors.black, fontSize: 20),
+                              ),
+                            ),
+                          ],
                         ),
                       );
                     },
@@ -187,9 +187,15 @@ class Appoitment extends StatelessWidget {
             ),
 
             Container(
-              padding: EdgeInsets.only(top: 10, left: 30, right: 30),
+              padding: const EdgeInsets.only(top: 10, left: 30, right: 30),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>  SelectPackage()),
+                      );
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue[800],
                   padding:
@@ -207,7 +213,7 @@ class Appoitment extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 50)
+            const SizedBox(height: 50)
           ],
         ));
   }
