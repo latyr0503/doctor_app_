@@ -2,6 +2,7 @@ import 'package:doctor_app/components/doctor.dart';
 import 'package:doctor_app/pages/validation.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class Summary extends StatelessWidget {
   Summary({Key? key});
 

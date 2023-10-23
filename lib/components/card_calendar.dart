@@ -25,7 +25,7 @@ class CardCalendar extends StatelessWidget {
                   shape: BoxShape.circle,
                   image: DecorationImage(
                     image: AssetImage(
-                        "assets/plan-moyen-medecin-specialiste-bras-dans-poches-regardant-camera.jpg"),
+                        "assets/doc3.jpg"),
                     fit: BoxFit.cover,
                   ),
                 ),

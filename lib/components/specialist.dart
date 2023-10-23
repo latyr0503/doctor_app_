@@ -3,16 +3,19 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class Specialist extends StatelessWidget {
   final String name;
-  final String profession;
+  final String proffession;
   final double note;
-  final ImageProvider imageProf;
+  final ImageProvider image;
 
   const Specialist({
     Key? key,
     required this.name,
-    required this.profession,
+    required this.proffession,
     required this.note,
-    this.imageProf = const AssetImage("assets/salle.jpg"),
+    this.image = const AssetImage("assets/salle.jpg"),
+    // required NetworkImage image,
+    required Type id,
+    // required proffession,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -35,7 +38,7 @@ class Specialist extends StatelessWidget {
                       borderRadius:
                           const BorderRadius.all(Radius.circular(20.0)),
                       image: DecorationImage(
-                        image: imageProf,
+                        image: image,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -89,7 +92,7 @@ class Specialist extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          profession,
+                          proffession,
                           style: const TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.normal,

@@ -1,6 +1,8 @@
-import 'package:doctor_app/pages/appoitment.dart';
+import 'package:doctor_app/components/navigation_menu.dart';
+import 'package:doctor_app/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
 
+// ignore: camel_case_types
 class validation extends StatelessWidget {
   const validation({super.key});
 
@@ -18,7 +20,7 @@ class validation extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: Colors.blue[800],
               ),
-              child: Icon(
+              child: const Icon(
                 Icons.check,
                 size: 60,
                 color: Colors.white,
@@ -35,7 +37,6 @@ class validation extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-
             Container(
               margin: const EdgeInsets.only(top: 15),
               child: const Text(
@@ -59,141 +60,144 @@ class validation extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-
-
             Container(
-              margin: EdgeInsets.only(left: 30),
-             child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    children: [
-                      Container(
-                        alignment: Alignment.topLeft,
-                        child: const Row(
-                        children: [
-                         Icon(Icons.person,  color: Colors.blue), 
-                         SizedBox(width:5,),  
-                         Text(
-                          'Eshter Howard',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+              margin: const EdgeInsets.only(left: 30),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Container(
+                          alignment: Alignment.topLeft,
+                          child: const Row(
+                            children: [
+                              Icon(Icons.person, color: Colors.blue),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                'Eshter Howard',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                           ],
-                        ),
-                        
-                      ),
-                      
-                      
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(width: 16.0),
-                Expanded(
-                  child: Column(
-                    children: [
-                      Container(
-                        alignment: Alignment.topLeft,
-                        child: const Row(
-                        children: [
-                         Icon(Icons.monetization_on, color: Colors.blue,),
-                         SizedBox(width:5,),   
-                         Text(
-                          '2000cfa',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                  const SizedBox(width: 16.0),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Container(
+                          alignment: Alignment.topLeft,
+                          child: const Row(
+                            children: [
+                              Icon(
+                                Icons.monetization_on,
+                                color: Colors.blue,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                '2000cfa',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                           ],
-                        ),
-                        
-                      ),
-                      
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-            ),
-
-           
-
-
             Container(
-              margin: EdgeInsets.only(left: 30),
-
-             child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    children: [
-                      Container(
-                        alignment: Alignment.topLeft,
-                        child: const Row(
-                        children: [
-                         Icon(Icons.calendar_month,  color: Colors.blue),
-                         SizedBox(width:5,),   
-                         Text(
-                          '16 Aug, 2023',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+              margin: const EdgeInsets.only(left: 30),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Container(
+                          alignment: Alignment.topLeft,
+                          child: const Row(
+                            children: [
+                              Icon(Icons.calendar_month, color: Colors.blue),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                '16 Aug, 2023',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                           ],
-                        ),
-                        
-                      ),
-                      
-                      
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(width: 16.0),
-                Expanded(
-                  child: Column(
-                    children: [
-                      Container(
-                        alignment: Alignment.topLeft,
-                        child: const Row(
-                        children: [
-                         Icon(Icons.timer_rounded, color: Colors.blue,),
-                         SizedBox(width:5,),   
-                         Text(
-                          '10:00 AM',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                  const SizedBox(width: 16.0),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Container(
+                          alignment: Alignment.topLeft,
+                          child: const Row(
+                            children: [
+                              Icon(
+                                Icons.timer_rounded,
+                                color: Colors.blue,
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                '10:00 AM',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                           ],
-                        ),
-                        
-                      ),
-                      
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-            ),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
-             Container(
-              margin: EdgeInsets.only(left: 30, right: 30),
+            Container(
+              margin: const EdgeInsets.only(left: 30, right: 30),
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Welcome_page()),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.blue[800],
+                  backgroundColor: Colors.blue[800],
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                   shape: RoundedRectangleBorder(
@@ -216,7 +220,8 @@ class validation extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Appoitment()),
+                    MaterialPageRoute(
+                        builder: (context) => const NavigationMenu()),
                   );
                 },
                 child: const Text(

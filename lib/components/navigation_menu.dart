@@ -1,6 +1,7 @@
 import 'package:doctor_app/pages/appoitment.dart';
 import 'package:doctor_app/pages/doctor_details.dart';
 import 'package:doctor_app/pages/profile.dart';
+import 'package:doctor_app/pages/review_summary.dart';
 import 'package:doctor_app/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -45,9 +46,7 @@ class NavigationController extends GetxController {
     Welcome_page(),
     const Details_doctor(),
     Appoitment(),
-    Container(
-      color: const Color.fromARGB(255, 2, 138, 45),
-    ),
+    Summary(),
     const Profile()
   ];
 }
