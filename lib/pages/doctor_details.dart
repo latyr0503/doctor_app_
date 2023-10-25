@@ -1,24 +1,90 @@
-import 'package:doctor_app/components/doctor.dart';
+// import 'package:doctor_app/components/doctor.dart';
 import 'package:doctor_app/components/icone.dart';
 import 'package:doctor_app/pages/home.dart';
 import 'package:flutter/material.dart';
 
 // ignore: camel_case_types
 class Details_doctor extends StatelessWidget {
-  const Details_doctor({super.key});
+  final String name;
+  final String proffession;
+  final double note;
+
+  const Details_doctor({
+    required this.name,
+    required this.proffession,
+    required this.note,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
             title: const Center(
-              child: Text(
-                'Réservation',
-              ),
-            )),
+          child: Text(
+            'Réservation',
+          ),
+        )),
         body: ListView(
           children: [
-            const Details(),
+            // const Details(),
+            Column(
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Container(
+                      margin:
+                          const EdgeInsets.only(top: 20.0, left: 20, right: 10),
+                      height: 100,
+                      width: 100,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: AssetImage("assets/docteur.jpg"),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: Container(
+                        margin: const EdgeInsets.only(top: 70, left: 65),
+                        child: const Icon(
+                          Icons.assignment_turned_in_rounded,
+                          size: 30,
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(name, style: const TextStyle(fontSize: 25.0)),
+                        Text(proffession,
+                            style: const TextStyle(
+                                fontSize: 15.0, color: Colors.grey)),
+                        const Row(
+                          children: [
+                            Icon(
+                              Icons.location_on,
+                              size: 20,
+                              color: Colors.blue,
+                            ),
+                            Text(
+                              'New York, United States',
+                              style: TextStyle(
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.normal),
+                            ),
+                            Icon(
+                              Icons.map_sharp,
+                              size: 20,
+                              color: Colors.blue,
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ],
+                )
+              ],
+            ),
             const SizedBox(
               height: 20,
             ),
@@ -133,7 +199,7 @@ class Details_doctor extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.only(top: 10, left: 30, right: 30),
               child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
                     'Thursday',

@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
 
 class CardImage extends StatelessWidget {
-  final String title;
-  final String subTitle;
-  final String subTitleBis;
+  final String? title;
+  final String? subTitle;
+  final String? subTitleBis;
   final ImageProvider imageCard;
+  final double width;
 
   const CardImage({
     Key? key,
     required this.title,
     required this.subTitle,
     required this.subTitleBis,
-    this.imageCard = const AssetImage("assets/salle.jpg"),
+    required this.width, 
+    this.imageCard = const AssetImage("assets/doc2.jpg"),
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 250,
-      width: 250,
+      width: width,
       child: Card(
         elevation: 5,
         shadowColor: Colors.grey,
@@ -40,7 +42,7 @@ class CardImage extends StatelessWidget {
             ),
             ListTile(
               title: Text(
-                title,
+                title.toString(),
                 style:
                     const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
@@ -54,7 +56,7 @@ class CardImage extends StatelessWidget {
                   const SizedBox(width: 5),
                   Text.rich(
                     TextSpan(
-                      text: subTitle,
+                      text: subTitle.toString(),
                       style: const TextStyle(
                         fontWeight: FontWeight.normal,
                         fontSize: 13,
@@ -68,7 +70,7 @@ class CardImage extends StatelessWidget {
                           ),
                         ),
                         TextSpan(
-                          text: subTitleBis,
+                          text: subTitleBis.toString(),
                           style: const TextStyle(
                             fontWeight: FontWeight.normal,
                           ),

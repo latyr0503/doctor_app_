@@ -1,7 +1,11 @@
 import 'package:doctor_app/components/banner_title.dart';
 import 'package:doctor_app/components/card_calendar.dart';
 import 'package:doctor_app/components/card_image.dart';
+import 'package:doctor_app/components/navigation_menu.dart';
 import 'package:doctor_app/components/specialist.dart';
+import 'package:doctor_app/pages/doctor_details.dart';
+import 'package:doctor_app/pages/page_hopitaux.dart';
+import 'package:doctor_app/pages/page_specialist.dart';
 import 'package:flutter/material.dart';
 import 'package:doctor_app/components/card_speciality.dart';
 // Importez les packages nécessaires
@@ -36,60 +40,20 @@ class _WelcomePageState extends State<Welcome_page> {
       'images': const AssetImage('assets/brain.png'),
     },
   ];
-  // list des hopitaux
-  final List<Map<String, dynamic>> dummyHopital = [
-    {
-      'title': 'Dentist',
-      'subTitle': 'ghjklkh',
-      'subTitleBis': 'rtyu',
-      'imageCard': const AssetImage("assets/salle.jpg"),
-    },
-    {
-      'title': 'Dentist',
-      'subTitle': 'ghjklkh',
-      'subTitleBis': 'rtyu',
-      'imageCard': const AssetImage("assets/salle.jpg"),
-    },
-    {
-      'title': 'Dentist',
-      'subTitle': 'ghjklkh',
-      'subTitleBis': 'rtyu',
-      'imageCard': const AssetImage("assets/salle.jpg"),
-    },
-    {
-      'title': 'Dentist',
-      'subTitle': 'ghjklkh',
-      'subTitleBis': 'rtyu',
-      'imageCard': const AssetImage("assets/salle.jpg"),
-    },
-  ];
-// Liste de spécialistes
-  // final List<Map<String, dynamic>> dummySpecialists = [
-  //   {
-  //     'name': 'Mareme FALL',
-  //     'profession': 'Infirmière',
-  //     'image': const AssetImage('assets/doc1.jpg'),
-  //     'note': 3.5,
-  //   },
-  //   {
-  //     'name': 'latyr SENE',
-  //     'profession': 'Dentiste',
-  //     'image': const AssetImage('assets/doc2.jpg'),
-  //     'note': 2.5,
-  //   },
-  //   {
-  //     'name': 'Pape Ndiaye',
-  //     'profession': 'Assistant',
-  //     'image': const AssetImage('assets/doc3.jpg'),
-  //     'note': 4.5,
-  //   },
-  //   {
-  //     'name': 'Racky CISSé',
-  //     'profession': 'Aide soignant',
-  //     'image': const AssetImage('assets/doc4.jpg'),
-  //     'note': 4.8,
-  //   },
-  // ];
+
+  List<Map<String, dynamic>> dummyHopital = [];
+
+  Future<List<Map<String, dynamic>>> fetchHospitals() async {
+    final response = await http.get(Uri.parse(
+        'https://doctor-app-h45i.onrender.com/hopital/list_hopital/'));
+
+    if (response.statusCode == 200) {
+      List<dynamic> data = json.decode(response.body);
+      return data.map((item) => item as Map<String, dynamic>).toList();
+    } else {
+      throw Exception('Failed to retrieve data from API');
+    }
+  }
 
   // Votre liste de spécialistes
   List<Map<String, dynamic>> dummySpecialists = [];
@@ -115,6 +79,12 @@ class _WelcomePageState extends State<Welcome_page> {
         // Mettez à jour votre liste de spécialistes avec les données obtenues
         dummySpecialists = data;
         // print(dummySpecialists);
+      });
+    });
+    fetchHospitals().then((data) {
+      setState(() {
+        dummyHopital = data;
+        // print(dummyHopital);
       });
     });
   }
@@ -179,11 +149,17 @@ class _WelcomePageState extends State<Welcome_page> {
               ),
             ),
             // entête de section card medecin
-            const BannerTitle(textTitle: "Calendrier à venir"),
+            const BannerTitle(
+              textTitle: "Calendrier à venir",
+              pros: NavigationMenu(),
+            ),
             // card d'un medecin
             const CardCalendar(),
             // entête de section spécialité
-            const BannerTitle(textTitle: "Spécialité du docteur"),
+            const BannerTitle(
+              textTitle: "Spécialité du docteur",
+              pros: PageSpecialist(),
+            ),
             // section des spécialité en mappant les données
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -201,7 +177,10 @@ class _WelcomePageState extends State<Welcome_page> {
             ),
             const Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
             // entête de section hopitaux
-            const BannerTitle(textTitle: "hôpitaux à proximité"),
+            const BannerTitle(
+              textTitle: "hôpitaux à proximité",
+              pros: PageHopitaux(),
+            ),
             // section des hopitaux en mappant les données
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -211,10 +190,12 @@ class _WelcomePageState extends State<Welcome_page> {
                   (index) => Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: CardImage(
-                      title: "${dummyHopital[index]['title']}",
-                      subTitle: " ${dummyHopital[index]['subTitle']}",
-                      subTitleBis: "${dummyHopital[index]['subTitleBis']}",
-                      imageCard: dummyHopital[index]['imageCard'],
+                      title: "${dummyHopital[index]['name']}",
+                      subTitle: " ${dummyHopital[index]['date']}",
+                      subTitleBis: "${dummyHopital[index]['adresse']}",
+                      imageCard: NetworkImage(
+                          'https://doctor-app-h45i.onrender.com${dummyHopital[index]['image']}'),
+                      width: 250,
                     ),
                   ),
                 ),
@@ -222,15 +203,13 @@ class _WelcomePageState extends State<Welcome_page> {
             ),
             const Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
             // entête de section spécialiste
-            const BannerTitle(textTitle: "Spécialiste"),
+            const BannerTitle(
+              textTitle: "Spécialiste",
+              pros: PageSpecialist(),
+            ),
             // map des donnés des doctors au niveau de la base de donné
             Column(
-              children: dummySpecialists.map((specialist) {
-                print(specialist['id']);
-                print(specialist['name']);
-                print(specialist['proffession']);
-                print(specialist['image']);
-                print(specialist['note']);
+              children: dummySpecialists.take(3).map((specialist) {
                 return Specialist(
                   id: Key,
                   name: specialist['name'],
@@ -238,10 +217,32 @@ class _WelcomePageState extends State<Welcome_page> {
                   image: NetworkImage(
                       'https://doctor-app-h45i.onrender.com${specialist['image']}'),
                   note: specialist['note'],
+                  onTap: () {
+                    handleSpecialistSelection(
+                      specialist['name'],
+                      specialist['proffession'],
+                      specialist['note'].toDouble(),
+                      // specialist['about'],
+                      // specialist['experience']
+                    );
+                  },
                 );
               }).toList(),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  void handleSpecialistSelection(String name, String proffession, double note) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Details_doctor(
+          name: name,
+          proffession: proffession,
+          note: note,
         ),
       ),
     );
