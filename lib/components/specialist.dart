@@ -16,7 +16,7 @@ class Specialist extends StatelessWidget {
     this.image = const AssetImage("assets/doc2.jpg"),
     // required NetworkImage image,
     required Type id,
-    required this.onTap,
+    required this.onTap, required experience, required adresse, required about,
     // required proffession,
   }) : super(key: key);
   @override

@@ -5,7 +5,8 @@ class Icone extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return 
+    Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

@@ -5,8 +5,7 @@ class Details extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return 
-    Column(
+    return Column(
       children: <Widget>[
         Row(
           children: <Widget>[

@@ -210,6 +210,8 @@ class _WelcomePageState extends State<Welcome_page> {
             // map des donnés des doctors au niveau de la base de donné
             Column(
               children: dummySpecialists.take(3).map((specialist) {
+                print(specialist['experience']);
+                print(specialist['adresse']);
                 return Specialist(
                   id: Key,
                   name: specialist['name'],
@@ -217,14 +219,18 @@ class _WelcomePageState extends State<Welcome_page> {
                   image: NetworkImage(
                       'https://doctor-app-h45i.onrender.com${specialist['image']}'),
                   note: specialist['note'],
+                  experience: specialist['experience'],
+                  adresse: specialist['adresse'],
+                  about:specialist['about'],
                   onTap: () {
                     handleSpecialistSelection(
-                      specialist['name'],
-                      specialist['proffession'],
-                      specialist['note'].toDouble(),
-                      // specialist['about'],
-                      // specialist['experience']
-                    );
+                        specialist['name'],
+                        specialist['proffession'],
+                        specialist['adresse'],
+                        specialist['about']
+                        // specialist['note'].toDouble(),
+                        // specialist['experience'].toDouble()
+                        );
                   },
                 );
               }).toList(),
@@ -235,14 +241,18 @@ class _WelcomePageState extends State<Welcome_page> {
     );
   }
 
-  void handleSpecialistSelection(String name, String proffession, double note) {
+  void handleSpecialistSelection(String name, String proffession,
+      String adresse,String about ) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => Details_doctor(
           name: name,
           proffession: proffession,
-          note: note,
+          adresse: adresse,
+          about: about,
+          // note: double.parse(note),
+          // experience: experience,
         ),
       ),
     );

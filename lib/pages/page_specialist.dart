@@ -1,4 +1,5 @@
 import 'package:doctor_app/components/specialist.dart';
+import 'package:doctor_app/pages/doctor_details.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -84,11 +85,11 @@ class _PageSpecialistState extends State<PageSpecialist> {
               scrollDirection: Axis.vertical,
               child: Column(
                 children: dummySpecialists.map((specialist) {
-                  print(specialist['id']);
-                  print(specialist['name']);
-                  print(specialist['proffession']);
-                  print(specialist['image']);
-                  print(specialist['note']);
+                  // print(specialist['id']);
+                  // print(specialist['name']);
+                  // print(specialist['proffession']);
+                  // print(specialist['image']);
+                  // print(specialist['note']);
                   return Specialist(
                     id: Key,
                     name: specialist['name'],
@@ -96,11 +97,18 @@ class _PageSpecialistState extends State<PageSpecialist> {
                     image: NetworkImage(
                         'https://doctor-app-h45i.onrender.com${specialist['image']}'),
                     note: specialist['note'],
+                    experience: specialist['experience'],
+                    adresse: specialist['adresse'],
+                    about: specialist['about'],
                     onTap: () {
                       handleSpecialistSelection(
                           specialist['name'],
                           specialist['proffession'],
-                          specialist['note'].toDouble());
+                          specialist['adresse'],
+                          specialist['about']
+                          // specialist['note'].toDouble(),
+                          // specialist['experience'].toDouble()
+                          );
                     },
                   );
                 }).toList(),
@@ -109,10 +117,20 @@ class _PageSpecialistState extends State<PageSpecialist> {
     );
   }
 
-  void handleSpecialistSelection(String name, String proffession, double note) {
-    print('Spécialiste sélectionné :');
-    print('Nom: $name');
-    print('Profession: $proffession');
-    print('Note: $note');
+  void handleSpecialistSelection(
+      String name, String proffession, String adresse, String about) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Details_doctor(
+          name: name,
+          proffession: proffession,
+          adresse: adresse,
+          about: about,
+          // note: double.parse(note),
+          // experience: experience,
+        ),
+      ),
+    );
   }
 }
