@@ -102,13 +102,14 @@ class _PageSpecialistState extends State<PageSpecialist> {
                     about: specialist['about'],
                     onTap: () {
                       handleSpecialistSelection(
-                          specialist['name'],
-                          specialist['proffession'],
-                          specialist['adresse'],
-                          specialist['about']
-                          // specialist['note'].toDouble(),
-                          // specialist['experience'].toDouble()
-                          );
+                        specialist['name'],
+                        specialist['proffession'],
+                        specialist['adresse'],
+                        specialist['about'],
+                        specialist['note'].toString(),
+                        specialist['experience'].toString(),
+                        specialist['image'].toString(),
+                      );
                     },
                   );
                 }).toList(),
@@ -118,7 +119,17 @@ class _PageSpecialistState extends State<PageSpecialist> {
   }
 
   void handleSpecialistSelection(
-      String name, String proffession, String adresse, String about) {
+    String name,
+    String proffession,
+    String adresse,
+    String about,
+    String note,
+    String experience,
+    String image,
+  ) {
+    ImageProvider imageProvider =
+        NetworkImage('https://doctor-app-h45i.onrender.com$image');
+    print(imageProvider);
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -127,8 +138,9 @@ class _PageSpecialistState extends State<PageSpecialist> {
           proffession: proffession,
           adresse: adresse,
           about: about,
-          // note: double.parse(note),
-          // experience: experience,
+          note: note,
+          experience: experience,
+          imageProvider: imageProvider,
         ),
       ),
     );

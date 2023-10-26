@@ -9,14 +9,19 @@ class Details_doctor extends StatelessWidget {
   final String proffession;
   final String adresse;
   final String about;
+  final String note;
+  final String experience;
+  final ImageProvider imageProvider;
   Details_doctor({
     super.key,
     required this.name,
     required this.proffession,
     required this.adresse,
     required this.about,
+    required this.note,
+    required this.experience,
+    required this.imageProvider,
   });
-
   final List<Map<String, dynamic>> dummyHourWork = [
     {
       "day": 'Lundi',
@@ -42,6 +47,7 @@ class Details_doctor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // print(imageUrl);
     // Liste de spécialistes
     return Scaffold(
         appBar: AppBar(
@@ -62,10 +68,10 @@ class Details_doctor extends StatelessWidget {
                           const EdgeInsets.only(top: 20.0, left: 20, right: 10),
                       height: 100,
                       width: 100,
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
-                          image: AssetImage("assets/docteur.jpg"),
+                          image: imageProvider,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -206,36 +212,36 @@ class Details_doctor extends StatelessWidget {
                         ],
                       ),
                     ),
-                    // Container(
-                    //   margin: const EdgeInsets.only(top: 10),
-                    //   child: Column(
-                    //     children: [
-                    //       Text(
-                    //         note as String,
-                    //         style: const TextStyle(
-                    //             color: Colors.blue,
-                    //             fontWeight: FontWeight.w700),
-                    //       ),
-                    //       const Text(
-                    //         "Years Exp",
-                    //         style: TextStyle(
-                    //             color: Colors.grey,
-                    //             fontWeight: FontWeight.w100),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
                     Container(
-                      margin: const EdgeInsets.only(top: 10, right: 10),
-                      child: const Column(
+                      margin: const EdgeInsets.only(top: 10),
+                      child: Column(
                         children: [
                           Text(
-                            "4,9+",
-                            style: TextStyle(
+                            experience,
+                            style: const TextStyle(
                                 color: Colors.blue,
                                 fontWeight: FontWeight.w700),
                           ),
+                          const Text(
+                            "Years Exp",
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontWeight: FontWeight.w100),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 10, right: 10),
+                      child: Column(
+                        children: [
                           Text(
+                            note,
+                            style: const TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.w700),
+                          ),
+                          const Text(
                             "Rating",
                             style: TextStyle(
                                 color: Colors.grey,

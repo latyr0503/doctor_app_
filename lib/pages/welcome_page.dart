@@ -211,7 +211,7 @@ class _WelcomePageState extends State<Welcome_page> {
             Column(
               children: dummySpecialists.take(3).map((specialist) {
                 print(specialist['experience']);
-                print(specialist['adresse']);
+                print(specialist['note']);
                 return Specialist(
                   id: Key,
                   name: specialist['name'],
@@ -221,16 +221,17 @@ class _WelcomePageState extends State<Welcome_page> {
                   note: specialist['note'],
                   experience: specialist['experience'],
                   adresse: specialist['adresse'],
-                  about:specialist['about'],
+                  about: specialist['about'],
                   onTap: () {
                     handleSpecialistSelection(
-                        specialist['name'],
-                        specialist['proffession'],
-                        specialist['adresse'],
-                        specialist['about']
-                        // specialist['note'].toDouble(),
-                        // specialist['experience'].toDouble()
-                        );
+                      specialist['name'],
+                      specialist['proffession'],
+                      specialist['adresse'],
+                      specialist['about'],
+                      specialist['note'].toString(),
+                      specialist['experience'].toString(),
+                      specialist['image'].toString(),
+                    );
                   },
                 );
               }).toList(),
@@ -241,8 +242,18 @@ class _WelcomePageState extends State<Welcome_page> {
     );
   }
 
-  void handleSpecialistSelection(String name, String proffession,
-      String adresse,String about ) {
+  void handleSpecialistSelection(
+    String name,
+    String proffession,
+    String adresse,
+    String about,
+    String note,
+    String experience,
+    String image,
+  ) {
+    ImageProvider imageProvider =
+        NetworkImage('https://doctor-app-h45i.onrender.com$image');
+    print(imageProvider);
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -251,8 +262,9 @@ class _WelcomePageState extends State<Welcome_page> {
           proffession: proffession,
           adresse: adresse,
           about: about,
-          // note: double.parse(note),
-          // experience: experience,
+          note: note,
+          experience: experience,
+          imageProvider: imageProvider,
         ),
       ),
     );
