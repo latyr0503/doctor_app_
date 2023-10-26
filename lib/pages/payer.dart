@@ -2,7 +2,6 @@ import 'package:doctor_app/pages/ajoutcard.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
 class Payer extends StatefulWidget {
   const Payer({super.key});
 
@@ -11,8 +10,7 @@ class Payer extends StatefulWidget {
 }
 
 class _PayerState extends State<Payer> {
- 
- final String _url = 'https://www.paypal.com/us/signin';
+  final String _url = 'https://www.paypal.com/us/signin';
 
   @override
   void initState() {
@@ -29,13 +27,12 @@ class _PayerState extends State<Payer> {
             actions: [
               MaterialButton(
                 onPressed: () {
-                      Navigator.pop(context);
+                  Navigator.pop(context);
 
                   Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>  AjoutCard()),
-                      );
+                    context,
+                    MaterialPageRoute(builder: (context) => AjoutCard()),
+                  );
                 },
                 child: Text("OK"),
               ),
@@ -58,16 +55,14 @@ class _PayerState extends State<Payer> {
             actions: [
               MaterialButton(
                 onPressed: () {
-                      Navigator.pop(context);
+                  Navigator.pop(context);
 
                   Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>  AjoutCard()),
-                      );
+                    context,
+                    MaterialPageRoute(builder: (context) => AjoutCard()),
+                  );
                 },
                 child: Text("OK"),
-
               ),
               MaterialButton(
                 onPressed: () {},
@@ -78,17 +73,9 @@ class _PayerState extends State<Payer> {
         });
   }
 
-
-
-
-
-
-
-void _launchUrl() async {
-  
+  void _launchUrl() async {
     throw Exception('Could not launch $_url');
   }
-
 
   Widget build(BuildContext context) {
     // ignore: unused_local_variable
@@ -146,13 +133,11 @@ void _launchUrl() async {
                         const SizedBox(
                           width: 5,
                         ),
-                       const Text('Add New Card',
-                            style: 
-                                 const TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black54)
-                                ),
+                        const Text('Add New Card',
+                            style: const TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black54)),
                         Spacer(),
                         MaterialButton(
                           onPressed: _carte,
@@ -202,11 +187,11 @@ void _launchUrl() async {
                         SizedBox(
                           width: 5,
                         ),
-                       const Text('Paypal',
-                            style:  TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black)),
+                        const Text('Paypal',
+                            style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black)),
                         Spacer(),
                         MaterialButton(
                           onPressed: _cash,
@@ -216,7 +201,6 @@ void _launchUrl() async {
                                 Icons.arrow_circle_right_outlined,
                                 color: Colors.blue,
                               )),
-                              
                         )
                       ],
                     ),
@@ -241,12 +225,11 @@ void _launchUrl() async {
                         SizedBox(
                           width: 5,
                         ),
-                       const Text('Add New Card',
+                        const Text('Add New Card',
                             style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black54)
-                                ),
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black54)),
                         Spacer(),
                         MaterialButton(
                           onPressed: _cash,

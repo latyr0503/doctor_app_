@@ -111,11 +111,11 @@ class _WelcomePageState extends State<Welcome_page> {
           } else {
             return NetworkImage('https://doctor-app-h45i.onrender.com$url');
           }
-        });
-      }
-      return const NetworkImage(
+        }); return const NetworkImage(
         'https://img.freepik.com/vecteurs-libre/gens-qui-marchent-assis-au-batiment-hopital-exterieur-verre-clinique-ville-illustration-vectorielle-plane-pour-aide-medicale-urgence-architecture-concept-soins-sante_74855-10130.jpg?size=626&ext=jpg&uid=R65302706&ga=GA1.1.1564638247.1697411010&semt=sph',
       );
+      }
+     
     }
 
     ImageProvider getImageSpecialist(String? url) {

@@ -50,7 +50,11 @@ class NavigationController extends GetxController {
     const PageHopitaux(),
     const PageSpecialist(),
     // const Appoitment(),
-    const RendezVous(),
+    // const RendezVous(),
+    Container(
+      color: Colors.blue,
+      // Ajoutez d'autres propriétés pour personnaliser le conteneur selon vos besoins.
+    ),
     const Profile()
   ];
 }
