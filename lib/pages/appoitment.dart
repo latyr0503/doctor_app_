@@ -48,7 +48,7 @@ class _AppoitmentState extends State<Appoitment> {
         appBar: AppBar(
         title: const Text('Reservation',
         style:  TextStyle(fontWeight: FontWeight.bold),),
-        leading: BackButton(),
+        leading: const BackButton(),
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,
         elevation: 0,
@@ -88,7 +88,7 @@ class _AppoitmentState extends State<Appoitment> {
             ),
             
             Container(
-              padding: EdgeInsets.only(top: 10, left: 30, right: 30),
+              padding: const EdgeInsets.only(top: 10, left: 30, right: 30),
               child: Column(children: <Widget>[
                 const SizedBox(
                   height: 5,
@@ -116,7 +116,7 @@ class _AppoitmentState extends State<Appoitment> {
             ),
 
             Container(
-              padding: EdgeInsets.only(top: 10, left: 30, right: 30),
+              padding: const EdgeInsets.only(top: 10, left: 30, right: 30),
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.push(
@@ -142,7 +142,7 @@ class _AppoitmentState extends State<Appoitment> {
                 ),
               ),
             ),
-            SizedBox(height: 50)
+            const SizedBox(height: 50)
           ],
         ));
   }

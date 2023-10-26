@@ -5,7 +5,8 @@ class Icone extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return 
+    Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -70,7 +71,7 @@ class Icone extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Container(
-              margin: EdgeInsets.only(top: 10),
+              margin: const EdgeInsets.only(top: 10),
               child: const Column(
                 children: [
                   Text(
@@ -87,7 +88,7 @@ class Icone extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 10),
+              margin: const EdgeInsets.only(top: 10),
               child: const Column(
                 children: [
                   Text(
@@ -104,7 +105,7 @@ class Icone extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 10, right: 10),
+              margin: const EdgeInsets.only(top: 10, right: 10),
               child: const Column(
                 children: [
                   Text(
@@ -121,7 +122,7 @@ class Icone extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 10),
+              margin: const EdgeInsets.only(top: 10),
               child: const Column(
                 children: [
                   Text(

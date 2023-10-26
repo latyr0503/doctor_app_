@@ -1,11 +1,27 @@
+import 'package:doctor_app/components/banner_title.dart';
+import 'package:doctor_app/components/card_calendar.dart';
 import 'package:doctor_app/components/card_image.dart';
+import 'package:doctor_app/components/navigation_menu.dart';
+import 'package:doctor_app/components/specialist.dart';
+import 'package:doctor_app/pages/doctor_details.dart';
+import 'package:doctor_app/pages/page_hopitaux.dart';
+import 'package:doctor_app/pages/page_specialist.dart';
 import 'package:flutter/material.dart';
 import 'package:doctor_app/components/card_speciality.dart';
+// Importez les packages nécessaires
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 // ignore: camel_case_types
-class Welcome_page extends StatelessWidget {
-  Welcome_page({Key? key}) : super(key: key);
+class Welcome_page extends StatefulWidget {
+  const Welcome_page({Key? key}) : super(key: key);
+  @override
+  // ignore: library_private_types_in_public_api
+  _WelcomePageState createState() => _WelcomePageState();
+}
 
+class _WelcomePageState extends State<Welcome_page> {
+  // liste des spécialité
   final List<Map<String, dynamic>> dummySpecialities = [
     {
       'title': 'Dentist',
@@ -24,32 +40,54 @@ class Welcome_page extends StatelessWidget {
       'images': const AssetImage('assets/brain.png'),
     },
   ];
-  final List<Map<String, dynamic>> dummyHopital = [
-    {
-      'title': 'Dentist',
-      'subTitle': 'ghjklkh',
-      'subTitleBis': 'rtyu',
-      'imageCard': const AssetImage("assets/salle.jpg"),
-    },
-    {
-      'title': 'Dentist',
-      'subTitle': 'ghjklkh',
-      'subTitleBis': 'rtyu',
-      'imageCard': const AssetImage("assets/salle.jpg"),
-    },
-    {
-      'title': 'Dentist',
-      'subTitle': 'ghjklkh',
-      'subTitleBis': 'rtyu',
-      'imageCard': const AssetImage("assets/salle.jpg"),
-    },
-    {
-      'title': 'Dentist',
-      'subTitle': 'ghjklkh',
-      'subTitleBis': 'rtyu',
-      'imageCard': const AssetImage("assets/salle.jpg"),
-    },
-  ];
+
+  List<Map<String, dynamic>> dummyHopital = [];
+
+  Future<List<Map<String, dynamic>>> fetchHospitals() async {
+    final response = await http.get(Uri.parse(
+        'https://doctor-app-h45i.onrender.com/hopital/list_hopital/'));
+
+    if (response.statusCode == 200) {
+      List<dynamic> data = json.decode(response.body);
+      return data.map((item) => item as Map<String, dynamic>).toList();
+    } else {
+      throw Exception('Failed to retrieve data from API');
+    }
+  }
+
+  // Votre liste de spécialistes
+  List<Map<String, dynamic>> dummySpecialists = [];
+  // Votre fonction fetchSpecialists
+  Future<List<Map<String, dynamic>>> fetchSpecialists() async {
+    final response = await http.get(
+        Uri.parse('https://doctor-app-h45i.onrender.com/doctor/list_doctor/'));
+    if (response.statusCode == 200) {
+      // Si la requête est réussie, convertissez la réponse en une liste de Map
+      List<dynamic> data = json.decode(response.body);
+      return data.map((item) => item as Map<String, dynamic>).toList();
+    } else {
+      // Si la requête échoue, lancez une exception.
+      throw Exception('Échec de la récupération des données depuis l\'API');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchSpecialists().then((data) {
+      setState(() {
+        // Mettez à jour votre liste de spécialistes avec les données obtenues
+        dummySpecialists = data;
+        // print(dummySpecialists);
+      });
+    });
+    fetchHospitals().then((data) {
+      setState(() {
+        dummyHopital = data;
+        // print(dummyHopital);
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,17 +95,16 @@ class Welcome_page extends StatelessWidget {
       appBar: AppBar(
         actions: [
           IconButton(
-            padding: EdgeInsets.only(top: 5,right: 20),
               onPressed: () {},
               icon: const Icon(
                 Icons.notifications,
-                size: 35,
+                size: 30,
               ))
         ],
         leading: const Icon(
           Icons.place,
           color: Color.fromRGBO(21, 101, 192, 1),
-          size: 40,
+          size: 35,
         ),
         title: const Text.rich(
           TextSpan(
@@ -88,6 +125,7 @@ class Welcome_page extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            // section de l'input recherche
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: TextField(
@@ -100,7 +138,9 @@ class Welcome_page extends StatelessWidget {
                   hintText: 'Search',
                   prefixIcon: const Icon(Icons.search, size: 30.0),
                   suffixIcon: IconButton(
-                    icon: const Icon( Icons.filter_list, ),
+                    icon: const Icon(
+                      Icons.filter_list,
+                    ),
                     onPressed: () {},
                     color: Colors.blue.shade800,
                     hoverColor: Colors.blue,
@@ -108,145 +148,19 @@ class Welcome_page extends StatelessWidget {
                 ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                const Text(
-                  "Upcoming Schedule",
-                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 22),
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    "See All",
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ),
-              ],
+            // entête de section card medecin
+            const BannerTitle(
+              textTitle: "Calendrier à venir",
+              pros: NavigationMenu(),
             ),
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.all(15.0),
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                color: Colors.blue.shade600,
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Container(
-                        width: 50,
-                        height: 50,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: AssetImage(
-                                "assets/plan-moyen-medecin-specialiste-bras-dans-poches-regardant-camera.jpg"),
-                          ),
-                        ),
-                      ),
-                      const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Dr Alana Ruete",
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            "Dentist consultation",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                        ],
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        color: Colors.white,
-                        icon: const Icon(
-                          Icons.phone_rounded,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const Padding(padding: EdgeInsets.all(10.0)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: Colors.blue.shade800,
-                        ),
-                        width: 300.0,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15.0, vertical: 15.0),
-                        child: const Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Icon(Icons.calendar_month,
-                                    size: 25, color: Colors.white),
-                                Text(
-                                  "Monday, 26 July",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                Text(
-                                  '|',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                                Icon(Icons.alarm,
-                                    size: 25, color: Colors.white),
-                                Text(
-                                  "09:00 - 10:00",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+            // card d'un medecin
+            const CardCalendar(),
+            // entête de section spécialité
+            const BannerTitle(
+              textTitle: "Spécialité du docteur",
+              pros: PageSpecialist(),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                const Text(
-                  "Doctor Speciality",
-                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 22),
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    "See All",
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            // section des spécialité en mappant les données
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
@@ -262,24 +176,12 @@ class Welcome_page extends StatelessWidget {
               ),
             ),
             const Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                const Text(
-                  "Nearby Hospitals",
-                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 22),
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    "See All",
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ),
-              ],
+            // entête de section hopitaux
+            const BannerTitle(
+              textTitle: "hôpitaux à proximité",
+              pros: PageHopitaux(),
             ),
+            // section des hopitaux en mappant les données
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
@@ -288,37 +190,69 @@ class Welcome_page extends StatelessWidget {
                   (index) => Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: CardImage(
-                      title: "${dummyHopital[index]['title']}",
-                      subTitle: " ${dummyHopital[index]['subTitle']}",
-                      subTitleBis: "${dummyHopital[index]['subTitleBis']}",
-                      imageCard: dummyHopital[index]['imageCard'],
+                      title: "${dummyHopital[index]['name']}",
+                      subTitle: " ${dummyHopital[index]['date']}",
+                      subTitleBis: "${dummyHopital[index]['adresse']}",
+                      imageCard: NetworkImage(
+                          'https://doctor-app-h45i.onrender.com${dummyHopital[index]['image']}'),
+                      width: 250,
                     ),
                   ),
                 ),
               ),
             ),
-
-            // const CardImage(title: "teste", subTitle: "nojcv", subTitleBis: "dcbvpdskn", imageCard: AssetImage("assets/salle.jpg") ),
             const Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                const Text(
-                  "Top Specialist",
-                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 22),
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    "See All",
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ),
-              ],
+            // entête de section spécialiste
+            const BannerTitle(
+              textTitle: "Spécialiste",
+              pros: PageSpecialist(),
+            ),
+            // map des donnés des doctors au niveau de la base de donné
+            Column(
+              children: dummySpecialists.take(3).map((specialist) {
+                print(specialist['experience']);
+                print(specialist['adresse']);
+                return Specialist(
+                  id: Key,
+                  name: specialist['name'],
+                  proffession: specialist['proffession'],
+                  image: NetworkImage(
+                      'https://doctor-app-h45i.onrender.com${specialist['image']}'),
+                  note: specialist['note'],
+                  experience: specialist['experience'],
+                  adresse: specialist['adresse'],
+                  about:specialist['about'],
+                  onTap: () {
+                    handleSpecialistSelection(
+                        specialist['name'],
+                        specialist['proffession'],
+                        specialist['adresse'],
+                        specialist['about']
+                        // specialist['note'].toDouble(),
+                        // specialist['experience'].toDouble()
+                        );
+                  },
+                );
+              }).toList(),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  void handleSpecialistSelection(String name, String proffession,
+      String adresse,String about ) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Details_doctor(
+          name: name,
+          proffession: proffession,
+          adresse: adresse,
+          about: about,
+          // note: double.parse(note),
+          // experience: experience,
         ),
       ),
     );
