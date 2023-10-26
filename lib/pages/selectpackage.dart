@@ -1,4 +1,5 @@
 import 'package:doctor_app/pages/patients.dart';
+import 'package:doctor_app/widgets/package.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,46 +17,9 @@ class SelectPackage extends StatefulWidget {
 
 class _SelectPackageState extends State<SelectPackage> {
  String? valueChoose;
-  List<String> listItem = ['item1', 'item2', 'item3', 'item4', 'item5'];
+  List<String> listItem = ['30minute', '1h00', '1h30', '2h00'];
 
-
-
-  List<Map<String, dynamic>> categories = [
-    {
-      'icon': Icons.message,
-      'color': const Color.fromRGBO(187, 222, 251, 1),
-      'title': 'Messaging',
-      'sousTitle': 'Chat with Doctor',
-      'money': "25 CFA",
-      'min': '30 min',
-    },
-    {
-      'icon': Icons.call,
-      'color': const Color.fromRGBO(187, 222, 251, 1),
-      'title': 'Voice Call',
-      'sousTitle': 'Voice Call with Doctor',
-      'money': "50 CFA",
-      'min': '30 min',
-    },
-    {
-      'icon': Icons.video_call,
-      'color': const Color.fromRGBO(187, 222, 251, 1),
-      'title': 'Video Call',
-      'sousTitle': 'Video with Doctor',
-      'money': "75 CFA",
-      'min': '30 min',
-    },
-    {
-      'icon': Icons.person,
-      'color': const Color.fromRGBO(187, 222, 251, 1),
-      'title': 'In Person',
-      'sousTitle': 'In Person visit with Doctor',
-      'money': "100 CFA",
-      'min': '30 min',
-    },
-  ];
-
-  String currentOption = 'Option 1';
+  int _value = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -70,31 +34,36 @@ class _SelectPackageState extends State<SelectPackage> {
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Select Duration', style: TextStyle(fontSize: 24)),
+            const Text('Select Duration', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
             SizedBox(height: 10),
           Container(
   decoration: BoxDecoration(
     border: Border.all(width: 1.0, color: Color.fromRGBO(243, 237, 237, 1)), // Ajoutez une bordure
-    borderRadius: BorderRadius.circular(4.0), // Facultatif : pour des coins arrondis
+    borderRadius: BorderRadius.circular(10), // Facultatif : pour des coins arrondis
   ),
 
   child: Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 10),
+   padding: const EdgeInsets.symmetric(horizontal: 10),
    child: Container(
+      
       padding: const EdgeInsets.symmetric(),
       width: double.infinity,
       child: DropdownButton<String>(
-      hint: Text('30min'),
+      hint: Text('30minute'),
       dropdownColor: Colors.blue[100],
-      icon: Icon(Icons.arrow_drop_down,),
-      style: TextStyle(
-        color: Colors.black
+      icon: const Icon(Icons.arrow_drop_down,),
+      style: const TextStyle(
+        color: Colors.black,
+        fontSize: 15,
+        fontWeight: FontWeight.bold
       ),
       iconSize: 36,
+      iconEnabledColor: Colors.blue,
+      isExpanded: true,
       value: valueChoose,
       onChanged: (String? newValue) {
         setState(() {
@@ -107,49 +76,146 @@ class _SelectPackageState extends State<SelectPackage> {
           child: Text(valueItem),
         );
       }).toList(),
+     underline: Container(),
     ),
    ),
   ),
-)
-,  
+),
+SizedBox(height: 20,),
  Container(
-   child: Text('Select Package', style: TextStyle(fontSize: 24)),
+   child: Text('Select Package', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
  ),
 
-            Expanded(
-              child: ListView(
-                children: categories.map((item) {
-                  return Card(
-                    color: Colors.white,
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundColor: item['color'],
-                        child: Icon(item['icon'], color: Colors.blueAccent),
-                      ),
-                      title: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(item['title']),
-                          Text("${item['money']}")
-                        ],
-                      ),
-                      subtitle: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(item['sousTitle']),
-                          Text("${item['min']}")
-                        ],
-                      ),
-                      trailing: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.input),
-                      ),
-                      
-                    ),
-                  );
-                }).toList(),
-              ),
+  Card(
+    child: Container(
+      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+
+      child: Row(
+              children: [
+                const Package(
+              title: "Messaging",
+              subTitle: "Avec le docteur",
+              money: "2000cfa",
+              min: "/30min",
+              listTitleColor: Colors.blue,
+              iconColors: Color.fromRGBO(187, 222, 251, 1), // J'ai corrigé le nom de la propriété 'iconColor'.
+              leadingIcon: Icons.message,
             ),
+            Spacer(),
+            Radio<int>(
+              value: 2,
+              groupValue: _value,
+              onChanged: (int? value) {
+                if (value != null) {
+                  setState(() {
+                    _value = value;
+                  });
+                }
+              },
+            ),
+              ],
+            ),
+    ),
+  ),
+  
+
+  Card(
+    child: Container(
+      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+
+      child: Row(
+              children: [
+                const Package(
+              title: "Appel Vocal",
+              subTitle: "Avec le docteur",
+              money: "4000cfa",
+              min: "/30min",
+               listTitleColor: Colors.blue,
+              iconColors: Color.fromRGBO(187, 222, 251, 1), // J'ai corrigé le nom de la propriété 'iconColor'.
+              leadingIcon: Icons.call,
+            ),
+            Spacer(),
+            Radio<int>(
+              value: 3,
+              groupValue: _value,
+              onChanged: (int? value) {
+                if (value != null) {
+                  setState(() {
+                    _value = value;
+                  });
+                }
+              },
+            ),
+              ],
+            ),
+    ),
+  ),
+  
+
+  Card(
+    child: Container(
+      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      child: Row(
+            children: [
+              const Package(
+            title: "Appel Vidéo",
+            subTitle: "Avec le docteur",
+            money: "6000cfa",
+            min: "/30min",
+             listTitleColor: Colors.blue,
+            iconColors: Color.fromRGBO(187, 222, 251, 1),
+            leadingIcon: Icons.video_camera_front,
+          ),
+          Spacer(),
+          Radio<int>(
+            value: 4,
+            groupValue: _value,
+            onChanged: (int? value) {
+              if (value != null) {
+                setState(() {
+                  _value = value;
+                });
+              }
+            },
+          ),
+            ],
+          ),
+    ),
+  ),
+  
+    Card(
+      child: Container(
+      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+
+        child: Row(
+              children: [
+                const Package(
+              title: "En personne",
+              subTitle: "Avec le docteur",
+              money: "8000cfa",
+              min: "/30min",
+               listTitleColor: Colors.blue,
+              iconColors: Color.fromRGBO(187, 222, 251, 1), 
+              leadingIcon: Icons.person,
+            ),
+            Spacer(),
+            Radio<int>(
+              value: 1,
+              groupValue: _value,
+              onChanged: (int? value) {
+                if (value != null) {
+                  setState(() {
+                    _value = value;
+                  });
+                }
+              },
+            ),
+              ],
+            ),
+      ),
+    ),
+  
+ SizedBox(height: 50,),
             Container(
               width: double.infinity,
               child: ElevatedButton(

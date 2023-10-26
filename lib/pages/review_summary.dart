@@ -47,7 +47,7 @@ class Summary extends StatelessWidget {
           'Review Summary',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        leading: BackButton(),
+        leading: const BackButton(),
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,
         elevation: 0,
@@ -55,8 +55,8 @@ class Summary extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          Details(),
-          SizedBox(height: 20,),
+          const Details(),
+          const SizedBox(height: 20,),
           const Divider(
               color: Colors.grey,
               thickness: 0.5,
@@ -64,24 +64,24 @@ class Summary extends StatelessWidget {
               endIndent: 25,
               height: 0,
             ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           // Utilisez un Container au lieu de Card
           ...summary1.map((item) {
             return Container(
-              margin: EdgeInsets.all(8.0),
-              padding: EdgeInsets.only(left: 16.0, right: 16.0, bottom: 5),
+              margin: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(item['info'], style: TextStyle(fontWeight: FontWeight.w600, color: Colors.grey)),
-                  Text(item['resul'], style: TextStyle(fontWeight: FontWeight.w600)),
+                  Text(item['info'], style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.grey)),
+                  Text(item['resul'], style: const TextStyle(fontWeight: FontWeight.w600)),
                 ],
               ),
             );
           }),
-          SizedBox(height: 10,),
+          const SizedBox(height: 10,),
           const Divider(
               color: Colors.grey,
               thickness: 0.5,
@@ -89,24 +89,24 @@ class Summary extends StatelessWidget {
               endIndent: 25,
               height: 0,
             ),
-          SizedBox(height: 10,),  
+          const SizedBox(height: 10,),  
           ...summary2.map((item) {
             return Container(
-              margin: EdgeInsets.all(8.0),
-              padding: EdgeInsets.only(left: 16.0, right: 16.0, bottom: 5),
+              margin: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(item['infodeux'],style: TextStyle(fontWeight: FontWeight.w600, color: Colors.grey)),
-                  Text(item['resuldeux'], style: TextStyle(fontWeight: FontWeight.w600),),
+                  Text(item['infodeux'],style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.grey)),
+                  Text(item['resuldeux'], style: const TextStyle(fontWeight: FontWeight.w600),),
                 ],
               ),
             );
           }),
-          SizedBox(height: 20,),
+          const SizedBox(height: 20,),
          Container(
-          margin: EdgeInsets.all(8.0),
-          padding: EdgeInsets.only(left: 16.0, right: 16.0, bottom: 5),
+          margin: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 5),
           child: const Row(
             children: [
               Text('Total',style: TextStyle(fontWeight: FontWeight.w600, color: Colors.grey)),
@@ -115,7 +115,7 @@ class Summary extends StatelessWidget {
             ],
           ),
          ),
-         SizedBox(height: 10,),
+         const SizedBox(height: 10,),
           const Divider(
               color: Colors.grey,
               thickness: 0.5,
@@ -125,20 +125,20 @@ class Summary extends StatelessWidget {
             ),   
             
             Container(
-          margin: EdgeInsets.all(8.0),
-          padding: EdgeInsets.only(left: 16.0, right: 16.0, bottom: 5),
+          margin: const EdgeInsets.all(8.0),
+          padding:const  EdgeInsets.only(left: 16.0, right: 16.0, bottom: 5),
           child: Row(
             children: [
-              Icon(Icons.vignette, color: Colors.blue,),
-              SizedBox(width: 5,),
-              Text('Cash',style: TextStyle(fontWeight: FontWeight.w600, color: Colors.grey)),
-              Spacer(),
+              const Icon(Icons.vignette, color: Colors.blue,),
+              const SizedBox(width: 5,),
+              const Text('Cash',style: TextStyle(fontWeight: FontWeight.w600, color: Colors.grey)),
+              const Spacer(),
               TextButton(
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>  validation()),
+                            builder: (context) =>  const validation()),
                       );
                     },
                     child: const Text('Change'),
@@ -146,11 +146,11 @@ class Summary extends StatelessWidget {
             ],
           ),
          ),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
              Container(
-              padding: EdgeInsets.only(top: 10, left: 20, right: 20),
+              padding: const  EdgeInsets.only(top: 10, left: 20, right: 20),
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.push(
