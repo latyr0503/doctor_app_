@@ -1,10 +1,45 @@
 import 'package:doctor_app/components/doctor.dart';
+import 'package:doctor_app/pages/review.dart';
 import 'package:doctor_app/pages/validation.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 // ignore: must_be_immutable
-class Summary extends StatelessWidget {
-  Summary({Key? key});
+class Summary extends StatefulWidget {
+  const Summary({super.key});
+
+  @override
+  State<Summary> createState() => _SummeState();
+}
+
+class _SummeState extends State<Summary> {
+ 
+  // List<Map<String, dynamic>> dummyAppoint = [];
+
+  // // Votre fonction fetchSpecialists
+  // Future<List<Map<String, dynamic>>> fetchAppoint() async {
+  //   final response = await http.get(
+  //       Uri.parse('https://doctor-app-h45i.onrender.com/rendez_vous/list_id_rendez_vous/64/'));
+  //   if (response.statusCode == 200) {
+  //     // Si la requête est réussie, convertissez la réponse en une liste de Map
+  //     List<dynamic> data = json.decode(response.body);
+  //     return data.map((item) => item as Map<String, dynamic>).toList();
+  //   } else {
+  //     // Si la requête échoue, lancez une exception.
+  //     throw Exception('Échec de la récupération des données depuis l\'API');
+  //   }
+  // }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   fetchAppoint().then((data) {
+  //     setState(() {
+  //       dummyAppoint = data;
+  //     });
+  //   });
+  // }
 
   List<Map<String, dynamic>> summary1 = [
     {
@@ -68,6 +103,14 @@ class Summary extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
+          //  children: dummyAppoint.map((donnee) {
+          //         return Reviewe(
+          //           date: donnee["date"],
+          //          heure: dColumn(
+          //       onnee["heure"],
+          //           );
+          //       }).toList(),
+          //     ),
           // Utilisez un Container au lieu de Card
           ...summary1.map((item) {
             return Container(
