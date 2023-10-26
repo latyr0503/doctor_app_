@@ -1,20 +1,47 @@
 import 'package:doctor_app/components/doctor.dart';
 import 'package:doctor_app/components/icone.dart';
+import 'package:doctor_app/pages/reservation.dart';
 import 'package:doctor_app/pages/selectpackage.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
-class Appoitment extends StatelessWidget {
-  Appoitment({super.key});
-  final categories = [
-    {'day': "Today\n4 Oct", 'heure': "7:00 PM"},
-    {'day': "Mon\n5 Oct", 'heure': "7:30 PM"},
-    {'day': "Tue\n6 Oct", 'heure': "8:00 PM"},
-    {'day': "Wed\n7 Oct", 'heure': "8:30 PM"},
-    {'day': "Thi\n8 Oct", 'heure': "9:00 PM"},
-    {'day': "Fri\n9 Oct", 'heure': "9:30 PM"},
-    {'day': "Sun\n10 Oct", 'heure': "10:00 PM"},
-    {'day': "Sat\n11 Oct", 'heure': "10:30 PM"},
-  ];
+class Appoitment extends StatefulWidget {
+  const Appoitment({Key? key});
+
+  @override
+  _AppoitmentState createState() => _AppoitmentState();
+}
+
+class _AppoitmentState extends State<Appoitment> {
+   List<Map<String, dynamic>> rendezVous = [];
+  // Votre fonction fetchSpecialists
+  Future<List<Map<String, dynamic>>> fetchSpecialists() async {
+    final response = await http.get(
+        Uri.parse('https://doctor-app-h45i.onrender.com/doctor/list_doctor/'));
+    if (response.statusCode == 200) {
+      // Si la requête est réussie, convertissez la réponse en une liste de Map
+      List<dynamic> data = json.decode(response.body);
+      return data.map((item) => item as Map<String, dynamic>).toList();
+    } else {
+      // Si la requête échoue, lancez une exception.
+      throw Exception('Échec de la récupération des données depuis l\'API');
+    }
+  }
+
+
+  @override
+  void initState() {
+      super.initState();
+    fetchSpecialists().then((data) {
+      setState(() {
+        // Mettez à jour votre liste de spécialistes avec les données obtenues
+        rendezVous = data;
+        print(rendezVous);
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,110 +86,12 @@ class Appoitment extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              margin: const EdgeInsets.only(top: 20, left: 33),
-              child: const Text(
-                "Day",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-
-            Container(
-              padding: const EdgeInsets.only(top: 10, left: 30, right: 30),
-              child: Column(children: <Widget>[
-                const SizedBox(
-                  height: 10,
-                ),
-                SizedBox(
-                  height: 80,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return SingleChildScrollView(
-                        child: Column(
-                          children: <Widget>[
-                            ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 40, vertical: 25),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50),
-                                ),
-                              ),
-                              child: Text(categories[index]['day'] as String,
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                      color: Colors.black, fontSize: 15)),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                    separatorBuilder: (context, index) => const SizedBox(
-                      width: 33,
-                    ),
-                    itemCount: categories.length,
-                  ),
-                ),
-              ]),
-            ),
-
-            Container(
-              margin: const EdgeInsets.only(
-                top: 10,
-                left: 30,
-              ),
-              child: const Text(
-                "Time",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-
+            
             Container(
               padding: const EdgeInsets.only(top: 10, left: 30, right: 30),
               child: Column(children: <Widget>[
                 const SizedBox(
                   height: 5,
-                ),
-                SizedBox(
-                  height: 80,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return SingleChildScrollView(
-                        child: Column(
-                          children: <Widget>[
-                            ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 50, vertical: 25),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                              ),
-                              child: Text(
-                                categories[index]['heure'] as String,
-                                style: const TextStyle(
-                                    color: Colors.black, fontSize: 20),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                    separatorBuilder: (context, index) => const SizedBox(
-                      width: 33,
-                    ),
-                    itemCount: categories.length,
-                  ),
                 ),
               ]),
             ),
@@ -218,3 +147,4 @@ class Appoitment extends StatelessWidget {
         ));
   }
 }
+

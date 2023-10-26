@@ -18,14 +18,7 @@ class AjoutCard extends StatelessWidget {
       ),
       body: Column(
         children: [
-        
-             Padding(padding: EdgeInsets.all(10.0),
-             child:Container(
-              child: 
-                 Image.asset('assets/visa.png'),
-                 )
-             ),
-          
+
           AddCard(),
         ],
       ),
