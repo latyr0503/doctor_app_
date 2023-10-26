@@ -12,6 +12,7 @@ class Details_doctor extends StatelessWidget {
   final String note;
   final String experience;
   final ImageProvider imageProvider;
+  // final List<Map<String, dynamic>> jours;
   Details_doctor({
     super.key,
     required this.name,
@@ -21,6 +22,7 @@ class Details_doctor extends StatelessWidget {
     required this.note,
     required this.experience,
     required this.imageProvider,
+    // required this.jours,
   });
   final List<Map<String, dynamic>> dummyHourWork = [
     {
@@ -313,6 +315,16 @@ class Details_doctor extends StatelessWidget {
                 );
               }).toList(),
             ),
+            // ListView.builder(
+            //   itemCount: jours.length,
+            //   itemBuilder: (context, index) {
+            //     return ListTile(
+            //       title: Text(jours[index]['jour']),
+            //       subtitle: Text(
+            //           'Heure de début : ${jours[index]['heure_debut']} - Heure de fin : ${jours[index]['heure_fin']}'),
+            //     );
+            //   },
+            // ),
             const Padding(
               padding: EdgeInsets.only(top: 10, left: 30, right: 30),
               child: Row(
@@ -398,8 +410,22 @@ class Details_doctor extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Appoitment()),
+                    MaterialPageRoute(
+                      builder: (context) => Appoitment(
+                          proffession: proffession.toString(),
+                          adresse: adresse.toString(),
+                          note: note.toString(),
+                          experience: experience.toString(),
+                          name: name.toString()
+                          // Pass other necessary values here
+                          ),
+                    ),
                   );
+                  print(proffession);
+                  print(adresse);
+                  print(note);
+                  print(name);
+                  print(experience);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue[800],

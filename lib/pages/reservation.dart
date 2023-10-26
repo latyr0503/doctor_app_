@@ -7,7 +7,11 @@ class JourModel {
 
   // Add other properties of the "Jour" object
 
-  JourModel({required this.jour, required this.heure_debut, required this.heure_fin,});
+  JourModel({
+    required this.jour,
+    required this.heure_debut,
+    required this.heure_fin,
+  });
   // Add other constructor parameters
 
   factory JourModel.fromJson(Map<String, dynamic> json) {
@@ -21,27 +25,23 @@ class JourModel {
   }
 }
 
-
-
-
 class Reservation extends StatelessWidget {
- final List<JourModel> jours;
+  final List<JourModel> jours;
 
   const Reservation({
     Key? key,
     required this.jours,
   }) : super(key: key);
 
- @override
-Widget build(BuildContext context) {
-  return  Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(jours[0].jour, style: TextStyle(fontSize: 16)),
-                    Text(jours[0].heure_debut, style: TextStyle(fontSize: 14)),
-                    Text(jours[0].heure_fin, style: TextStyle(fontSize: 14)),
-                    
-                  ],
-                );
-}
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(jours[0].jour, style: TextStyle(fontSize: 16)),
+        Text(jours[0].heure_debut, style: TextStyle(fontSize: 14)),
+        Text(jours[0].heure_fin, style: TextStyle(fontSize: 14)),
+      ],
+    );
+  }
 }

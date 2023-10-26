@@ -21,6 +21,8 @@ class Welcome_page extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<Welcome_page> {
+  bool isLoading = true;
+
   // liste des spécialité
   final List<Map<String, dynamic>> dummySpecialities = [
     {
@@ -79,18 +81,67 @@ class _WelcomePageState extends State<Welcome_page> {
         // Mettez à jour votre liste de spécialistes avec les données obtenues
         dummySpecialists = data;
         // print(dummySpecialists);
+        isLoading = false;
       });
     });
     fetchHospitals().then((data) {
       setState(() {
         dummyHopital = data;
         // print(dummyHopital);
+        isLoading = false;
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    ImageProvider getImage(String? url) {
+      if (url == null || url.isEmpty) {
+        return const NetworkImage(
+          'https://img.freepik.com/vecteurs-libre/gens-qui-marchent-assis-au-batiment-hopital-exterieur-verre-clinique-ville-illustration-vectorielle-plane-pour-aide-medicale-urgence-architecture-concept-soins-sante_74855-10130.jpg?size=626&ext=jpg&uid=R65302706&ga=GA1.1.1564638247.1697411010&semt=sph',
+        );
+      } else {
+        http
+            .head(Uri.parse('https://doctor-app-h45i.onrender.com$url'))
+            .then((response) {
+          if (response.statusCode == 404) {
+            return const NetworkImage(
+              'https://img.freepik.com/vecteurs-libre/gens-qui-marchent-assis-au-batiment-hopital-exterieur-verre-clinique-ville-illustration-vectorielle-plane-pour-aide-medicale-urgence-architecture-concept-soins-sante_74855-10130.jpg?size=626&ext=jpg&uid=R65302706&ga=GA1.1.1564638247.1697411010&semt=sph',
+            );
+          } else {
+            return NetworkImage('https://doctor-app-h45i.onrender.com$url');
+          }
+        });
+      }
+      return const NetworkImage(
+        'https://img.freepik.com/vecteurs-libre/gens-qui-marchent-assis-au-batiment-hopital-exterieur-verre-clinique-ville-illustration-vectorielle-plane-pour-aide-medicale-urgence-architecture-concept-soins-sante_74855-10130.jpg?size=626&ext=jpg&uid=R65302706&ga=GA1.1.1564638247.1697411010&semt=sph',
+      );
+    }
+
+    ImageProvider getImageSpecialist(String? url) {
+      if (url == null || url.isEmpty) {
+        return const NetworkImage(
+          'https://img.freepik.com/photos-gratuite/vue-face-homme-souriant-portant-blouse-laboratoire_23-2149633830.jpg?size=626&ext=jpg&uid=R65302706&ga=GA1.1.1564638247.1697411010&semt=ais',
+        );
+      } else {
+        http
+            .head(Uri.parse('https://doctor-app-h45i.onrender.com$url'))
+            .then((response) {
+          if (response.statusCode == 404) {
+            return const NetworkImage(
+              'https://img.freepik.com/photos-gratuite/vue-face-homme-souriant-portant-blouse-laboratoire_23-2149633830.jpg?size=626&ext=jpg&uid=R65302706&ga=GA1.1.1564638247.1697411010&semt=ais',
+            );
+          } else {
+            return NetworkImage('https://doctor-app-h45i.onrender.com$url');
+          }
+        });
+      }
+      return const NetworkImage(
+        'https://img.freepik.com/photos-gratuite/vue-face-homme-souriant-portant-blouse-laboratoire_23-2149633830.jpg?size=626&ext=jpg&uid=R65302706&ga=GA1.1.1564638247.1697411010&semt=ais',
+      );
+    }
+
+    // print(getImage("url"));
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -122,123 +173,131 @@ class _WelcomePageState extends State<Welcome_page> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // section de l'input recherche
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(vertical: 15.0),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                    borderSide: const BorderSide(width: 0.8),
-                  ),
-                  hintText: 'Search',
-                  prefixIcon: const Icon(Icons.search, size: 30.0),
-                  suffixIcon: IconButton(
-                    icon: const Icon(
-                      Icons.filter_list,
-                    ),
-                    onPressed: () {},
-                    color: Colors.blue.shade800,
-                    hoverColor: Colors.blue,
-                  ),
-                ),
-              ),
-            ),
-            // entête de section card medecin
-            const BannerTitle(
-              textTitle: "Calendrier à venir",
-              pros: NavigationMenu(),
-            ),
-            // card d'un medecin
-            const CardCalendar(),
-            // entête de section spécialité
-            const BannerTitle(
-              textTitle: "Spécialité du docteur",
-              pros: PageSpecialist(),
-            ),
-            // section des spécialité en mappant les données
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: dummySpecialities.map((speciality) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CardSpeciality(
-                      title: speciality['title'],
-                      images: speciality['images'],
-                    ),
-                  );
-                }).toList(),
-              ),
-            ),
-            const Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
-            // entête de section hopitaux
-            const BannerTitle(
-              textTitle: "hôpitaux à proximité",
-              pros: PageHopitaux(),
-            ),
-            // section des hopitaux en mappant les données
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: List.generate(
-                  dummyHopital.length,
-                  (index) => Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CardImage(
-                      title: "${dummyHopital[index]['name']}",
-                      subTitle: " ${dummyHopital[index]['date']}",
-                      subTitleBis: "${dummyHopital[index]['adresse']}",
-                      imageCard: NetworkImage(
-                          'https://doctor-app-h45i.onrender.com${dummyHopital[index]['image']}'),
-                      width: 250,
+      body: isLoading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : SingleChildScrollView(
+              child: Column(
+                children: [
+                  // section de l'input recherche
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        contentPadding:
+                            const EdgeInsets.symmetric(vertical: 15.0),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: const BorderSide(width: 0.8),
+                        ),
+                        hintText: 'Search',
+                        prefixIcon: const Icon(Icons.search, size: 30.0),
+                        suffixIcon: IconButton(
+                          icon: const Icon(
+                            Icons.filter_list,
+                          ),
+                          onPressed: () {},
+                          color: Colors.blue.shade800,
+                          hoverColor: Colors.blue,
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  // entête de section card medecin
+                  const BannerTitle(
+                    textTitle: "Calendrier à venir",
+                    pros: NavigationMenu(),
+                  ),
+                  // card d'un medecin
+                  const CardCalendar(),
+                  // entête de section spécialité
+                  const BannerTitle(
+                    textTitle: "Spécialité du docteur",
+                    pros: PageSpecialist(),
+                  ),
+                  // section des spécialité en mappant les données
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: dummySpecialities.map((speciality) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CardSpeciality(
+                            title: speciality['title'],
+                            images: speciality['images'],
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  const Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
+                  // entête de section hopitaux
+                  const BannerTitle(
+                    textTitle: "hôpitaux à proximité",
+                    pros: PageHopitaux(),
+                  ),
+                  // section des hopitaux en mappant les données
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: List.generate(
+                        dummyHopital.length,
+                        (index) => Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CardImage(
+                            title: "${dummyHopital[index]['name']}",
+                            subTitle: " ${dummyHopital[index]['date']}",
+                            subTitleBis: "${dummyHopital[index]['adresse']}",
+                            imageCard: getImage(dummyHopital[index]['image']),
+
+                            // NetworkImage('https://doctor-app-h45i.onrender.com${dummyHopital[index]['image']}'),
+                            width: 250,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
+                  // entête de section spécialiste
+                  const BannerTitle(
+                    textTitle: "Spécialiste",
+                    pros: PageSpecialist(),
+                  ),
+                  // map des donnés des doctors au niveau de la base de donné
+                  Column(
+                    children: dummySpecialists.take(3).map((specialist) {
+                      print(specialist['jours']);
+                      return Specialist(
+                        id: Key,
+                        name: specialist['name'],
+                        proffession: specialist['proffession'],
+                        image: getImageSpecialist(specialist['image']),
+                        // NetworkImage(
+                        //     'https://doctor-app-h45i.onrender.com${specialist['image']}'),
+                        note: specialist['note'],
+                        experience: specialist['experience'],
+                        adresse: specialist['adresse'],
+                        about: specialist['about'],
+                        jours: specialist["jours"],
+                        onTap: () {
+                          handleSpecialistSelection(
+                            specialist['name'],
+                            specialist['proffession'],
+                            specialist['adresse'],
+                            specialist['about'],
+                            specialist['note'].toString(),
+                            specialist['experience'].toString(),
+                            specialist['image'].toString(),
+                            // specialist['jours']
+                          );
+                        },
+                      );
+                    }).toList(),
+                  ),
+                ],
               ),
             ),
-            const Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
-            // entête de section spécialiste
-            const BannerTitle(
-              textTitle: "Spécialiste",
-              pros: PageSpecialist(),
-            ),
-            // map des donnés des doctors au niveau de la base de donné
-            Column(
-              children: dummySpecialists.take(3).map((specialist) {
-                print(specialist['experience']);
-                print(specialist['note']);
-                return Specialist(
-                  id: Key,
-                  name: specialist['name'],
-                  proffession: specialist['proffession'],
-                  image: NetworkImage(
-                      'https://doctor-app-h45i.onrender.com${specialist['image']}'),
-                  note: specialist['note'],
-                  experience: specialist['experience'],
-                  adresse: specialist['adresse'],
-                  about: specialist['about'],
-                  onTap: () {
-                    handleSpecialistSelection(
-                      specialist['name'],
-                      specialist['proffession'],
-                      specialist['adresse'],
-                      specialist['about'],
-                      specialist['note'].toString(),
-                      specialist['experience'].toString(),
-                      specialist['image'].toString(),
-                    );
-                  },
-                );
-              }).toList(),
-            ),
-          ],
-        ),
-      ),
     );
   }
 
@@ -250,10 +309,16 @@ class _WelcomePageState extends State<Welcome_page> {
     String note,
     String experience,
     String image,
+    // List<Map<String, dynamic>> jours,
   ) {
     ImageProvider imageProvider =
         NetworkImage('https://doctor-app-h45i.onrender.com$image');
-    print(imageProvider);
+    // List<Map<String, dynamic>> jours = [];
+    // if (jours is List<Map<String, dynamic>>) {
+    //   // Effectuez des opérations supplémentaires avec la liste 'jours' ici
+    // } else {
+    //   // Gérez le cas où la valeur 'jours' n'est pas du type attendu
+    // }
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -265,6 +330,7 @@ class _WelcomePageState extends State<Welcome_page> {
           note: note,
           experience: experience,
           imageProvider: imageProvider,
+          // jours: jours,
         ),
       ),
     );

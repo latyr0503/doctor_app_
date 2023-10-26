@@ -67,6 +67,29 @@ class _PageHopitauxState extends State<PageHopitaux> {
 
   @override
   Widget build(BuildContext context) {
+    ImageProvider getImage(String? url) {
+      if (url == null || url.isEmpty) {
+        return const NetworkImage(
+          'https://img.freepik.com/vecteurs-libre/gens-qui-marchent-assis-au-batiment-hopital-exterieur-verre-clinique-ville-illustration-vectorielle-plane-pour-aide-medicale-urgence-architecture-concept-soins-sante_74855-10130.jpg?size=626&ext=jpg&uid=R65302706&ga=GA1.1.1564638247.1697411010&semt=sph',
+        );
+      } else {
+        http
+            .head(Uri.parse('https://doctor-app-h45i.onrender.com$url'))
+            .then((response) {
+          if (response.statusCode == 404) {
+            return const NetworkImage(
+              'https://img.freepik.com/vecteurs-libre/gens-qui-marchent-assis-au-batiment-hopital-exterieur-verre-clinique-ville-illustration-vectorielle-plane-pour-aide-medicale-urgence-architecture-concept-soins-sante_74855-10130.jpg?size=626&ext=jpg&uid=R65302706&ga=GA1.1.1564638247.1697411010&semt=sph',
+            );
+          } else {
+            return NetworkImage('https://doctor-app-h45i.onrender.com$url');
+          }
+        });
+      }
+      return const NetworkImage(
+        'https://img.freepik.com/vecteurs-libre/gens-qui-marchent-assis-au-batiment-hopital-exterieur-verre-clinique-ville-illustration-vectorielle-plane-pour-aide-medicale-urgence-architecture-concept-soins-sante_74855-10130.jpg?size=626&ext=jpg&uid=R65302706&ga=GA1.1.1564638247.1697411010&semt=sph',
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Liste des hôpitaux", textAlign: TextAlign.center),
@@ -83,8 +106,9 @@ class _PageHopitauxState extends State<PageHopitaux> {
                     title: hospital['name'],
                     subTitle: hospital['date'],
                     subTitleBis: hospital['adresse'],
-                    imageCard: NetworkImage(
-                        'https://doctor-app-h45i.onrender.com${hospital['image']}'),
+                    imageCard: getImage(hospital['image']),
+                    // NetworkImage(
+                    //     'https://doctor-app-h45i.onrender.com${hospital['image']}'),
                     width: double.infinity,
                   );
                 }).toList(),
