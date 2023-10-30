@@ -315,16 +315,6 @@ class Details_doctor extends StatelessWidget {
                 );
               }).toList(),
             ),
-            // ListView.builder(
-            //   itemCount: jours.length,
-            //   itemBuilder: (context, index) {
-            //     return ListTile(
-            //       title: Text(jours[index]['jour']),
-            //       subtitle: Text(
-            //           'Heure de début : ${jours[index]['heure_debut']} - Heure de fin : ${jours[index]['heure_fin']}'),
-            //     );
-            //   },
-            // ),
             const Padding(
               padding: EdgeInsets.only(top: 10, left: 30, right: 30),
               child: Row(
@@ -337,10 +327,6 @@ class Details_doctor extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  // TextButton(
-                  //   onPressed: () {},
-                  //   child: const Text('View on Map'),
-                  // )
                 ],
               ),
             ),
