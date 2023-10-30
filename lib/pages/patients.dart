@@ -12,8 +12,8 @@ class _PatientState extends State<Patient> {
   String? valueChoose;
   String? valueGenre;
   String? valueAge;
-  List<String> listItem = ['self1', 'self2', 'self3', 'self4', 'self5'];
-  List<String> genre = ['male', 'female', 'other'];
+  List<String> listItem = ['Self', 'Other'];
+  List<String> genre = ['Male', 'Female'];
   List<String> age = ['24 years', '23 years', '22 years', '21 years', '20 years'];
 
   @override
@@ -31,7 +31,7 @@ class _PatientState extends State<Patient> {
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -42,7 +42,7 @@ class _PatientState extends State<Patient> {
             Container(
               decoration: BoxDecoration(
                 border: Border.all(width: 1.0, color: Color.fromRGBO(243, 237, 237, 1)),
-                borderRadius: BorderRadius.circular(4.0),
+                borderRadius: BorderRadius.circular(10),
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -51,11 +51,13 @@ class _PatientState extends State<Patient> {
                   child: DropdownButton<String>(
                     hint: Text('Self'),
                     dropdownColor: Colors.blue[100],
-                    icon: Icon(Icons.arrow_drop_down),
+                    icon: Icon(Icons.keyboard_arrow_down_sharp),
                     style: TextStyle(
                       color: Colors.black,
                     ),
                     iconSize: 36,
+                    isExpanded: true,
+                     iconEnabledColor: Colors.blue,
                     value: valueChoose,
                     onChanged: (String? newValue) {
                       setState(() {
@@ -68,6 +70,7 @@ class _PatientState extends State<Patient> {
                         child: Text(valueItem),
                       );
                     }).toList(),
+                    underline: Container(),
                   ),
                 ),
               ),
@@ -79,7 +82,7 @@ class _PatientState extends State<Patient> {
             Container(
               decoration: BoxDecoration(
                 border: Border.all(width: 1.0, color: Color.fromRGBO(243, 237, 237, 1)),
-                borderRadius: BorderRadius.circular(4.0),
+                borderRadius: BorderRadius.circular(10),
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -88,11 +91,13 @@ class _PatientState extends State<Patient> {
                   child: DropdownButton<String>(
                     hint: Text('Male'),
                     dropdownColor: Colors.blue[100],
-                    icon: Icon(Icons.arrow_drop_down),
+                    icon: Icon(Icons.keyboard_arrow_down_sharp),
                     style: TextStyle(
                       color: Colors.black,
                     ),
                     iconSize: 36,
+                    isExpanded: true,
+                     iconEnabledColor: Colors.blue,
                     value: valueGenre,
                     onChanged: (String? newValue) {
                       setState(() {
@@ -105,6 +110,7 @@ class _PatientState extends State<Patient> {
                         child: Text(valueItem),
                       );
                     }).toList(),
+                    underline: Container(),
                   ),
                 ),
               ),
@@ -116,20 +122,23 @@ class _PatientState extends State<Patient> {
             Container(
               decoration: BoxDecoration(
                 border: Border.all(width: 1.0, color: Color.fromRGBO(243, 237, 237, 1)),
-                borderRadius: BorderRadius.circular(4.0),
+                borderRadius: BorderRadius.circular(10),
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Container(
                   width: double.infinity,
                   child: DropdownButton<String>(
+                    
                     hint: Text('24 years'),
                     dropdownColor: Colors.blue[100],
-                    icon: Icon(Icons.arrow_drop_down),
+                    icon: Icon(Icons.keyboard_arrow_down_sharp),
                     style: TextStyle(
                       color: Colors.black,
                     ),
                     iconSize: 36,
+                    isExpanded: true,
+                     iconEnabledColor: Colors.blue,
                     value: valueAge,
                     onChanged: (String? newValue) {
                       setState(() {
@@ -142,6 +151,7 @@ class _PatientState extends State<Patient> {
                         child: Text(valueItem),
                       );
                     }).toList(),
+                    underline: Container(),
                   ),
                 ),
               ),
@@ -151,14 +161,17 @@ class _PatientState extends State<Patient> {
               child: Text('Write your problem'),
             ),
             Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+
               width: double.infinity,
               decoration: BoxDecoration(
                 border: Border.all(width: 2.0, color: Color.fromRGBO(243, 237, 237, 1)),
-                borderRadius: BorderRadius.circular(4.0),
+                borderRadius: BorderRadius.circular(10),
               ),
               child: TextField(
                 maxLines: 5,
                 decoration: InputDecoration(
+                  border: InputBorder.none,
                   hintText: 'Enter your text here',
                 ),
                 onChanged: (text) {

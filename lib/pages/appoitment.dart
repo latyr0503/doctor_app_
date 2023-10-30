@@ -1,36 +1,103 @@
-import 'package:doctor_app/components/doctor.dart';
-import 'package:doctor_app/components/icone.dart';
 import 'package:doctor_app/pages/selectpackage.dart';
 import 'package:flutter/material.dart';
 
-class Appoitment extends StatelessWidget {
-  Appoitment({super.key});
-  final categories = [
-    {'day': "Today\n4 Oct", 'heure': "7:00 PM"},
-    {'day': "Mon\n5 Oct", 'heure': "7:30 PM"},
-    {'day': "Tue\n6 Oct", 'heure': "8:00 PM"},
-    {'day': "Wed\n7 Oct", 'heure': "8:30 PM"},
-    {'day': "Thi\n8 Oct", 'heure': "9:00 PM"},
-    {'day': "Fri\n9 Oct", 'heure': "9:30 PM"},
-    {'day': "Sun\n10 Oct", 'heure': "10:00 PM"},
-    {'day': "Sat\n11 Oct", 'heure': "10:30 PM"},
-  ];
+class Appoitment extends StatefulWidget {
+  final String name;
+  final String proffession;
+  final String adresse;
+  final String note;
+  final String experience;
+  const Appoitment(
+      {Key? key,
+      required this.name,
+      required this.proffession,
+      required this.adresse,
+      required this.note,
+      required this.experience});
+
+  @override
+  _AppoitmentState createState() => _AppoitmentState();
+}
+
+class _AppoitmentState extends State<Appoitment> {
+  @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-        title: const Text('Reservation',
-        style:  TextStyle(fontWeight: FontWeight.bold),),
-        leading: const BackButton(),
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.black,
-        elevation: 0,
-        centerTitle: true,
-      ),
+          title: const Text(
+            'Reservation',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          leading: const BackButton(),
+          backgroundColor: Colors.transparent,
+          foregroundColor: Colors.black,
+          elevation: 0,
+          centerTitle: true,
+        ),
         body: ListView(
           children: [
-            const Details(),
-
+            // const Details(),
+            Column(
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Container(
+                      margin:
+                          const EdgeInsets.only(top: 20.0, left: 20, right: 10),
+                      height: 100,
+                      width: 100,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: NetworkImage(
+                              'https://img.freepik.com/photos-gratuite/vue-face-homme-souriant-portant-blouse-laboratoire_23-2149633830.jpg?size=626&ext=jpg&uid=R65302706&ga=GA1.1.1564638247.1697411010&semt=ais'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: Container(
+                        margin: const EdgeInsets.only(top: 70, left: 65),
+                        child: const Icon(
+                          Icons.assignment_turned_in_rounded,
+                          size: 30,
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(widget.name,
+                            style: const TextStyle(fontSize: 25.0)),
+                        Text(widget.proffession,
+                            style: const TextStyle(
+                                fontSize: 15.0, color: Colors.grey)),
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.location_on,
+                              size: 20,
+                              color: Colors.blue,
+                            ),
+                            Text(
+                              widget.adresse,
+                              style: const TextStyle(
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.normal),
+                            ),
+                            const Icon(
+                              Icons.map_sharp,
+                              size: 20,
+                              color: Colors.blue,
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ],
+                )
+              ],
+            ),
             const SizedBox(
               height: 20,
             ),
@@ -46,7 +113,148 @@ class Appoitment extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            const Icone(),
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.blue[200],
+                      ),
+                      child: Icon(
+                        Icons.person,
+                        size: 20,
+                        color: Colors.blue[800],
+                      ),
+                    ),
+                    Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.blue[200],
+                      ),
+                      child: Icon(
+                        Icons.work,
+                        size: 20,
+                        color: Colors.blue[800],
+                      ),
+                    ),
+                    Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.blue[200],
+                      ),
+                      child: Icon(
+                        Icons.star,
+                        size: 20,
+                        color: Colors.blue[800],
+                      ),
+                    ),
+                    Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.blue[200],
+                      ),
+                      child: Icon(
+                        Icons.chat,
+                        size: 20,
+                        color: Colors.blue[800],
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(top: 10),
+                      child: const Column(
+                        children: [
+                          Text(
+                            "7,500+",
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.w700),
+                          ),
+                          Text(
+                            "Patients",
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontWeight: FontWeight.w100),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 10),
+                      child: Column(
+                        children: [
+                          Text(
+                            widget.experience,
+                            style: const TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.w700),
+                          ),
+                          const Text(
+                            "Years Exp",
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontWeight: FontWeight.w100),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 10, right: 10),
+                      child: Column(
+                        children: [
+                          Text(
+                            widget.note,
+                            style: const TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.w700),
+                          ),
+                          const Text(
+                            "Rating",
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontWeight: FontWeight.w100),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 10),
+                      child: const Column(
+                        children: [
+                          Text(
+                            "4,596",
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.w700),
+                          ),
+                          Text(
+                            "Review",
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontWeight: FontWeight.w100),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
             // const MyAppli(),
             Container(
               margin: const EdgeInsets.only(top: 35, left: 33),
@@ -59,110 +267,12 @@ class Appoitment extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              margin: const EdgeInsets.only(top: 20, left: 33),
-              child: const Text(
-                "Day",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
 
             Container(
               padding: const EdgeInsets.only(top: 10, left: 30, right: 30),
-              child: Column(children: <Widget>[
-                const SizedBox(
-                  height: 10,
-                ),
+              child: const Column(children: <Widget>[
                 SizedBox(
-                  height: 80,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return SingleChildScrollView(
-                        child: Column(
-                          children: <Widget>[
-                            ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 40, vertical: 25),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50),
-                                ),
-                              ),
-                              child: Text(categories[index]['day'] as String,
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                      color: Colors.black, fontSize: 15)),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                    separatorBuilder: (context, index) => const SizedBox(
-                      width: 33,
-                    ),
-                    itemCount: categories.length,
-                  ),
-                ),
-              ]),
-            ),
-
-            Container(
-              margin: const EdgeInsets.only(
-                top: 10,
-                left: 30,
-              ),
-              child: const Text(
-                "Time",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-
-            Container(
-              padding: const EdgeInsets.only(top: 10, left: 30, right: 30),
-              child: Column(children: <Widget>[
-                const SizedBox(
                   height: 5,
-                ),
-                SizedBox(
-                  height: 80,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return SingleChildScrollView(
-                        child: Column(
-                          children: <Widget>[
-                            ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 50, vertical: 25),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                              ),
-                              child: Text(
-                                categories[index]['heure'] as String,
-                                style: const TextStyle(
-                                    color: Colors.black, fontSize: 20),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                    separatorBuilder: (context, index) => const SizedBox(
-                      width: 33,
-                    ),
-                    itemCount: categories.length,
-                  ),
                 ),
               ]),
             ),
@@ -191,10 +301,9 @@ class Appoitment extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>  SelectPackage()),
-                      );
+                    context,
+                    MaterialPageRoute(builder: (context) => SelectPackage()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue[800],

@@ -1,7 +1,9 @@
 import 'package:doctor_app/pages/appoitment.dart';
 import 'package:doctor_app/pages/doctor_details.dart';
+import 'package:doctor_app/pages/page_hopitaux.dart';
 import 'package:doctor_app/pages/profile.dart';
-import 'package:doctor_app/pages/review_summary.dart';
+import 'package:doctor_app/pages/page_specialist.dart';
+import 'package:doctor_app/pages/rendez_vous.dart';
 import 'package:doctor_app/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -43,10 +45,16 @@ class NavigationController extends GetxController {
 
   // ignore: non_constant_identifier_names
   final Screens = [
-    Welcome_page(),
-    const Details_doctor(),
-    Appoitment(),
-    Summary(),
+    const Welcome_page(),
+    //  Details_doctor(),
+    const PageHopitaux(),
+    const PageSpecialist(),
+    // const Appoitment(),
+    // const RendezVous(),
+    Container(
+      color: Colors.blue,
+      // Ajoutez d'autres propriétés pour personnaliser le conteneur selon vos besoins.
+    ),
     const Profile()
   ];
 }

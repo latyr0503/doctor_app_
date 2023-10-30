@@ -44,10 +44,3 @@ class _MyDropDownButtonState extends State<MyDropDownButton> {
   }
 }
 
-//  {'heure': "7:00 PM"},
-//     {'heure': "7:30 PM"},
-//     {'heure': "8:00 PM"},
-//     {'heure': "8:30 PM"},
-//     {'heure': "9:00 PM"},
-//     {'heure': "9:30 PM"},
-//     {'heure': "10:00 PM"},

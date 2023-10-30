@@ -1,4 +1,6 @@
+import 'package:doctor_app/pages/ajoutcard.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Payer extends StatefulWidget {
   const Payer({super.key});
@@ -8,14 +10,71 @@ class Payer extends StatefulWidget {
 }
 
 class _PayerState extends State<Payer> {
-  int _type = 1;
-  void _handleRadio(Object? e) => setState(() {
-        _type = e as int;
-      });
+  final String _url = 'https://www.paypal.com/us/signin';
 
   @override
   void initState() {
     super.initState();
+  }
+
+  void _carte() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Add Card'),
+            content: Text('Voulez-vous confirmer votre payement?'),
+            actions: [
+              MaterialButton(
+                onPressed: () {
+                  Navigator.pop(context);
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AjoutCard()),
+                  );
+                },
+                child: Text("OK"),
+              ),
+              MaterialButton(
+                onPressed: () {},
+                child: Text("annuler"),
+              )
+            ],
+          );
+        });
+  }
+
+  void _cash() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Par Cash'),
+            content: Text('Voulez-vous confirmer votre payement?'),
+            actions: [
+              MaterialButton(
+                onPressed: () {
+                  Navigator.pop(context);
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AjoutCard()),
+                  );
+                },
+                child: Text("OK"),
+              ),
+              MaterialButton(
+                onPressed: () {},
+                child: Text("annuler"),
+              )
+            ],
+          );
+        });
+  }
+
+  void _launchUrl() async {
+    throw Exception('Could not launch $_url');
   }
 
   Widget build(BuildContext context) {
@@ -23,8 +82,10 @@ class _PayerState extends State<Payer> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Methodes de Payements',
-        style:  TextStyle(fontWeight: FontWeight.bold),),
+        title: const Text(
+          'Methodes de Payements',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         leading: const BackButton(),
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,
@@ -33,7 +94,7 @@ class _PayerState extends State<Payer> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.only(left: 30, right: 30),
+          padding: EdgeInsets.symmetric(horizontal: 20),
           // Input de visa
           child: Center(
             child: Column(
@@ -43,82 +104,74 @@ class _PayerState extends State<Payer> {
                 ),
                 Container(
                   margin: EdgeInsets.only(bottom: 10),
-              alignment: Alignment.topLeft,
-              child: const Text(
-                'Credit & Debit Card',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+                  alignment: Alignment.topLeft,
+                  child: const Text(
+                    'Credit & Debit Card',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
-              ),
-            ),
                 Container(
                   width: double.infinity,
                   height: 55,
-                  margin: const EdgeInsets.only(right: 20),
                   decoration: BoxDecoration(
-                      border: _type == 1
-                          ? Border.all(width: 1, color: Colors.blue)
-                          : Border.all(width: 0.3, color: Colors.grey),
+                      border: Border.all(width: 0.3, color: Colors.grey),
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.transparent),
                   child: Center(
                     // le bouton Radio au niveau du champ de la carte Visa
                     child: Row(
                       children: [
-                       const Icon(
+                        const Icon(
                           Icons.fact_check_sharp,
                           color: Colors.blue,
                           size: 50,
                         ),
-                       const SizedBox(width: 5,),
-                        Text('Add New Card',
-                            style: _type == 1
-                                ? const TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black54)
-                                : const TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.grey)),
-                                    Spacer(),
-                        Radio(
-                          value: 1,
-                          groupValue: _type,
-                          onChanged: _handleRadio,
-                          activeColor: Colors.blue,
+                        const SizedBox(
+                          width: 5,
                         ),
+                        const Text('Add New Card',
+                            style: const TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black54)),
+                        Spacer(),
+                        MaterialButton(
+                          onPressed: _carte,
+                          child: const Padding(
+                              padding: EdgeInsets.all(15),
+                              child: Icon(
+                                Icons.arrow_circle_right_outlined,
+                                color: Colors.blue,
+                              )),
+                        )
                       ],
                     ),
                   ),
                 ),
-
-               const SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Container(
                   margin: const EdgeInsets.only(bottom: 10),
-              alignment: Alignment.topLeft,
-              child: const Text(
-                'More Payement Options',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+                  alignment: Alignment.topLeft,
+                  child: const Text(
+                    'More Payement Options',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
-              ),
-            ),
                 Container(
-                  
                   width: double.infinity,
                   height: 55,
-                  margin: const EdgeInsets.only(right: 20),
                   decoration: BoxDecoration(
-                      border: _type == 2
-                          ? Border.all(width: 1, color: Colors.blue)
-                          : Border.all(width: 0.3, color: Colors.grey),
+                      border: Border.all(width: 0.3, color: Colors.grey),
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.transparent),
                   child: Center(
@@ -129,27 +182,26 @@ class _PayerState extends State<Payer> {
                           padding: EdgeInsets.only(left: 5),
                           height: 40,
                           width: 40,
-                          child:Image(image: AssetImage('assets/paypal.png')),
+                          child: Image(image: AssetImage('assets/paypal.png')),
                         ),
-                        SizedBox(width: 5,),
-                        
-                        Text('Paypal',
-                            style: _type == 1
-                                ? const TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black54)
-                                : const TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.grey)),
-                                    Spacer(),
-                        Radio(
-                          value: 2,
-                          groupValue: _type,
-                          onChanged: _handleRadio,
-                          activeColor: Colors.blue,
+                        SizedBox(
+                          width: 5,
                         ),
+                        const Text('Paypal',
+                            style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black)),
+                        Spacer(),
+                        MaterialButton(
+                          onPressed: _cash,
+                          child: const Padding(
+                              padding: EdgeInsets.all(15),
+                              child: Icon(
+                                Icons.arrow_circle_right_outlined,
+                                color: Colors.blue,
+                              )),
+                        )
                       ],
                     ),
                   ),
@@ -157,11 +209,8 @@ class _PayerState extends State<Payer> {
                 Container(
                   width: double.infinity,
                   height: 50,
-                  margin: const EdgeInsets.only(right: 20),
                   decoration: BoxDecoration(
-                      border: _type == 3
-                          ? Border.all(width: 1, color: Colors.blue)
-                          : Border.all(width: 0.3, color: Colors.grey),
+                      border: Border.all(width: 0.3, color: Colors.grey),
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.transparent),
                   child: Center(
@@ -171,36 +220,34 @@ class _PayerState extends State<Payer> {
                         Container(
                           height: 40,
                           width: 40,
-                          child:Image(image: AssetImage('assets/apple.png')),
+                          child: Image(image: AssetImage('assets/apple.png')),
                         ),
-                        SizedBox(width: 5,),
-                        Text('Add New Card',
-                            style: _type == 1
-                                ? const TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black54)
-                                : const TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.grey)),
-                                    Spacer(),
-                        Radio(
-                          value: 3,
-                          groupValue: _type,
-                          onChanged: _handleRadio,
-                          activeColor: Colors.blue,
+                        SizedBox(
+                          width: 5,
                         ),
+                        const Text('Add New Card',
+                            style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black54)),
+                        Spacer(),
+                        MaterialButton(
+                          onPressed: _cash,
+                          child: const Padding(
+                              padding: EdgeInsets.all(15),
+                              child: Icon(
+                                Icons.arrow_circle_right_outlined,
+                                color: Colors.blue,
+                              )),
+                        )
                       ],
                     ),
                   ),
                 ),
               ],
             ),
-            
-            //  Input de paypal
-            
 
+            //  Input de paypal
           ),
         ),
       ),

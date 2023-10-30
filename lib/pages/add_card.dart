@@ -7,7 +7,25 @@ class AddCard extends StatefulWidget {
 }
 
 class _AddCardState extends State<AddCard> {
+
+
   bool isChecked = false;
+  
+  String value = '';
+
+  void submit (String a)
+  {
+    setState(() {
+      value: 'message envoye: $a';
+    });
+  }
+
+  void affichage (String b)
+  {
+    setState(() {
+      value: 'Bienvenue $b';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +34,27 @@ class _AddCardState extends State<AddCard> {
       child: Form(
         child: Column(
           children: [
+            
+             Padding(padding: EdgeInsets.all(10.0),
+             child:Stack(
+                children: <Widget>[
+                  Image.asset('assets/visa.png'),
+                  Positioned(
+                    top: 10, // Position en haut
+                    left: 10, // Position à gauche
+                    child: Text(
+                      value,
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 10, 185, 19), // Couleur du texte
+                        fontSize: 20, // Taille de la police
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+             ),
+
+          
             Container(
               alignment: Alignment.topLeft,
               child: const Text(
@@ -36,6 +75,11 @@ class _AddCardState extends State<AddCard> {
                 ),
                 hintText: 'Esther Howar',
               ),
+              keyboardType: TextInputType.text,
+              autocorrect: true,
+              autofocus: true,
+              onChanged: affichage,
+              onSubmitted: submit,
             ),
             const SizedBox(height: 10.0),
             Container(
@@ -121,7 +165,9 @@ class _AddCardState extends State<AddCard> {
             ),
            Container(
             alignment: Alignment.topLeft,
-             child :Checkbox(
+             child: Row(
+              children: [
+                Checkbox(
                         checkColor: Colors.white,
                         value: isChecked,
                         onChanged: (bool? value) {
@@ -130,6 +176,10 @@ class _AddCardState extends State<AddCard> {
                           });
                         },
                       ),
+                      SizedBox(width: 3,),
+                Text('Save Card', style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.w500),)      
+              ],
+             ),
            ),
                 
             const SizedBox(height: 10.0),
