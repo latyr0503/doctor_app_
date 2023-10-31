@@ -16,14 +16,14 @@ class _AddCardState extends State<AddCard> {
   void submit (String a)
   {
     setState(() {
-      value: 'message envoye: $a';
+      'message envoye: $a';
     });
   }
 
   void affichage (String b)
   {
     setState(() {
-      value: 'Bienvenue $b';
+      'Bienvenue $b';
     });
   }
 

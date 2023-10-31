@@ -175,11 +175,11 @@ class Specialist extends StatelessWidget {
                                     ),
                               ),
                             );
-                            print(proffession);
-                            print(adresse);
-                            print(note);
-                            print(name);
-                            print(experience);
+                            // print(proffession);
+                            // print(adresse);
+                            // print(note);
+                            // print(name);
+                            // print(experience);
                           },
                           child: const Text(
                             'Prendre Un Rendez-Vous',

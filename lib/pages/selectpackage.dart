@@ -2,11 +2,11 @@ import 'package:doctor_app/pages/patients.dart';
 import 'package:doctor_app/widgets/package.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MaterialApp(
-    home: SelectPackage(),
-  ));
-}
+// void main() {
+//   runApp(MaterialApp(
+//     home: SelectPackage(),
+//   ));
+// }
 
 class SelectPackage extends StatefulWidget {
   SelectPackage({Key? key}) : super(key: key);
