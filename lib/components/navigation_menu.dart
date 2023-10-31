@@ -1,3 +1,4 @@
+import 'package:doctor_app/pages/page_chat.dart';
 import 'package:doctor_app/pages/page_explore.dart';
 import 'package:doctor_app/pages/profile.dart';
 import 'package:doctor_app/pages/page_specialist.dart';
@@ -43,12 +44,9 @@ class NavigationController extends GetxController {
   // ignore: non_constant_identifier_names
   final Screens = [
     const Welcome_page(),
-    // const PageHopitaux(),
     const Explore(),
     const PageSpecialist(),
-    Container(
-      color: Colors.blue,
-    ),
+    const Chat(),
     const Profile()
   ];
 }

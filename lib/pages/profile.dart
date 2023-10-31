@@ -116,12 +116,7 @@ class Profile extends StatelessWidget {
             ),
 
             ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Welcome_page()),
-                );
-              },
+              onPressed: () {},
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue[800],
                 padding:
