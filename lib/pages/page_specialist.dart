@@ -12,6 +12,7 @@ class PageSpecialist extends StatefulWidget {
 }
 
 class _PageSpecialistState extends State<PageSpecialist> {
+  
   // Liste de spécialistes
   // final List<Map<String, dynamic>> dummySpecialists = [
   //   {
@@ -72,6 +73,29 @@ class _PageSpecialistState extends State<PageSpecialist> {
 
   @override
   Widget build(BuildContext context) {
+    ImageProvider getImageSpecialist(String? url) {
+      if (url == null || url.isEmpty) {
+        return const NetworkImage(
+          'https://img.freepik.com/photos-gratuite/vue-face-homme-souriant-portant-blouse-laboratoire_23-2149633830.jpg?size=626&ext=jpg&uid=R65302706&ga=GA1.1.1564638247.1697411010&semt=ais',
+        );
+      } else {
+        http
+            .head(Uri.parse('https://doctor-app-h45i.onrender.com$url'))
+            .then((response) {
+          if (response.statusCode == 404) {
+            return const NetworkImage(
+              'https://img.freepik.com/photos-gratuite/vue-face-homme-souriant-portant-blouse-laboratoire_23-2149633830.jpg?size=626&ext=jpg&uid=R65302706&ga=GA1.1.1564638247.1697411010&semt=ais',
+            );
+          } else {
+            return NetworkImage('https://doctor-app-h45i.onrender.com$url');
+          }
+        });
+      }
+      return const NetworkImage(
+        'https://img.freepik.com/photos-gratuite/vue-face-homme-souriant-portant-blouse-laboratoire_23-2149633830.jpg?size=626&ext=jpg&uid=R65302706&ga=GA1.1.1564638247.1697411010&semt=ais',
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Liste Medecin", textAlign: TextAlign.center),
@@ -94,21 +118,25 @@ class _PageSpecialistState extends State<PageSpecialist> {
                     id: Key,
                     name: specialist['name'],
                     proffession: specialist['proffession'],
-                    image: NetworkImage(
-                        'https://doctor-app-h45i.onrender.com${specialist['image']}'),
+                    image: getImageSpecialist(specialist['image']),
+                    // NetworkImage(
+                    //     'https://doctor-app-h45i.onrender.com${specialist['image']}'),
                     note: specialist['note'],
                     experience: specialist['experience'],
                     adresse: specialist['adresse'],
                     about: specialist['about'],
+                    jours: specialist['jours'],
                     onTap: () {
                       handleSpecialistSelection(
-                          specialist['name'],
-                          specialist['proffession'],
-                          specialist['adresse'],
-                          specialist['about']
-                          // specialist['note'].toDouble(),
-                          // specialist['experience'].toDouble()
-                          );
+                        specialist['name'],
+                        specialist['proffession'],
+                        specialist['adresse'],
+                        specialist['about'],
+                        specialist['note'].toString(),
+                        specialist['experience'].toString(),
+                        specialist['image'].toString(),
+                        // specialist['jours'],
+                      );
                     },
                   );
                 }).toList(),
@@ -118,7 +146,18 @@ class _PageSpecialistState extends State<PageSpecialist> {
   }
 
   void handleSpecialistSelection(
-      String name, String proffession, String adresse, String about) {
+    String name,
+    String proffession,
+    String adresse,
+    String about,
+    String note,
+    String experience,
+    String image,
+    // List<Map<String, dynamic>> jours,
+  ) {
+    ImageProvider imageProvider =
+        NetworkImage('https://doctor-app-h45i.onrender.com$image');
+    print(imageProvider);
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -127,8 +166,10 @@ class _PageSpecialistState extends State<PageSpecialist> {
           proffession: proffession,
           adresse: adresse,
           about: about,
-          // note: double.parse(note),
-          // experience: experience,
+          note: note,
+          experience: experience,
+          imageProvider: imageProvider,
+          // jours: jours,
         ),
       ),
     );

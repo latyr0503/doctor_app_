@@ -1,10 +1,13 @@
+import 'package:doctor_app/pages/appoitment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class Specialist extends StatelessWidget {
   final String? name;
   final String? proffession;
-  final double? note;
+  final String? adresse;
+  final double note;
+  final int experience;
   final ImageProvider image;
   final VoidCallback onTap;
 
@@ -14,9 +17,12 @@ class Specialist extends StatelessWidget {
     required this.proffession,
     required this.note,
     this.image = const AssetImage("assets/doc2.jpg"),
-    // required NetworkImage image,
     required Type id,
-    required this.onTap, required experience, required adresse, required about,
+    required this.onTap,
+    required this.experience,
+    required this.adresse,
+    required about,
+    required jours,
     // required proffession,
   }) : super(key: key);
   @override
@@ -156,7 +162,24 @@ class Specialist extends StatelessWidget {
                       Expanded(
                         child: TextButton(
                           onPressed: () {
-                            // Ajoutez votre logique pour le long bouton ici
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Appoitment(
+                                    proffession: proffession.toString(),
+                                    adresse: adresse.toString(),
+                                    note: note.toString(),
+                                    experience: experience.toString(),
+                                    name: name.toString()
+                                    // Pass other necessary values here
+                                    ),
+                              ),
+                            );
+                            print(proffession);
+                            print(adresse);
+                            print(note);
+                            print(name);
+                            print(experience);
                           },
                           child: const Text(
                             'Prendre Un Rendez-Vous',

@@ -1,5 +1,10 @@
+import 'package:doctor_app/pages/ajoutcard.dart';
+import 'package:doctor_app/pages/recupere.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:doctor_app/pages/payer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+ // Importez le package shared_preferences
 
 class Patient extends StatefulWidget {
   Patient({Key? key}) : super(key: key);
@@ -15,14 +20,54 @@ class _PatientState extends State<Patient> {
   List<String> listItem = ['Self', 'Other'];
   List<String> genre = ['Male', 'Female'];
   List<String> age = ['24 years', '23 years', '22 years', '21 years', '20 years'];
+  
+  final _problemController = TextEditingController(); // Ajoutez un TextEditingController pour le champ de texte
+
+  Future<void> savePatientDetails() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    // Sauvegarde des valeurs des DropdownButton
+    prefs.setString('booking_for', valueChoose ?? ''); // Valeur par défaut vide si rien n'est sélectionné
+    prefs.setString('gender', valueGenre ?? ''); // Valeur par défaut vide si rien n'est sélectionné
+    prefs.setString('age', valueAge ?? ''); // Valeur par défaut vide si rien n'est sélectionné
+
+    // Sauvegarde du texte du champ de texte
+    final problemText = _problemController.text; // Récupérez le texte à partir de la TextEditingController
+    prefs.setString('problem_text', problemText);
+     // ignore: use_build_context_synchronously
+     Navigator.pop(context);
+     // ignore: use_build_context_synchronously
+     Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AjoutCard()),
+         );
+  }
+
+  String? bookingFor;
+  String? gender;
+  String? problemText;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchPatientDetails();
+  }
+
+  Future<void> fetchPatientDetails() async {
+    final prefs = await SharedPreferences.getInstance();
+    bookingFor = prefs.getString('booking_for') ?? '';
+    gender = prefs.getString('gender') ?? '';
+    age = (prefs.getString('age') ?? '') as List<String>;
+    problemText = prefs.getString('problem_text') ?? '';
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Patient Details',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(fontWeight: FontWeight.bold), // Corrigez "fontweight" en "fontWeight"
         ),
         leading: BackButton(),
         backgroundColor: Colors.transparent,
@@ -31,7 +76,7 @@ class _PatientState extends State<Patient> {
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -45,7 +90,7 @@ class _PatientState extends State<Patient> {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Container(
                   width: double.infinity,
                   child: DropdownButton<String>(
@@ -57,7 +102,7 @@ class _PatientState extends State<Patient> {
                     ),
                     iconSize: 36,
                     isExpanded: true,
-                     iconEnabledColor: Colors.blue,
+                    iconEnabledColor: Colors.blue,
                     value: valueChoose,
                     onChanged: (String? newValue) {
                       setState(() {
@@ -85,7 +130,7 @@ class _PatientState extends State<Patient> {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Container(
                   width: double.infinity,
                   child: DropdownButton<String>(
@@ -97,7 +142,7 @@ class _PatientState extends State<Patient> {
                     ),
                     iconSize: 36,
                     isExpanded: true,
-                     iconEnabledColor: Colors.blue,
+                    iconEnabledColor: Colors.blue,
                     value: valueGenre,
                     onChanged: (String? newValue) {
                       setState(() {
@@ -125,11 +170,10 @@ class _PatientState extends State<Patient> {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Container(
                   width: double.infinity,
                   child: DropdownButton<String>(
-                    
                     hint: Text('24 years'),
                     dropdownColor: Colors.blue[100],
                     icon: Icon(Icons.keyboard_arrow_down_sharp),
@@ -138,7 +182,7 @@ class _PatientState extends State<Patient> {
                     ),
                     iconSize: 36,
                     isExpanded: true,
-                     iconEnabledColor: Colors.blue,
+                    iconEnabledColor: Colors.blue,
                     value: valueAge,
                     onChanged: (String? newValue) {
                       setState(() {
@@ -161,17 +205,17 @@ class _PatientState extends State<Patient> {
               child: Text('Write your problem'),
             ),
             Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-
+              padding: EdgeInsets.symmetric(horizontal: 10),
               width: double.infinity,
               decoration: BoxDecoration(
                 border: Border.all(width: 2.0, color: Color.fromRGBO(243, 237, 237, 1)),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: TextField(
+                controller: _problemController, // Utilisez le TextEditingController
                 maxLines: 5,
                 decoration: InputDecoration(
-                  border: InputBorder.none,
+                  border:  InputBorder.none,
                   hintText: 'Enter your text here',
                 ),
                 onChanged: (text) {
@@ -184,10 +228,9 @@ class _PatientState extends State<Patient> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Payer()),
-                  );
+                  savePatientDetails(); // Sauvegarde les détails du patient
+                 
+
                 },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.blue[800],
@@ -196,7 +239,7 @@ class _PatientState extends State<Patient> {
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ),
-                child: Text(
+                child: const Text(
                   "Réservation",
                   style: TextStyle(
                     fontWeight: FontWeight.normal,
@@ -210,5 +253,10 @@ class _PatientState extends State<Patient> {
         ),
       ),
     );
+  }
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('age', age as String?));
   }
 }

@@ -11,8 +11,7 @@ class Details extends StatefulWidget {
 }
 
 class _DetailsState extends State<Details> {
-
-   List<Map<String, dynamic>> dummySpecialists = [];
+  List<Map<String, dynamic>> dummySpecialists = [];
   // Votre fonction fetchSpecialists
   Future<List<Map<String, dynamic>>> fetchSpecialists() async {
     final response = await http.get(
@@ -27,10 +26,9 @@ class _DetailsState extends State<Details> {
     }
   }
 
-
   @override
   void initState() {
-      super.initState();
+    super.initState();
     fetchSpecialists().then((data) {
       setState(() {
         // Mettez à jour votre liste de spécialistes avec les données obtenues
@@ -53,7 +51,8 @@ class _DetailsState extends State<Details> {
           id: Key,
           name: data['name'],
           proffession: data['proffession'],
-          image: NetworkImage('https://doctor-app-h45i.onrender.com${data['image']}'),
+          image: NetworkImage(
+              'https://doctor-app-h45i.onrender.com${data['image']}'),
           adresse: data['adresse'],
         );
       }).toList(),

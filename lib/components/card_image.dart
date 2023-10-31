@@ -7,14 +7,14 @@ class CardImage extends StatelessWidget {
   final ImageProvider imageCard;
   final double width;
 
-  const CardImage({
-    Key? key,
-    required this.title,
-    required this.subTitle,
-    required this.subTitleBis,
-    required this.width, 
-    this.imageCard = const AssetImage("assets/doc2.jpg"),
-  }) : super(key: key);
+  const CardImage(
+      {Key? key,
+      required this.title,
+      required this.subTitle,
+      required this.subTitleBis,
+      required this.width,
+      required this.imageCard})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,207 +1,325 @@
-import 'package:doctor_app/components/doctor.dart';
-import 'package:doctor_app/pages/review.dart';
-import 'package:doctor_app/pages/validation.dart';
-import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+  import 'package:doctor_app/components/doctor.dart';
+  import 'package:doctor_app/pages/validation.dart';
+  import 'package:flutter/material.dart';
+  import 'dart:convert';
+  import 'package:http/http.dart' as http;
+  import 'package:shared_preferences/shared_preferences.dart';
 
-// ignore: must_be_immutable
-class Summary extends StatefulWidget {
-  const Summary({super.key});
+  // ignore: must_be_immutable
+  class Summary extends StatefulWidget {
+    const Summary({super.key});
 
-  @override
-  State<Summary> createState() => _SummeState();
+    @override
+    State<Summary> createState() => _SummeState();
+  }
+
+  class _SummeState extends State<Summary> {
+
+Future<void> sendAppointmentsToDjango() async {
+  final prefs = await SharedPreferences.getInstance();
+  final savedAppointments = prefs.getStringList('saved_appointments') ?? [];
+
+  for (String jsonString in savedAppointments) {
+    final Map<String, dynamic> jsonMap = jsonDecode(jsonString);
+
+    final response = await http.post(
+      Uri.parse('https://doctor-app-h45i.onrender.com/rendez_vous/create_rendez_vous/'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(jsonMap),
+    );
+
+    if (response.statusCode == 201) {
+      print('Requête correcte');
+      // La donnée a été enregistrée avec succès sur le serveur Django.
+      // Vous pouvez également supprimer la donnée de SharedPreferences si nécessaire.
+    } else if (response.statusCode == 400) {
+      // Gérez l'erreur 400 (Bad Request) ici.
+      print('Erreur 400: Requête incorrecte');
+      // Vous pouvez afficher un message d'erreur à l'utilisateur ou effectuer d'autres actions nécessaires.
+    } else {
+      // Gérez d'autres codes d'erreur ici.
+      print('Erreur ${response.statusCode}: ${response.reasonPhrase}');
+      // Vous pouvez afficher un message d'erreur à l'utilisateur ou effectuer d'autres actions nécessaires.
+    }
+  }
 }
 
-class _SummeState extends State<Summary> {
- 
-  // List<Map<String, dynamic>> dummyAppoint = [];
+    //  Durée et Package
 
-  // // Votre fonction fetchSpecialists
-  // Future<List<Map<String, dynamic>>> fetchAppoint() async {
-  //   final response = await http.get(
-  //       Uri.parse('https://doctor-app-h45i.onrender.com/rendez_vous/list_id_rendez_vous/64/'));
-  //   if (response.statusCode == 200) {
-  //     // Si la requête est réussie, convertissez la réponse en une liste de Map
-  //     List<dynamic> data = json.decode(response.body);
-  //     return data.map((item) => item as Map<String, dynamic>).toList();
-  //   } else {
-  //     // Si la requête échoue, lancez une exception.
-  //     throw Exception('Échec de la récupération des données depuis l\'API');
-  //   }
-  // }
+    String? duree;
+    int? package;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   fetchAppoint().then((data) {
-  //     setState(() {
-  //       dummyAppoint = data;
-  //     });
-  //   });
-  // }
+    Future<void> fetchSelectedValues() async {
+      final prefs = await SharedPreferences.getInstance();
+      duree = prefs.getString('selected_duration');
+      package = prefs.getInt('selected_package');
+      setState(() {
+        // Mettez à jour l'interface avec les valeurs récupérées
+      });
+    }
 
-  List<Map<String, dynamic>> summary1 = [
-    {
-      'info': 'Date & heure',
-      'resul': '24 Aug 2023 | 10:00 AM',
-    },
-    {
-      'info': 'Package',
-      'resul': 'Messaging',
-    },
-    {
-      'info': 'Duration',
-      'resul': '30 minutes',
-    },
-    {
-      'info': 'Booking for',
-      'resul': 'Self',
-    },
-  ];
+    String? booking;
+    String? gender;
+    String? age;
+    String? probleme;
 
-  List<Map<String, dynamic>> summary2 = [
-    {
-      'infodeux': 'Amount',
-      'resuldeux': '2000cfa',
-    },
-    {
-      'infodeux': 'Duration(30mins)',
-      'resuldeux': '1 X 2000cfa',
-    },
-    {
-      'infodeux': 'Duration',
-      'resuldeux': '30 minutes',
-    },
-  ];
+    Future<void> fetchPatientDetails() async {
+      final prefs = await SharedPreferences.getInstance();
+      booking = prefs.getString('booking_for') ?? '';
+      gender = prefs.getString('gender') ?? '';
+      age = prefs.getString('age') ?? '';
+      probleme = prefs.getString('problem_text') ?? '';
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Review Summary',
-          style: TextStyle(fontWeight: FontWeight.bold),
+      // Mettez à jour l'interface avec les données récupérées, par exemple, en utilisant setState.
+      setState(() {});
+    }
+
+    List<Map<String, String>> appointments = [];
+
+    void loadAppointments() async {
+      final prefs = await SharedPreferences.getInstance();
+      final savedAppointments = prefs.getStringList('saved_appointments') ?? [];
+      if (savedAppointments.isNotEmpty) {
+      final jsonString = savedAppointments.last; // Accédez au dernier élément
+      final Map<String, dynamic> jsonMap = jsonDecode(jsonString);
+      final lastAppointment = Map<String, String>.from(jsonMap);
+      
+      setState(() {
+        appointments.add(lastAppointment);
+      });
+    }
+    }
+
+    List<Map<String, dynamic>> dummyAppoint = [];
+
+    // Votre fonction fetchSpecialists
+    Future<List<Map<String, dynamic>>> fetchAppoint() async {
+      final response = await http.get(Uri.parse(
+          'https://doctor-app-h45i.onrender.com/rendez_vous/list_rendez_vous/'));
+      if (response.statusCode == 200) {
+        // Si la requête est réussie, convertissez la réponse en une liste de Map
+        List<dynamic> data = json.decode(response.body);
+        return data.map((item) => item as Map<String, dynamic>).toList();
+      } else {
+        // Si la requête échoue, lancez une exception.
+        throw Exception('Échec de la récupération des données depuis l\'API');
+      }
+    }
+
+    @override
+    void initState() {
+      super.initState();
+      loadAppointments();
+      fetchPatientDetails();
+      fetchSelectedValues();
+      // Appelez la fonction pour récupérer les données lors de l'initialisation de la page.
+    }
+
+
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'Review Summary',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          leading: const BackButton(),
+          backgroundColor: Colors.transparent,
+          foregroundColor: Colors.black,
+          elevation: 0,
+          centerTitle: true,
         ),
-        leading: const BackButton(),
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.black,
-        elevation: 0,
-        centerTitle: true,
-      ),
-      body: ListView(
-        children: [
-          const Details(),
-          const SizedBox(height: 20,),
-          const Divider(
+        body: ListView(
+          children: [
+            const Details(),
+            const SizedBox(
+              height: 20,
+            ),
+            const Divider(
               color: Colors.grey,
               thickness: 0.5,
               indent: 25,
               endIndent: 25,
               height: 0,
             ),
-          const SizedBox(
-            height: 10,
-          ),
-          //  children: dummyAppoint.map((donnee) {
-          //         return Reviewe(
-          //           date: donnee["date"],
-          //          heure: dColumn(
-          //       onnee["heure"],
-          //           );
-          //       }).toList(),
-          //     ),
-          // Utilisez un Container au lieu de Card
-          ...summary1.map((item) {
-            return Container(
-              margin: const EdgeInsets.all(8.0),
-              padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(item['info'], style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.grey)),
-                  Text(item['resul'], style: const TextStyle(fontWeight: FontWeight.w600)),
-                ],
-              ),
-            );
-          }),
-          const SizedBox(height: 10,),
-          const Divider(
-              color: Colors.grey,
-              thickness: 0.5,
-              indent: 25,
-              endIndent: 25,
-              height: 0,
+            const SizedBox(
+              height: 10,
             ),
-          const SizedBox(height: 10,),  
-          ...summary2.map((item) {
-            return Container(
-              margin: const EdgeInsets.all(8.0),
-              padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(item['infodeux'],style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.grey)),
-                  Text(item['resuldeux'], style: const TextStyle(fontWeight: FontWeight.w600),),
-                ],
-              ),
-            );
-          }),
-          const SizedBox(height: 20,),
-         Container(
-          margin: const EdgeInsets.all(8.0),
-          padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 5),
-          child: const Row(
-            children: [
-              Text('Total',style: TextStyle(fontWeight: FontWeight.w600, color: Colors.grey)),
-              Spacer(),
-              Text('2000cfa', style: TextStyle(fontWeight: FontWeight.w600),),
-            ],
-          ),
-         ),
-         const SizedBox(height: 10,),
-          const Divider(
-              color: Colors.grey,
-              thickness: 0.5,
-              indent: 25,
-              endIndent: 25,
-              height: 0,
-            ),   
-            
+            const SizedBox(
+              height: 10,
+            ),
             Container(
-          margin: const EdgeInsets.all(8.0),
-          padding:const  EdgeInsets.only(left: 16.0, right: 16.0, bottom: 5),
-          child: Row(
-            children: [
-              const Icon(Icons.vignette, color: Colors.blue,),
-              const SizedBox(width: 5,),
-              const Text('Cash',style: TextStyle(fontWeight: FontWeight.w600, color: Colors.grey)),
-              const Spacer(),
-              TextButton(
+              child: Column(
+                children: [
+                  Container(
+                    child: Column(
+                      children: appointments.map((appointment) {
+                        return Container(
+                          margin: const EdgeInsets.all(8.0),
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 16.0, right: 16.0,),
+                            child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                              children: [
+                                Text('Date & Heure',  style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.grey)),
+                                Text('${appointment['date']} | ${appointment['heure']} AM', style: const TextStyle(fontWeight: FontWeight.w600)),
+                              ],
+                            ),
+                          ),
+                        );
+                      }).toList(), // N'oubliez pas d'appeler .toList() à la fin pour obtenir une liste de widgets
+                    ),
+                  ),
+                  
+                  Container(
+                margin: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Duration', style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.grey),),
+                    Text('$duree',style: const TextStyle(fontWeight: FontWeight.w600)),
+                  ],
+                ),  
+              ),
+
+              Container(
+                margin: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Package', style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.grey),),
+                    Text(getPackageName(package),style: const TextStyle(fontWeight: FontWeight.w600)),
+                  ],
+                ),  
+              ),
+                
+                Container(
+                margin: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Booking for', style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.grey),),
+                    Text('$booking',style: const TextStyle(fontWeight: FontWeight.w600)),
+                  ],
+                ),  
+              ),
+
+              Container(
+                margin: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Gender', style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.grey)),
+                    Text('$gender',style: const TextStyle(fontWeight: FontWeight.w600)),
+                  ],
+                ),  
+              ),
+
+              Container(
+                margin: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Age', style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.grey),),
+                    Text('$age',style: const TextStyle(fontWeight: FontWeight.w600)),
+                  ],
+                ),  
+              ),
+
+              Container(
+                margin: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Message', style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.grey)),
+                    Text('$probleme',style: const TextStyle(fontWeight: FontWeight.w600)),
+                  ],
+                ),  
+              ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Container(
+              margin: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 5),
+              child: const Row(
+                children: [
+                  Text('Total',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600, color: Colors.grey)),
+                  Spacer(),
+                  Text(
+                    '2000cfa',
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const Divider(
+              color: Colors.grey,
+              thickness: 0.5,
+              indent: 25,
+              endIndent: 25,
+              height: 0,
+            ),
+
+            Container(
+              margin: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 5),
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.vignette,
+                    color: Colors.blue,
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  const Text('Cash',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600, color: Colors.grey)),
+                  const Spacer(),
+                  TextButton(
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>  const validation()),
+                            builder: (context) => const validation()),
                       );
                     },
                     child: const Text('Change'),
-               )
-            ],
-          ),
-         ),
+                  )
+                ],
+              ),
+            ),
             const SizedBox(
               height: 50,
             ),
-             Container(
-              padding: const  EdgeInsets.only(top: 10, left: 20, right: 20),
+            Container(
+              padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
               child: ElevatedButton(
                 onPressed: () {
+                  sendAppointmentsToDjango(); 
                   Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>  validation()),
-                      );
+                    context,
+                    MaterialPageRoute(builder: (context) => validation()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue[800],
@@ -220,9 +338,23 @@ class _SummeState extends State<Summary> {
                 ),
               ),
             ),
-        ],
+          ],
+        ),
+      );
+    }
 
-      ),
-    );
+    String getPackageName(int? packageValue) {
+      switch (packageValue) {
+        case 1:
+          return "Messaging";
+        case 2:
+          return "Appel Vocal";
+        case 3:
+          return "Appel Vidéo";
+        case 4:
+          return "En personne";
+        default:
+          return "Package non sélectionné";
+      }
+    }
   }
-}

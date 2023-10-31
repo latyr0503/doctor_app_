@@ -31,10 +31,11 @@ class _AddCardState extends State<AddCard> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
+      // Le formulaire d'envoi par Carte VISA
       child: Form(
         child: Column(
           children: [
-            
+            // la partie carte visa on insere ici une carte
              Padding(padding: EdgeInsets.all(10.0),
              child:Stack(
                 children: <Widget>[
@@ -44,7 +45,7 @@ class _AddCardState extends State<AddCard> {
                     left: 10, // Position à gauche
                     child: Text(
                       value,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Color.fromARGB(255, 10, 185, 19), // Couleur du texte
                         fontSize: 20, // Taille de la police
                       ),
@@ -53,8 +54,8 @@ class _AddCardState extends State<AddCard> {
                 ],
               ),
              ),
-
-          
+            
+            //Le premier input de notre formulaire
             Container(
               alignment: Alignment.topLeft,
               child: const Text(
@@ -82,6 +83,8 @@ class _AddCardState extends State<AddCard> {
               onSubmitted: submit,
             ),
             const SizedBox(height: 10.0),
+
+            //Le deuxieme input de notre formulaire
             Container(
               alignment: Alignment.topLeft,
               child: const Text(
@@ -104,8 +107,11 @@ class _AddCardState extends State<AddCard> {
               ),
             ),
             const SizedBox(height: 10.0),
+
+            //on inserer ici deux input cote à cote(row) qui sont en line
             Row(
               children: [
+                // Le premier input Row
                 Expanded(
                   child: Column(
                     children: [
@@ -134,6 +140,8 @@ class _AddCardState extends State<AddCard> {
                   ),
                 ),
                 const SizedBox(width: 16.0),
+
+                // Le deuxieme input Row
                 Expanded(
                   child: Column(
                     children: [
@@ -163,6 +171,8 @@ class _AddCardState extends State<AddCard> {
                 ),
               ],
             ),
+
+            // Le Checkbox
            Container(
             alignment: Alignment.topLeft,
              child: Row(
@@ -182,6 +192,7 @@ class _AddCardState extends State<AddCard> {
              ),
            ),
                 
+            // Le bouton d'envoi pour envoi les infos    
             const SizedBox(height: 10.0),
             SizedBox(
               width: double.infinity,
