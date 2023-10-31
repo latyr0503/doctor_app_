@@ -1,4 +1,3 @@
-import 'package:doctor_app/pages/auth/inscription.dart';
 import 'package:doctor_app/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
 
