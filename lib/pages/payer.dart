@@ -1,6 +1,6 @@
 import 'package:doctor_app/pages/ajoutcard.dart';
+import 'package:doctor_app/pages/review_summary.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class Payer extends StatefulWidget {
   const Payer({super.key});
@@ -22,8 +22,8 @@ class _PayerState extends State<Payer> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Add Card'),
-            content: Text('Voulez-vous confirmer votre payement?'),
+            title: const Text('Add Card'),
+            content: const Text('Voulez-vous confirmer votre payement?'),
             actions: [
               MaterialButton(
                 onPressed: () {
@@ -31,14 +31,14 @@ class _PayerState extends State<Payer> {
 
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => AjoutCard()),
+                    MaterialPageRoute(builder: (context) =>const Summary()),
                   );
                 },
-                child: Text("OK"),
+                child: const Text("OK"),
               ),
               MaterialButton(
                 onPressed: () {},
-                child: Text("annuler"),
+                child: const Text("annuler"),
               )
             ],
           );
@@ -50,8 +50,8 @@ class _PayerState extends State<Payer> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Par Cash'),
-            content: Text('Voulez-vous confirmer votre payement?'),
+            title: const Text('Par Cash'),
+            content: const Text('Voulez-vous confirmer votre payement?'),
             actions: [
               MaterialButton(
                 onPressed: () {

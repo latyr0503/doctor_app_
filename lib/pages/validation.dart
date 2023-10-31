@@ -1,5 +1,5 @@
 import 'package:doctor_app/components/navigation_menu.dart';
-import 'package:doctor_app/pages/welcome_page.dart';
+import 'package:doctor_app/pages/page_specialist.dart';
 import 'package:flutter/material.dart';
 
 // ignore: camel_case_types
@@ -193,7 +193,7 @@ class validation extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const Welcome_page()),
+                        builder: (context) => const PageSpecialist()),
                   );
                 },
                 style: ElevatedButton.styleFrom(

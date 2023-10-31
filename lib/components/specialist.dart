@@ -112,7 +112,7 @@ class Specialist extends StatelessWidget {
                           Row(
                             children: [
                               RatingBarIndicator(
-                                rating: note!.toDouble(),
+                                rating: note.toDouble(),
                                 itemBuilder: (context, index) => const Icon(
                                   Icons.star,
                                   color: Color.fromARGB(255, 240, 144, 0),

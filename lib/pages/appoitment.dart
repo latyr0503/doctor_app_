@@ -1,5 +1,7 @@
 import 'package:doctor_app/pages/selectpackage.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class Appoitment extends StatefulWidget {
   final String name;
@@ -20,6 +22,69 @@ class Appoitment extends StatefulWidget {
 }
 
 class _AppoitmentState extends State<Appoitment> {
+
+  TextEditingController _dateController = TextEditingController();
+  TextEditingController _controller = TextEditingController();
+  TimeOfDay? time = TimeOfDay.now();
+  bool isTimeChosen = false;
+
+  void envoyerDateEtHeure() async {
+    // final String nameMedecin = _controller.text;
+    final String date = _dateController.text;
+
+   if (date.isEmpty || !isTimeChosen) {
+    // Afficher un message d'erreur si la date ou l'heure n'a pas été sélectionnée.
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Veuillez sélectionner une date et une heure.', style: TextStyle(color: Colors.white),),
+        duration: Duration(seconds: 3),
+        backgroundColor: Colors.red, // Durée d'affichage du message
+      ),
+    );
+    return;
+  }
+
+  ScaffoldMessenger.of(context).showSnackBar(
+    const SnackBar(
+      content: Text('Rendez-vous pris avec succès!', style: TextStyle(fontSize: 15, color: Colors.black),),
+      duration: Duration(seconds: 3), // Durée d'affichage du message de succès
+      backgroundColor: Color.fromRGBO(187, 222, 251, 1), // Couleur d'arrière-plan du message de succès
+    ),
+  );
+
+    final String heureFormatee = '${time!.hour.toString().padLeft(2, '0')}:${time!.minute.toString().padLeft(2, '0')}';
+
+   final prefs = await SharedPreferences.getInstance();
+final savedAppointments = prefs.getStringList('saved_appointments') ?? [];
+
+// final nameMedecinString = nameMedecin.toString(); // Assurez-vous que nameMedecin est converti en chaîne de caractères
+final dateString = date.toString(); // Assurez-vous que date est converti en chaîne de caractères
+final heureFormateeString = heureFormatee.toString(); // Assurez-vous que heureFormatee est converti en chaîne de caractères
+
+final appointment = {
+  // 'name_medecin': nameMedecinString,
+  'date': dateString,
+  'heure': heureFormateeString,
+};
+
+
+final appointmentJson = jsonEncode(appointment);
+savedAppointments.add(appointmentJson);
+await prefs.setStringList('saved_appointments', savedAppointments);
+
+    _controller.clear();
+    _dateController.clear();
+
+    // Redirection vers la page Summary
+    // ignore: use_build_context_synchronously
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const SelectPackage()),
+    );
+  }
+
+  
+
   @override
   @override
   Widget build(BuildContext context) {
@@ -277,8 +342,99 @@ class _AppoitmentState extends State<Appoitment> {
               ]),
             ),
 
+
             Padding(
-              padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+              padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+              child: Form(
+                      child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+              
+                const Text(
+                  'Date',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                ),
+                Container(
+                  child: TextField(
+                    controller: _dateController,
+                    decoration: const InputDecoration(
+                      filled: true,
+                      prefixIcon: Icon(Icons.calendar_today, color: Colors.white),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue),
+                      ),
+                      fillColor: Color.fromRGBO(187, 222, 251, 1),
+                    ),
+                    readOnly: true,
+                    onTap: () {
+                      _selectDate();
+                    },
+                  ),
+                ),
+               const SizedBox(height: 5),
+
+                const Text(
+                  'Heure',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                ),
+                Stack(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(left: 50, top: 10),
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Colors.blue[100],
+                      ),
+                      child: Text(
+                        '${time!.hour.toString().padLeft(2, '0')}:${time!.minute.toString().padLeft(2, '0')}',
+                        style: const TextStyle(fontSize: 20),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 5),
+                      child: FloatingActionButton(
+                        onPressed: () async {
+                          TimeOfDay? newTime = await showTimePicker(
+                            context: context,
+                            initialTime: time!,
+                          );
+                          if (newTime != null) {
+                            setState(() {
+                              time = newTime;
+                              isTimeChosen = true;
+                            });
+                          }
+                        },
+                        backgroundColor: Colors.blue[100],
+                        child: const Icon(
+                          Icons.access_time,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+                      ),
+                    ),
+            ),
+
+
+
+
+
+
+            const SizedBox(height: 20),
+
+
+
+
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0, right: 20.0),
               child: TextField(
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(
@@ -295,35 +451,47 @@ class _AppoitmentState extends State<Appoitment> {
                 ),
               ),
             ),
+                SizedBox(height: 30),
 
-            Container(
-              padding: const EdgeInsets.only(top: 10, left: 30, right: 30),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SelectPackage()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue[800],
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
+
+            Padding(
+             padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+              child: SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      envoyerDateEtHeure();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue[800],
+                      padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 23),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                    child: const Text(
+                      'Prendre rendez-vous',
+                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,),
+                    ),
                   ),
                 ),
-                child: const Text(
-                  "Prendre un rendez-vous",
-                  style: TextStyle(
-                    fontWeight: FontWeight.normal,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
             ),
-            const SizedBox(height: 50)
+            const SizedBox(height: 50),
+
           ],
         ));
+  }
+    Future<void> _selectDate() async {
+    DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+    );
+    if (picked != null) {
+      setState(() {
+        _dateController.text = picked.toString().split(" ")[0];
+      });
+    }
   }
 }
