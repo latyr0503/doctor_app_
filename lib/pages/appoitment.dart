@@ -270,7 +270,7 @@ await prefs.setStringList('saved_appointments', savedAppointments);
                                 fontWeight: FontWeight.w700),
                           ),
                           const Text(
-                            "Years Exp",
+                            "Années d'exp",
                             style: TextStyle(
                                 color: Colors.grey,
                                 fontWeight: FontWeight.w100),
@@ -289,7 +289,7 @@ await prefs.setStringList('saved_appointments', savedAppointments);
                                 fontWeight: FontWeight.w700),
                           ),
                           const Text(
-                            "Rating",
+                            "Note",
                             style: TextStyle(
                                 color: Colors.grey,
                                 fontWeight: FontWeight.w100),
@@ -308,7 +308,7 @@ await prefs.setStringList('saved_appointments', savedAppointments);
                                 fontWeight: FontWeight.w700),
                           ),
                           Text(
-                            "Review",
+                            "Revoir",
                             style: TextStyle(
                                 color: Colors.grey,
                                 fontWeight: FontWeight.w100),
@@ -324,7 +324,7 @@ await prefs.setStringList('saved_appointments', savedAppointments);
             Container(
               margin: const EdgeInsets.only(top: 35, left: 33),
               child: const Text(
-                "BOOK APPOINTMENT",
+                "PRENDRE RENDEZ-VOUS",
                 style: TextStyle(
                   color: Colors.grey,
                   fontSize: 15,
@@ -443,10 +443,10 @@ await prefs.setStringList('saved_appointments', savedAppointments);
                     borderRadius: BorderRadius.circular(20.0),
                     borderSide: const BorderSide(width: 0.8),
                   ),
-                  hintText: 'Want a custom Schedule ?',
+                  hintText: 'Vous souhaitez un planning personnalisé ?',
                   suffixIcon: TextButton(
                     onPressed: () {},
-                    child: const Text('Request Schedule'),
+                    child: const Text('Calendrier des demandes'),
                   ),
                 ),
               ),

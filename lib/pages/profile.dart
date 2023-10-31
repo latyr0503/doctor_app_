@@ -1,4 +1,3 @@
-import 'package:doctor_app/pages/auth/inscription.dart';
 import 'package:doctor_app/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
 
@@ -117,12 +116,7 @@ class Profile extends StatelessWidget {
             ),
 
             ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Welcome_page()),
-                );
-              },
+              onPressed: () {},
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue[800],
                 padding:
