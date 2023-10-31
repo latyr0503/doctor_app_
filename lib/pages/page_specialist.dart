@@ -97,7 +97,7 @@ class _PageSpecialistState extends State<PageSpecialist> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Liste Medecin", textAlign: TextAlign.center),
+        title: const Text("Liste Medecins", textAlign: TextAlign.center),
       ),
       body: isLoading
           ? const Center(

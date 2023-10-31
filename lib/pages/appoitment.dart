@@ -205,7 +205,7 @@ class _AppoitmentState extends State<Appoitment> {
                                 fontWeight: FontWeight.w700),
                           ),
                           const Text(
-                            "Years Exp",
+                            "Années d'exp",
                             style: TextStyle(
                                 color: Colors.grey,
                                 fontWeight: FontWeight.w100),
@@ -224,7 +224,7 @@ class _AppoitmentState extends State<Appoitment> {
                                 fontWeight: FontWeight.w700),
                           ),
                           const Text(
-                            "Rating",
+                            "Note",
                             style: TextStyle(
                                 color: Colors.grey,
                                 fontWeight: FontWeight.w100),
@@ -243,7 +243,7 @@ class _AppoitmentState extends State<Appoitment> {
                                 fontWeight: FontWeight.w700),
                           ),
                           Text(
-                            "Review",
+                            "Revoir",
                             style: TextStyle(
                                 color: Colors.grey,
                                 fontWeight: FontWeight.w100),
@@ -259,7 +259,7 @@ class _AppoitmentState extends State<Appoitment> {
             Container(
               margin: const EdgeInsets.only(top: 35, left: 33),
               child: const Text(
-                "BOOK APPOINTMENT",
+                "PRENDRE RENDEZ-VOUS",
                 style: TextStyle(
                   color: Colors.grey,
                   fontSize: 15,
@@ -287,10 +287,10 @@ class _AppoitmentState extends State<Appoitment> {
                     borderRadius: BorderRadius.circular(20.0),
                     borderSide: const BorderSide(width: 0.8),
                   ),
-                  hintText: 'Want a custom Schedule ?',
+                  hintText: 'Vous souhaitez un planning personnalisé ?',
                   suffixIcon: TextButton(
                     onPressed: () {},
-                    child: const Text('Request Schedule'),
+                    child: const Text('Calendrier des demandes'),
                   ),
                 ),
               ),
@@ -308,13 +308,13 @@ class _AppoitmentState extends State<Appoitment> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue[800],
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 120, vertical: 20),
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ),
                 child: const Text(
-                  "Make Appointment",
+                  "Prendre un rendez-vous",
                   style: TextStyle(
                     fontWeight: FontWeight.normal,
                     color: Colors.white,
