@@ -1,8 +1,6 @@
 import 'package:doctor_app/pages/hopital_detail.dart';
-import 'package:doctor_app/pages/page_chat.dart';
 import 'package:doctor_app/pages/page_explore.dart';
 import 'package:doctor_app/pages/profile.dart';
-import 'package:doctor_app/pages/page_specialist.dart';
 import 'package:doctor_app/pages/welcome_page.dart';
 import 'package:doctor_app/widgets/systemes_onglets.dart';
 import 'package:flutter/material.dart';
@@ -47,10 +45,9 @@ class NavigationController extends GetxController {
   final Screens = [
     const Welcome_page(),
     const Explore(),
-    // const PageSpecialist(),
     const HopitalDetail(),
-    // const Chat(),
     const SystemesOnglet(),
+    // const Chat(),
     const Profile()
   ];
 }
