@@ -22,7 +22,4 @@ Quelques ressources pour vous aider à dméarrer s'il s'agit de votre premier pr
 - [Laboratoire : Écrivez votre première application Flutter](https://docs.flutter.dev/get-started/codelab)
 - [Livre de recettes : échantillons Flutter utiles](https://docs.flutter.dev/cookbook)
 
-Fou de l'aide pour démarrer avec le développement Flutter, consultez le
-[documentation en ligne](https://docs.flutter.dev/), qui propose des tutoriels,
-des exemples, des conseils sur le développement mobile et une référence complète de l'API.
 
