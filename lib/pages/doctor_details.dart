@@ -70,10 +70,11 @@ class Details_doctor extends StatelessWidget {
                           const EdgeInsets.only(top: 20.0, left: 20, right: 10),
                       height: 100,
                       width: 100,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
-                          image: imageProvider,
+                          image: NetworkImage(
+                              'https://img.freepik.com/photos-gratuite/vue-face-homme-souriant-portant-blouse-laboratoire_23-2149633830.jpg?size=626&ext=jpg&uid=R65302706&ga=GA1.1.1564638247.1697411010&semt=ais'),
                           fit: BoxFit.cover,
                         ),
                       ),

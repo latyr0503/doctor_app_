@@ -59,7 +59,7 @@ class Specialist extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            width: 150,
+                            width: 130,
                             padding: const EdgeInsets.all(5.0),
                             decoration: BoxDecoration(
                               color: Colors.blue.shade100,
@@ -70,14 +70,14 @@ class Specialist extends StatelessWidget {
                                 Icon(
                                   Icons.verified,
                                   color: Color.fromRGBO(13, 71, 161, 1),
-                                  size: 13,
+                                  size: 12,
                                 ),
                                 Text(
                                   'Médecin professionnel',
                                   style: TextStyle(
                                     color: Color.fromRGBO(13, 71, 161, 1),
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 10,
+                                    fontSize: 9,
                                   ),
                                 ),
                               ],
@@ -112,7 +112,7 @@ class Specialist extends StatelessWidget {
                           Row(
                             children: [
                               RatingBarIndicator(
-                                rating: note!.toDouble(),
+                                rating: note.toDouble(),
                                 itemBuilder: (context, index) => const Icon(
                                   Icons.star,
                                   color: Color.fromARGB(255, 240, 144, 0),
@@ -175,11 +175,11 @@ class Specialist extends StatelessWidget {
                                     ),
                               ),
                             );
-                            print(proffession);
-                            print(adresse);
-                            print(note);
-                            print(name);
-                            print(experience);
+                            // print(proffession);
+                            // print(adresse);
+                            // print(note);
+                            // print(name);
+                            // print(experience);
                           },
                           child: const Text(
                             'Prendre Un Rendez-Vous',

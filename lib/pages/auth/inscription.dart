@@ -18,6 +18,7 @@ class _InscriptionState extends State<Inscription> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool _obscureText = true;
 
   void signup(
       BuildContext context, String name, String password, String email) async {
@@ -154,13 +155,25 @@ class _InscriptionState extends State<Inscription> {
                   const Padding(padding: EdgeInsets.all(10.0)),
                   TextField(
                     controller: passwordController,
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(10.0))),
+                    obscureText: _obscureText,
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      ),
                       labelText: 'Mot de passe',
                       hintText: " Entrez un mot de passe bien sécurisé",
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscureText
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _obscureText = !_obscureText;
+                          });
+                        },
+                      ),
                     ),
                   ),
                   // mot de passe oublier
