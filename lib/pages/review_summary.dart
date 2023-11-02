@@ -250,7 +250,7 @@ Future<void> fetchPatientCard() async {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Age', style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.grey),),
+                    const Text('Age', style: TextStyle(fontWeight: FontWeight.w600, color: Colors.grey),),
                     Text('$age',style: const TextStyle(fontWeight: FontWeight.w600)),
                   ],
                 ),  
@@ -262,7 +262,7 @@ Future<void> fetchPatientCard() async {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Message', style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.grey)),
+                    const Text('Message', style: TextStyle(fontWeight: FontWeight.w600, color: Colors.grey)),
                     Text('$probleme',style: const TextStyle(fontWeight: FontWeight.w600)),
                   ],
                 ),  

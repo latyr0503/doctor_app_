@@ -1,5 +1,6 @@
 
 import 'package:doctor_app/pages/home.dart';
+import 'package:doctor_app/pages/hopital_detail.dart';
 import 'package:doctor_app/pages/payer.dart';
 import 'package:doctor_app/pages/review_summary.dart';
 import 'package:flutter/material.dart';

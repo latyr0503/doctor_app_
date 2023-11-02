@@ -110,6 +110,9 @@ class _PageHopitauxState extends State<PageHopitaux> {
                     // NetworkImage(
                     //     'https://doctor-app-h45i.onrender.com${hospital['image']}'),
                     width: double.infinity,
+                    onTap: () {
+                      print("view card");
+                    },
                   );
                 }).toList(),
               ),
