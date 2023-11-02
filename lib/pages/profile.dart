@@ -1,4 +1,4 @@
-import 'package:doctor_app/pages/welcome_page.dart';
+// import 'package:doctor_app/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
 
 enum Gender { male, female, other }

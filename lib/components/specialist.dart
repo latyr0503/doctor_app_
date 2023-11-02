@@ -59,7 +59,7 @@ class Specialist extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            width: 150,
+                            width: 130,
                             padding: const EdgeInsets.all(5.0),
                             decoration: BoxDecoration(
                               color: Colors.blue.shade100,
@@ -70,14 +70,14 @@ class Specialist extends StatelessWidget {
                                 Icon(
                                   Icons.verified,
                                   color: Color.fromRGBO(13, 71, 161, 1),
-                                  size: 13,
+                                  size: 12,
                                 ),
                                 Text(
                                   'Médecin professionnel',
                                   style: TextStyle(
                                     color: Color.fromRGBO(13, 71, 161, 1),
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 10,
+                                    fontSize: 9,
                                   ),
                                 ),
                               ],
