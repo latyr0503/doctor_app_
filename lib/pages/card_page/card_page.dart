@@ -92,6 +92,18 @@ class _CardPageState extends State<CardPage> {
                 Form(
                     child: Column(
                   children: [
+                    const TextField(
+                      // controller: ,
+                      decoration: InputDecoration(
+                        hintText: " Entrez votre prenom et nom",
+                        hintStyle: TextStyle(color: Colors.grey),
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                            borderSide: BorderSide(color: Colors.black38)),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
                     input(
                       placeHolder: 'Numero de carte',
                       controller: _noCTRL,
