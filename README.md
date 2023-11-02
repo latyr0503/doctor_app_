@@ -21,5 +21,3 @@ Quelques ressources pour vous aider à dméarrer s'il s'agit de votre premier pr
 
 - [Laboratoire : Écrivez votre première application Flutter](https://docs.flutter.dev/get-started/codelab)
 - [Livre de recettes : échantillons Flutter utiles](https://docs.flutter.dev/cookbook)
-
-

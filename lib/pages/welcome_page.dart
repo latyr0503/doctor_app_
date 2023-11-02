@@ -1,3 +1,4 @@
+// importation des differents package utilicer dans cette page
 import 'package:doctor_app/components/banner_title.dart';
 import 'package:doctor_app/components/card_calendar.dart';
 import 'package:doctor_app/components/card_image.dart';
@@ -8,7 +9,6 @@ import 'package:doctor_app/pages/page_hopitaux.dart';
 import 'package:doctor_app/pages/page_specialist.dart';
 import 'package:flutter/material.dart';
 import 'package:doctor_app/components/card_speciality.dart';
-// Importez les packages nécessaires
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -21,9 +21,10 @@ class Welcome_page extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<Welcome_page> {
+  // Pour gerer le loader en attendant que les donners charges
   bool isLoading = true;
 
-  // liste des spécialité
+  // declaration de la liste des spécialité
   final List<Map<String, dynamic>> dummySpecialities = [
     {
       'title': 'Dentist',
@@ -42,7 +43,7 @@ class _WelcomePageState extends State<Welcome_page> {
       'images': const AssetImage('assets/brain.png'),
     },
   ];
-
+//fetch de la liste des hopitaux via l'api Django
   List<Map<String, dynamic>> dummyHopital = [];
 
   Future<List<Map<String, dynamic>>> fetchHospitals() async {
@@ -57,7 +58,7 @@ class _WelcomePageState extends State<Welcome_page> {
     }
   }
 
-  // Votre liste de spécialistes
+//fetch de la liste des medecins via l'api Django
   List<Map<String, dynamic>> dummySpecialists = [];
   // Votre fonction fetchSpecialists
   Future<List<Map<String, dynamic>>> fetchSpecialists() async {
@@ -81,13 +82,16 @@ class _WelcomePageState extends State<Welcome_page> {
         // Mettez à jour votre liste de spécialistes avec les données obtenues
         dummySpecialists = data;
         // print(dummySpecialists);
+        // Pour gerer le loader en attendant que les donners charges
         isLoading = false;
       });
     });
     fetchHospitals().then((data) {
       setState(() {
+        // Mettez à jour votre liste de spécialistes avec les données obtenues
         dummyHopital = data;
         // print(dummyHopital);
+        // Pour gerer le loader en attendant que les donners charges
         isLoading = false;
       });
     });
@@ -95,6 +99,8 @@ class _WelcomePageState extends State<Welcome_page> {
 
   @override
   Widget build(BuildContext context) {
+    // cette fonction avait pour but d'afficher une image par defaut au cas ou url est null, vide ou rencontre un erreur 404
+    // mais ca n'a pas marche. C'est pour quoi j'ai retourner une image par defaut pour tous
     ImageProvider getImage(String? url) {
       if (url == null || url.isEmpty) {
         return const NetworkImage(
@@ -118,6 +124,8 @@ class _WelcomePageState extends State<Welcome_page> {
       }
     }
 
+    // cette fonction avait pour but d'afficher une image par defaut au cas ou url est null, vide ou rencontre un erreur 404
+    // mais ca n'a pas marche. C'est pour quoi j'ai retourner une image par defaut pour tous
     ImageProvider getImageSpecialist(String? url) {
       if (url == null || url.isEmpty) {
         return const NetworkImage(
@@ -140,7 +148,6 @@ class _WelcomePageState extends State<Welcome_page> {
         'https://img.freepik.com/photos-gratuite/vue-face-homme-souriant-portant-blouse-laboratoire_23-2149633830.jpg?size=626&ext=jpg&uid=R65302706&ga=GA1.1.1564638247.1697411010&semt=ais',
       );
     }
-
     // print(getImage("url"));
     return Scaffold(
       appBar: AppBar(
@@ -283,6 +290,7 @@ class _WelcomePageState extends State<Welcome_page> {
                         adresse: specialist['adresse'],
                         about: specialist['about'],
                         jours: specialist["jours"],
+                        // permet de passer les donners fetcher dans une nouvelle page
                         onTap: () {
                           handleSpecialistSelection(
                             specialist['name'],
@@ -331,24 +339,4 @@ class _WelcomePageState extends State<Welcome_page> {
       ),
     );
   }
-
-  // void handleHopitalSelection(
-  //   String name,
-  //   String date,
-  //   String adresse,
-  // ) {
-  //   ImageProvider imageProvider =
-  //       NetworkImage('https://doctor-app-h45i.onrender.com$image');
-  //   Navigator.push(
-  //     context,
-  //     MaterialPageRoute(
-  //       builder: (context) => Details_doctor(
-  //         name: name,
-  //         imageProvider: imageProvider,
-  //         imageProvider: imageProvider,
-  //         // jours: jours,
-  //       ),
-  //     ),
-  //   );
-  // }
 }
