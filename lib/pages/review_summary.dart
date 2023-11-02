@@ -60,6 +60,27 @@ Future<void> sendAppointmentsToDjango() async {
       });
     }
 
+  String? name;
+  String? number;
+  String? expire;
+  String? cvv;
+
+Future<void> fetchPatientCard() async {
+ final prefs = await SharedPreferences.getInstance();
+ String? name = prefs.getString('name') ?? '';
+ String? number = prefs.getString('number') ?? '';
+ String? expire = prefs.getString('expire') ?? '';
+ String? cvv = prefs.getString('cvv') ?? '';
+
+      // Mettez à jour l'interface avec les données récupérées, par exemple, en utilisant setState.
+      setState(() {});
+    }
+
+// Récupération des données
+
+
+// Utilisation des données récupérées
+
     String? booking;
     String? gender;
     String? age;
@@ -114,9 +135,9 @@ Future<void> sendAppointmentsToDjango() async {
       loadAppointments();
       fetchPatientDetails();
       fetchSelectedValues();
+      fetchPatientCard();
       // Appelez la fonction pour récupérer les données lors de l'initialisation de la page.
     }
-
 
     @override
     Widget build(BuildContext context) {
@@ -277,8 +298,52 @@ Future<void> sendAppointmentsToDjango() async {
               indent: 25,
               endIndent: 25,
               height: 0,
-            ),
+            ), 
 
+             Container(
+                margin: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Nom', style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.grey)),
+                    Text('$name',style: const TextStyle(fontWeight: FontWeight.w600)),
+                  ],
+                ),  
+              ),
+              Container(
+                margin: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Number', style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.grey)),
+                    Text(' $number',style: const TextStyle(fontWeight: FontWeight.w600)),
+                  ],
+                ),  
+              ),
+              Container(
+                margin: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Date dexpiration', style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.grey)),
+                    Text(' $expire',style: const TextStyle(fontWeight: FontWeight.w600)),
+                  ],
+                ),  
+              ),
+              Container(
+                margin: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('CVV', style: const TextStyle(fontWeight: FontWeight.w600, color: Colors.grey)),
+                    Text(' $cvv',style: const TextStyle(fontWeight: FontWeight.w600)),
+                  ],
+                ),  
+              ),
             Container(
               margin: const EdgeInsets.all(8.0),
               padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 5),

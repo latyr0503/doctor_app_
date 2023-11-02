@@ -2,6 +2,7 @@ import 'package:doctor_app/pages/ajoutcard.dart';
 import 'package:doctor_app/pages/review_summary.dart';
 import 'package:flutter/material.dart';
 
+
 class Payer extends StatefulWidget {
   const Payer({super.key});
 
@@ -31,7 +32,7 @@ class _PayerState extends State<Payer> {
 
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) =>const Summary()),
+                    MaterialPageRoute(builder: (context) =>const AjoutCard()),
                   );
                 },
                 child: const Text("OK"),
@@ -134,7 +135,7 @@ class _PayerState extends State<Payer> {
                           width: 5,
                         ),
                         const Text('Add New Card',
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black54)),
