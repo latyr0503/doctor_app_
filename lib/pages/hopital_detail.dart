@@ -2,8 +2,16 @@ import 'package:doctor_app/widgets/communique.dart';
 import 'package:flutter/material.dart';
 
 class HopitalDetail extends StatefulWidget {
-  const HopitalDetail({Key? key}) : super(key: key);
+  final String name;
+  final String date;
+  final String adresse;
 
+  const HopitalDetail({
+    Key? key,
+    required this.name,
+    required this.date,
+    required this.adresse,
+  }) : super(key: key);
   @override
   State<HopitalDetail> createState() => _HopitalDetailState();
 }
@@ -12,68 +20,34 @@ class _HopitalDetailState extends State<HopitalDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.share),
+            onPressed: () {
+              print('share');
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.favorite_border),
+            onPressed: () {
+              print('favori');
+            },
+          ),
+        ],
+      ),
       body: Stack(
         children: [
-          Stack(
+          const Stack(
             children: [
-              const SizedBox(
+              SizedBox(
                 width: double.infinity,
                 height: double.infinity,
                 child: Image(
                   image: AssetImage('assets/hop.png'),
                   fit: BoxFit.cover,
-                ),
-              ),
-              Positioned(
-                top: 20,
-                left: 20,
-                child: Container(
-                  width: 50,
-                  height: 50,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(30)),
-                  ),
-                  child: const BackButton(),
-                ),
-              ),
-              Positioned(
-                top: 20,
-                right: 20,
-                child: Row(
-                  children: [
-                    Container(
-                      width: 50,
-                      height: 50,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
-                      ),
-                      child: IconButton(
-                        onPressed: () {
-                          print('partager');
-                        },
-                        icon: const Icon(Icons.share),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Container(
-                      width: 50,
-                      height: 50,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
-                      ),
-                      child: IconButton(
-                        onPressed: () {
-                          print('favorie');
-                        },
-                        icon: const Icon(Icons.favorite_border),
-                      ),
-                    ),
-                  ],
                 ),
               ),
             ],
@@ -130,20 +104,20 @@ class _HopitalDetailState extends State<HopitalDetail> {
                           ),
                         ),
                       ),
-                      const Text(
-                        "Hopital principal",
-                        style: TextStyle(
+                      Text(
+                        widget.name,
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                           fontSize: 25,
                         ),
                       ),
                       const Text(
-                        "Hopital principal",
+                        "(dermatologie, médecine générale, ophtalmologie..._)",
                         style: TextStyle(
                           fontWeight: FontWeight.normal,
                           color: Colors.black38,
-                          fontSize: 18,
+                          fontSize: 15,
                         ),
                       ),
                       const Divider(
@@ -151,16 +125,16 @@ class _HopitalDetailState extends State<HopitalDetail> {
                         thickness: 0.5,
                       ),
                       const Padding(padding: EdgeInsets.only(top: 15.0)),
-                      const Row(
+                      Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.location_on_rounded,
                             size: 20,
                             color: Colors.blue,
                           ),
                           Text(
-                            "adresse de l'hopital",
-                            style: TextStyle(
+                            widget.adresse,
+                            style: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 15.0,
                                 fontWeight: FontWeight.normal),
@@ -168,16 +142,16 @@ class _HopitalDetailState extends State<HopitalDetail> {
                         ],
                       ),
                       const Padding(padding: EdgeInsets.only(top: 10.0)),
-                      const Row(
+                      Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.access_time_filled,
                             size: 20,
                             color: Colors.blue,
                           ),
                           Text(
-                            "adresse de l'hopital",
-                            style: TextStyle(
+                            widget.date,
+                            style: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 15.0,
                                 fontWeight: FontWeight.normal),

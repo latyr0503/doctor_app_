@@ -8,7 +8,7 @@ class Communiquer extends StatelessWidget {
     {
       'icon': Icons.web,
       'color': Colors.blue[800],
-      'title': 'Website',
+      'title': 'Site Web',
     },
     {
       'icon': Icons.message,
@@ -18,17 +18,17 @@ class Communiquer extends StatelessWidget {
     {
       'icon': Icons.call,
       'color': Colors.blue[800],
-      'title': 'Call',
+      'title': 'Telephone',
     },
     {
       'icon': Icons.map,
       'color': Colors.blue[800],
-      'title': 'Direction',
+      'title': 'Localisation',
     },
     {
       'icon': Icons.send,
       'color': Colors.blue[800],
-      'title': 'Share',
+      'title': 'Partager',
     },
   ];
 
@@ -36,11 +36,12 @@ class Communiquer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround, 
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         // utilisation du mapp de listes
         children: categories.map((value) {
           return Column(
-            mainAxisAlignment: MainAxisAlignment.center, // Center the items vertically
+            mainAxisAlignment:
+                MainAxisAlignment.center, // Center the items vertically
             children: [
               Container(
                 width: 50,
@@ -52,7 +53,7 @@ class Communiquer extends StatelessWidget {
                 child: Icon(value['icon'], color: value['color']),
               ),
               Container(
-                margin: EdgeInsets.only(top: 5),
+                margin: const EdgeInsets.only(top: 5),
                 child: Text(value['title']),
               )
             ],

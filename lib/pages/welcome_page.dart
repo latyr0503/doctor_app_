@@ -5,6 +5,7 @@ import 'package:doctor_app/components/card_image.dart';
 import 'package:doctor_app/components/navigation_menu.dart';
 import 'package:doctor_app/components/specialist.dart';
 import 'package:doctor_app/pages/doctor_details.dart';
+import 'package:doctor_app/pages/hopital_detail.dart';
 import 'package:doctor_app/pages/page_hopitaux.dart';
 import 'package:doctor_app/pages/page_specialist.dart';
 import 'package:flutter/material.dart';
@@ -148,6 +149,7 @@ class _WelcomePageState extends State<Welcome_page> {
         'https://img.freepik.com/photos-gratuite/vue-face-homme-souriant-portant-blouse-laboratoire_23-2149633830.jpg?size=626&ext=jpg&uid=R65302706&ga=GA1.1.1564638247.1697411010&semt=ais',
       );
     }
+
     // print(getImage("url"));
     return Scaffold(
       appBar: AppBar(
@@ -248,24 +250,26 @@ class _WelcomePageState extends State<Welcome_page> {
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
-                      children: List.generate(
-                        dummyHopital.length,
-                        (index) => Padding(
+                      children: dummyHopital.map((hopital) {
+                        return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: CardImage(
-                            title: "${dummyHopital[index]['name']}",
-                            subTitle: "${dummyHopital[index]['date']}",
-                            subTitleBis: "${dummyHopital[index]['adresse']}",
-                            imageCard: getImage(dummyHopital[index]['image']),
-
-                            // NetworkImage('https://doctor-app-h45i.onrender.com${dummyHopital[index]['image']}'),
+                            title: hopital['name'],
+                            subTitle: hopital['date'],
+                            subTitleBis: hopital['adresse'],
+                            imageCard: getImage(hopital['image']),
                             width: 250,
                             onTap: () {
-                              print("view card");
+                              handleHopitalSelection(
+                                hopital['name'],
+                                hopital['date'],
+                                hopital['adresse'],
+                              );
+                              print(hopital['name']);
                             },
                           ),
-                        ),
-                      ),
+                        );
+                      }).toList(),
                     ),
                   ),
                   const Padding(padding: EdgeInsets.symmetric(vertical: 10.0)),
@@ -277,7 +281,6 @@ class _WelcomePageState extends State<Welcome_page> {
                   // map des donnés des doctors au niveau de la base de donné
                   Column(
                     children: dummySpecialists.take(3).map((specialist) {
-                      print(specialist['jours']);
                       return Specialist(
                         id: Key,
                         name: specialist['name'],
@@ -300,7 +303,6 @@ class _WelcomePageState extends State<Welcome_page> {
                             specialist['note'].toString(),
                             specialist['experience'].toString(),
                             specialist['image'].toString(),
-                            // specialist['jours']
                           );
                         },
                       );
@@ -334,7 +336,24 @@ class _WelcomePageState extends State<Welcome_page> {
           note: note,
           experience: experience,
           imageProvider: imageProvider,
-          // jours: jours,
+        ),
+      ),
+    );
+  }
+
+  void handleHopitalSelection(
+    String name,
+    String date,
+    String adresse,
+  ) {
+    print(date);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => HopitalDetail(
+          name: name,
+          date: date,
+          adresse: adresse,
         ),
       ),
     );
