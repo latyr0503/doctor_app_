@@ -1,18 +1,23 @@
 # doctor_app
 
-A new Flutter project.
+Est une application de prise de rendez-vous médical est conçue pour faciliter la communication entre les patients et les professionnels de la santé. Elle vise à simplifier le processus de prise de rendez-vous, à offrir des fonctionnalités de messagerie pour une communication facile entre les patients et les médecins, ainsi qu'à fournir des informations détaillées sur les médecins et les hôpitaux disponibles. 
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Ce projet est codé avec Flutter.
 
-A few resources to get you started if this is your first Flutter project:
+Vous pouvez cloner le projet: `git clone https://github.com/latyr0503/doctor_app_.git`,
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Ensuite taper cette ligne de commande pour installer les dependance : `flutter pub get`,
+ 
+Enfin vous pouvez lancer le projet avec : `flutter run`
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Apres avoir cloner le projet et installer les dependance, vous pouvez aussi generer un apk pour tester avec les lignes de commande suivant : `flutter build apk`
 
-Lorem ipsum dolor sit amet consectetur adipiscing elit dictum curae, fusce ornare porta nunc sodales interdum ultrices nullam, eu ultricies parturient nascetur scelerisque mauris dis vestibulum. Senectus porta posuere risus torquent potenti orci ultrices lacus mauris, dis commodo magna aliquet facilisis at luctus class sodales, eleifend cursus nunc per turpis hendrerit dignissim donec. Proin congue ultrices dictum dui neque potenti, etiam id justo egestas eleifend, praesent felis nulla integer velit. Fermentum phasellus ante nostra nam fusce tellus magnis condimentum sociis nascetur ut mattis lacus tortor, he
+L'application Doctor_App a comme point d'entrée "main.dart".
+
+
+Quelques ressources pour vous aider à dméarrer s'il s'agit de votre premier projet Flutter :
+
+- [Laboratoire : Écrivez votre première application Flutter](https://docs.flutter.dev/get-started/codelab)
+- [Livre de recettes : échantillons Flutter utiles](https://docs.flutter.dev/cookbook)
