@@ -1,8 +1,7 @@
 // import 'package:doctor_app/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
 
-enum Gender { male, female, other }
-
+// La page profile 
 class Profile extends StatelessWidget {
   const Profile({super.key});
 
@@ -15,6 +14,7 @@ class Profile extends StatelessWidget {
                   margin: const EdgeInsets.only(left: 20),
                 )),
       ),
+      // Formulaire pour la modification de profile
       body: Center(
         child: Form(
           child: Column(children: [
@@ -39,6 +39,7 @@ class Profile extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center),
             ),
+            // Icone qui represente profile 
             Container(
               margin: const EdgeInsets.only(bottom: 30),
               width: 150,
@@ -53,7 +54,7 @@ class Profile extends StatelessWidget {
                 color: Color.fromARGB(255, 26, 32, 39),
               ),
             ),
-
+            // Champ de saisi pour le remplir le nom complet
             Container(
               padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
               child: Column(
@@ -72,6 +73,7 @@ class Profile extends StatelessWidget {
                 ],
               ),
             ),
+            // Champ de saisi pour entrer le numéro
             Container(
               padding: const EdgeInsets.only(
                 left: 30,
@@ -94,7 +96,7 @@ class Profile extends StatelessWidget {
                 ],
               ),
             ),
-
+          // champ por remplir le genre
             Container(
               padding: const EdgeInsets.only(
                   left: 30, right: 30, top: 10, bottom: 25),
@@ -114,7 +116,7 @@ class Profile extends StatelessWidget {
                 ],
               ),
             ),
-
+          //  le bouton d'envoi des données
             ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(

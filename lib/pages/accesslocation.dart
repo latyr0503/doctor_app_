@@ -12,6 +12,7 @@ class AccessLocation extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // l'icone Localisation
             Container(
               width: 100,
               height: 100,
@@ -48,6 +49,8 @@ class AccessLocation extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
+
+            // Bouton pour de rediriger au niveau de la page Home
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -71,6 +74,9 @@ class AccessLocation extends StatelessWidget {
                 ),
               ),
             ),
+
+            // TextBouton pour de rediriger au niveau de la Location
+
             Container(
               margin: const EdgeInsets.only(top: 20, bottom: 20),
               child: TextButton(

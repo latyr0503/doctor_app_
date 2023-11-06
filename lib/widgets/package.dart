@@ -26,42 +26,40 @@ class Package extends StatelessWidget {
     return 
     Column(
       children: [
-         Container(
-          child: Row(
-            children: [
-              Container(
-                child: CircleAvatar(
-                  backgroundColor: iconColors,
-                  child: Icon(leadingIcon, color: listTitleColor,),
-                )
-              ),
+         Row(
+           children: [
+             Container(
+               child: CircleAvatar(
+                 backgroundColor: iconColors,
+                 child: Icon(leadingIcon, color: listTitleColor,),
+               )
+             ),
 
-              Container(
-                margin: EdgeInsets.only(left: 8),
-                child: Row(
-                  children: [
-                  Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                    Text(title, style: TextStyle(fontWeight: FontWeight.bold),),
-                    Text(subTitle)
-                       ],),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(left:50),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                      Text(money, style: TextStyle(fontWeight: FontWeight.bold)),
-                      Text(min)
-                    ],),
-                  )
-                  ],
-                ),
-              )
-            ],
-          ),
+             Container(
+               margin: EdgeInsets.only(left: 8),
+               child: Row(
+                 children: [
+                 Container(
+                   child: Column(
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                     children: [
+                   Text(title, style: TextStyle(fontWeight: FontWeight.bold),),
+                   Text(subTitle)
+                      ],),
+                 ),
+                 Container(
+                   padding: EdgeInsets.only(left:50),
+                   child: Column(
+                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                     children: [
+                     Text(money, style: TextStyle(fontWeight: FontWeight.bold)),
+                     Text(min)
+                   ],),
+                 )
+                 ],
+               ),
+             )
+           ],
          )
       ],
     );

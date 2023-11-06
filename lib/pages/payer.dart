@@ -16,6 +16,8 @@ class _PayerState extends State<Payer> {
     super.initState();
   }
 
+  // La création d'une boite de dialogue
+
   void _carte() {
     showDialog(
         context: context,
@@ -67,6 +69,7 @@ class _PayerState extends State<Payer> {
         elevation: 0,
         centerTitle: true,
       ),
+      // Les trois methodes de payements
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -77,6 +80,7 @@ class _PayerState extends State<Payer> {
                 const SizedBox(
                   height: 20,
                 ),
+                // création de Card pour le visa 
                 Container(
                   margin: const EdgeInsets.only(bottom: 10),
                   alignment: Alignment.topLeft,
@@ -130,6 +134,8 @@ class _PayerState extends State<Payer> {
                 const SizedBox(
                   height: 20,
                 ),
+
+                // création de Card pour le paypal et apple pay 
                 Container(
                   margin: const EdgeInsets.only(bottom: 10),
                   alignment: Alignment.topLeft,
@@ -150,7 +156,7 @@ class _PayerState extends State<Payer> {
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.transparent),
                   child: Center(
-                    // le bouton Radio au niveau du champ de la carte Visa
+                    // insertion du logo de paypal
                     child: Row(
                       children: [
                         Container(
@@ -169,6 +175,7 @@ class _PayerState extends State<Payer> {
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black54)),
                         const Spacer(),
+                        // Bouton qui nous redirige dans le site paypal au niveau la page connexion
                         MaterialButton(
                           onPressed: () {
                             _launchURL(
@@ -185,6 +192,7 @@ class _PayerState extends State<Payer> {
                     ),
                   ),
                 ),
+                    // insertion du logo de paypal
                 Container(
                   width: double.infinity,
                   height: 50,
@@ -193,7 +201,6 @@ class _PayerState extends State<Payer> {
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.transparent),
                   child: Center(
-                    // le bouton Radio au niveau du champ de la carte Visa
                     child: Row(
                       children: [
                         const SizedBox(
@@ -210,6 +217,7 @@ class _PayerState extends State<Payer> {
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black54)),
                         const Spacer(),
+                        // Bouton qui nous redirige dans le site apple pay
                         MaterialButton(
                           onPressed: () {
                             _launchURLApple(
@@ -237,6 +245,7 @@ class _PayerState extends State<Payer> {
   }
 }
 
+// // cette configuration est pour le premier site exemple paypal
 void _launchURLApple(String url) async {
   // ignore: deprecated_member_use
   if (await canLaunch(url)) {
@@ -246,6 +255,8 @@ void _launchURLApple(String url) async {
     throw 'Impossible d\'ouvrir l\'URL $url';
   }
 }
+
+// cette configuration est pour le premier site exemple apple pay
 
 void _launchURL(String url) async {
   // ignore: deprecated_member_use

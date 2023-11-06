@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 
 // ignore: camel_case_types
 class Details_doctor extends StatelessWidget {
+
+  // l'utilisation d'un Pros
   final String name;
   final String proffession;
   final String adresse;
@@ -24,7 +26,10 @@ class Details_doctor extends StatelessWidget {
     required this.imageProvider,
     // required this.jours,
   });
-  final List<Map<String, dynamic>> dummyHourWork = [
+
+  // Mapper des jours et heures 
+
+    final List<Map<String, dynamic>> dummyHourWork = [
     {
       "day": 'Lundi',
       "heuresOne": "08:00",
@@ -52,6 +57,7 @@ class Details_doctor extends StatelessWidget {
     // print(imageUrl);
     // Liste de spécialistes
     return Scaffold(
+        
         appBar: AppBar(
             title: const Center(
           child: Text(
@@ -65,6 +71,7 @@ class Details_doctor extends StatelessWidget {
               children: <Widget>[
                 Row(
                   children: <Widget>[
+                    // l'image et d'autres information sur le docteur
                     Container(
                       margin:
                           const EdgeInsets.only(top: 20.0, left: 20, right: 10),
@@ -134,6 +141,8 @@ class Details_doctor extends StatelessWidget {
               height: 20,
             ),
             // const Icone(),
+
+            //  Colonne pour les icones, en les imbriquants dans le row
             Column(
               children: [
                 Row(
@@ -193,6 +202,8 @@ class Details_doctor extends StatelessWidget {
                     ),
                   ],
                 ),
+
+                // le nombre de chaque partie pour les icones
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -276,6 +287,7 @@ class Details_doctor extends StatelessWidget {
                 )
               ],
             ),
+            // la partie About c'est-à-dire à propos
             Container(
               margin: const EdgeInsets.only(top: 35, left: 33),
               child: const Text(
@@ -306,7 +318,7 @@ class Details_doctor extends StatelessWidget {
               indent: 30,
               endIndent: 30,
             ),
-
+          //  le map des données en local
             Column(
               children: dummyHourWork.map((dateHour) {
                 return DateHours(
@@ -359,6 +371,7 @@ class Details_doctor extends StatelessWidget {
                 ],
               ),
             ),
+            //  La barre de recherche mais pas dynamique
             Padding(
               padding: const EdgeInsets.all(30.0),
               child: TextField(
@@ -389,8 +402,9 @@ class Details_doctor extends StatelessWidget {
               indent: 30,
               endIndent: 30,
             ),
+            // Ici on a inseré un composent  réutilisable c'est commme sous forme de commentaire
             const CommentaireDetail(),
-
+            // le bouton est passe comme sous forme pros pour  une autre fichier qui appointement
             Padding(
               padding: const EdgeInsets.only(bottom: 30, left: 30, right: 30),
               child: ElevatedButton(

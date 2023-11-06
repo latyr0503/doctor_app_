@@ -3,12 +3,7 @@ import 'package:doctor_app/widgets/package.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// void main() {
-//   runApp(MaterialApp(
-//     home: SelectPackage(),
-//   ));
-// }
-
+// Ici l'utid=sation peut selectionner ses infos ou pour un autre
 class SelectPackage extends StatefulWidget {
   const SelectPackage({Key? key}) : super(key: key);
 
@@ -21,7 +16,11 @@ class _SelectPackageState extends State<SelectPackage> {
 
   String? valueChoose;
   List<String> listItem = ['30 minutes', '1h00', '1h30', '2h00'];
+
+  // cette  variable est pour les bouton radios
   int _value = 0;
+
+//  Envoie des donnees dans le local storage au niveau sharedpreferences
   late SharedPreferences prefs;
 
   Future<void> saveSelectedDuration(String value) async {
@@ -38,10 +37,6 @@ class _SelectPackageState extends State<SelectPackage> {
     prefs = await SharedPreferences.getInstance();
     prefs.setInt('selected_money', value);
   }
-
-  // Votre fonction fetchSpecialists
-
-  // int _value = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +70,7 @@ class _SelectPackageState extends State<SelectPackage> {
                         color: const Color.fromRGBO(
                             243, 237, 237, 1)), // Ajoutez une bordure
                     borderRadius: BorderRadius.circular(
-                        10), // Facultatif : pour des coins arrondis
+                        10),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -122,6 +117,7 @@ class _SelectPackageState extends State<SelectPackage> {
                         const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                     child: Row(
                       children: [
+                        // Utilisation du composent package utilisee comme props
                         const Package(
                           title: "Messaging",
                           subTitle: "Avec le docteur",
@@ -154,6 +150,7 @@ class _SelectPackageState extends State<SelectPackage> {
                         const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                     child: Row(
                       children: [
+                        // Utilisation du composent package utilisee comme props
                         const Package(
                           title: "Appel Vocal",
                           subTitle: "Avec le docteur",
@@ -186,6 +183,7 @@ class _SelectPackageState extends State<SelectPackage> {
                         const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                     child: Row(
                       children: [
+                        // Utilisation du composent package utilisee comme props
                         const Package(
                           title: "Appel Vidéo",
                           subTitle: "Avec le docteur",
@@ -217,6 +215,8 @@ class _SelectPackageState extends State<SelectPackage> {
                         const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                     child: Row(
                       children: [
+                        // Utilisation du composent package utilisee comme props
+                        // pour consulter les fichiers Packages il suffit de faire ctrl + click sur Package au dessous
                         const Package(
                           title: "En personne",
                           subTitle: "Avec le docteur",
@@ -245,6 +245,8 @@ class _SelectPackageState extends State<SelectPackage> {
                 const SizedBox(
                   height: 50,
                 ),
+
+                // Bouton d'envoi pour stocker des données dans le sharedpreferences
                 Container(
                   width: double.infinity,
                   child: ElevatedButton(
@@ -277,6 +279,7 @@ class _SelectPackageState extends State<SelectPackage> {
     );
   }
 
+//  Envoie des données dans le local storage avec sharedpreferences
   void envoyerDuree() async {
     if (valueChoose == null || _value == 0) {
       // Gérez la validation ici, par exemple, en affichant une alerte à l'utilisateur.

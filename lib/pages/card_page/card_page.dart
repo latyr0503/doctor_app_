@@ -1,25 +1,27 @@
 import 'package:doctor_app/pages/review_summary.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'card/credit_card.dart';
-import 'formatters/index.dart';
 import 'package:http/http.dart' as http;
 
-
 class CardPage extends StatefulWidget {
-  const CardPage({super.key});
+  // ignore: use_key_in_widget_constructors
+  const CardPage({Key? key});
 
   @override
-  State<CardPage> createState() => _CardPageState();
+  // ignore: library_private_types_in_public_api
+  _CardPageState createState() => _CardPageState();
 }
 
 class _CardPageState extends State<CardPage> {
+  late TextEditingController _nameController;
+  // late TextEditingController _nameController;
   late TextEditingController _cvvCTRL;
   late TextEditingController _noCTRL;
   late TextEditingController _expCTRL;
 
   @override
   void initState() {
+    _nameController = TextEditingController();
     _cvvCTRL = TextEditingController();
     _noCTRL = TextEditingController();
     _expCTRL = TextEditingController();
@@ -85,21 +87,27 @@ class _CardPageState extends State<CardPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CreditCard(
-                  cvv: _cvvCTRL.text,
-                  number: _noCTRL.text,
-                  expiry: _expCTRL.text,
-                ),
                 const SizedBox(height: 50),
                 Form(
                     child: Column(
                   children: [
+                    const TextField(
+                      // controller: _nameController,
+                      decoration: InputDecoration(
+                        hintText: " Entrez votre prenom et nom",
+                        hintStyle: TextStyle(color: Colors.grey),
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                            borderSide: BorderSide(color: Colors.black38)),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
                     input(
                       placeHolder: 'Numero de carte',
                       controller: _noCTRL,
                       formatters: [
                         FilteringTextInputFormatter.digitsOnly,
-                        CardNumberFormatter(),
                         LengthLimitingTextInputFormatter(19)
                       ],
                     ),
@@ -111,7 +119,6 @@ class _CardPageState extends State<CardPage> {
                           formatters: [
                             FilteringTextInputFormatter.digitsOnly,
                             LengthLimitingTextInputFormatter(4),
-                            EXPFormatter()
                           ],
                           placeHolder: "Date d'expiration (MM/DD)",
                           controller: _expCTRL,
@@ -132,21 +139,23 @@ class _CardPageState extends State<CardPage> {
                     const SizedBox(height: 15),
                     ElevatedButton(
                       onPressed: () async {
-              final response = await http.post(
-                Uri.parse('https://votre-domaine.com/api/create_payment/'), // Remplacez par l'URL de votre backend Django.
-                body: {
-                  'card_number': _noCTRL.text,
-                  'expiry_date': _expCTRL.text,
-                  'cvv': _cvvCTRL.text,
-                },
-              );
+                        final response = await http.post(
+                          Uri.parse('https://doctor-app-h45i.onrender.com/rendez_vous/create_carte/'), // Remplacez par l'URL de votre backend Django.
+                          body: {
+                            'card_name': _nameController.text,
+                            'card_number': _noCTRL.text,
+                            'expiry_date': _expCTRL.text,
+                            'cvv': _cvvCTRL.text,
+                          },
+                        );
 
-              if (response.statusCode == 201) {
-                // La création du paiement a réussi.
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const Summary()));
-              } else {
-                // Gérez les erreurs en conséquence.
-              }
+                        if (response.statusCode == 201) {
+                          // La création du paiement a réussi.
+                          // ignore: use_build_context_synchronously
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const Summary()));
+                        } else {
+                          // Gérez les erreurs en conséquence.
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue.shade800,
@@ -161,8 +170,6 @@ class _CardPageState extends State<CardPage> {
                               height: 3,
                               color: Colors.white),
                         ),
-
-                        
                       ),
                     ),
                   ],

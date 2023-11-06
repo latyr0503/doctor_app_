@@ -1,6 +1,10 @@
 
+import 'package:doctor_app/pages/accesslocation.dart';
+import 'package:doctor_app/pages/card_page/card_page.dart';
 import 'package:doctor_app/pages/home.dart';
 import 'package:doctor_app/pages/hopital_detail.dart';
+import 'package:doctor_app/pages/hopitalscreen.dart';
+import 'package:doctor_app/pages/page_specialist.dart';
 import 'package:doctor_app/pages/payer.dart';
 import 'package:doctor_app/pages/review_summary.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +26,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue.shade700),
         useMaterial3: true,
       ),
-      home: Payer(), 
+      home: const CardPage(), 
     );
   }
 }

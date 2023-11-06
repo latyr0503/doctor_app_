@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 class Appoitment extends StatefulWidget {
+  // utilisation de props pour filtrer les données
   final String name;
   final String proffession;
   final String adresse;
@@ -18,72 +19,82 @@ class Appoitment extends StatefulWidget {
       required this.experience});
 
   @override
+  // ignore: library_private_types_in_public_api
   _AppoitmentState createState() => _AppoitmentState();
 }
 
 class _AppoitmentState extends State<Appoitment> {
-
+// permet de recuperer les donnees et les stocker au niveau du sharedPreferences
   TextEditingController _dateController = TextEditingController();
   TextEditingController _controller = TextEditingController();
   TimeOfDay? time = TimeOfDay.now();
   bool isTimeChosen = false;
 
+//  Envoyer les donnees dans le shardpreferences
   void envoyerDateEtHeure() async {
     // final String nameMedecin = _controller.text;
     final String date = _dateController.text;
 
-   if (date.isEmpty || !isTimeChosen) {
-    // Afficher un message d'erreur si la date ou l'heure n'a pas été sélectionnée.
+    if (date.isEmpty || !isTimeChosen) {
+      // Afficher un message d'erreur si la date ou l'heure n'a pas été sélectionnée.
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Veuillez sélectionner une date et une heure.',
+            style: TextStyle(color: Colors.white),
+          ),
+          duration: Duration(seconds: 3),
+          backgroundColor: Colors.red, // Durée d'affichage du message
+        ),
+      );
+      return;
+    }
+    // Afficher un message de succes si la date ou l'heure a été sélectionnée.
+
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text('Veuillez sélectionner une date et une heure.', style: TextStyle(color: Colors.white),),
-        duration: Duration(seconds: 3),
-        backgroundColor: Colors.red, // Durée d'affichage du message
+        content: Text(
+          'Rendez-vous pris avec succès!',
+          style: TextStyle(fontSize: 15, color: Colors.black),
+        ),
+        duration:
+            Duration(seconds: 3), // Durée d'affichage du message de succès
+        backgroundColor: Color.fromRGBO(
+            187, 222, 251, 1), // Couleur d'arrière-plan du message de succès
       ),
     );
-    return;
-  }
 
-  ScaffoldMessenger.of(context).showSnackBar(
-    const SnackBar(
-      content: Text('Rendez-vous pris avec succès!', style: TextStyle(fontSize: 15, color: Colors.black),),
-      duration: Duration(seconds: 3), // Durée d'affichage du message de succès
-      backgroundColor: Color.fromRGBO(187, 222, 251, 1), // Couleur d'arrière-plan du message de succès
-    ),
-  );
+    // l'utilisation de l'heure
+    final String heureFormatee ='${time!.hour.toString().padLeft(2, '0')}:${time!.minute.toString().padLeft(2, '0')}';
 
-    final String heureFormatee = '${time!.hour.toString().padLeft(2, '0')}:${time!.minute.toString().padLeft(2, '0')}';
+//  récupération des données dans le local storage
+    final prefs = await SharedPreferences.getInstance();
+    final savedAppointments = prefs.getStringList('saved_appointments') ?? [];
+    
+    // la date est converti en chaîne de caractères
+    final dateString = date.toString(); 
+     // l'heureFormatee est converti en chaîne de caractères
+    final heureFormateeString = heureFormatee.toString();
 
-   final prefs = await SharedPreferences.getInstance();
-final savedAppointments = prefs.getStringList('saved_appointments') ?? [];
+    final appointment = {
+      'date': dateString,
+      'heure': heureFormateeString,
+    };
 
-// final nameMedecinString = nameMedecin.toString(); // Assurez-vous que nameMedecin est converti en chaîne de caractères
-final dateString = date.toString(); // Assurez-vous que date est converti en chaîne de caractères
-final heureFormateeString = heureFormatee.toString(); // Assurez-vous que heureFormatee est converti en chaîne de caractères
-
-final appointment = {
-  // 'name_medecin': nameMedecinString,
-  'date': dateString,
-  'heure': heureFormateeString,
-};
-
-
-final appointmentJson = jsonEncode(appointment);
-savedAppointments.add(appointmentJson);
-await prefs.setStringList('saved_appointments', savedAppointments);
+    final appointmentJson = jsonEncode(appointment);
+    savedAppointments.add(appointmentJson);
+    await prefs.setStringList('saved_appointments', savedAppointments);
 
     _controller.clear();
     _dateController.clear();
 
-    // Redirection vers la page Summary
+    // Redirection vers la page SelectPackage
     // ignore: use_build_context_synchronously
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const SelectPackage()),
     );
   }
-
-  
 
   @override
   @override
@@ -102,7 +113,6 @@ await prefs.setStringList('saved_appointments', savedAppointments);
         ),
         body: ListView(
           children: [
-            // const Details(),
             Column(
               children: <Widget>[
                 Row(
@@ -129,6 +139,7 @@ await prefs.setStringList('saved_appointments', savedAppointments);
                         ),
                       ),
                     ),
+                    // dans cette colonne on recupere les infos du docteur sous forme de props
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -178,6 +189,8 @@ await prefs.setStringList('saved_appointments', savedAppointments);
             const SizedBox(
               height: 20,
             ),
+
+            //  Colonne pour les icones, en les imbriquants dans le row
             Column(
               children: [
                 Row(
@@ -237,6 +250,9 @@ await prefs.setStringList('saved_appointments', savedAppointments);
                     ),
                   ],
                 ),
+
+                // le nombre de chaque partie pour les icones
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -342,96 +358,89 @@ await prefs.setStringList('saved_appointments', savedAppointments);
               ]),
             ),
 
-
+            // La section Date et heure, leurs données sont stockées au niveau du shardpreference
             Padding(
               padding: const EdgeInsets.only(left: 20.0, right: 20.0),
               child: Form(
-                      child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-              
-                const Text(
-                  'Date',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                ),
-                Container(
-                  child: TextField(
-                    controller: _dateController,
-                    decoration: const InputDecoration(
-                      filled: true,
-                      prefixIcon: Icon(Icons.calendar_today, color: Colors.white),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue),
-                      ),
-                      fillColor: Color.fromRGBO(187, 222, 251, 1),
-                    ),
-                    readOnly: true,
-                    onTap: () {
-                      _selectDate();
-                    },
-                  ),
-                ),
-               const SizedBox(height: 5),
-
-                const Text(
-                  'Heure',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                ),
-                Stack(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      margin: EdgeInsets.only(left: 50, top: 10),
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: Colors.blue[100],
-                      ),
-                      child: Text(
-                        '${time!.hour.toString().padLeft(2, '0')}:${time!.minute.toString().padLeft(2, '0')}',
-                        style: const TextStyle(fontSize: 20),
-                      ),
+                    const Text(
+                      'Date',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                     ),
                     Container(
-                      margin: const EdgeInsets.only(top: 5),
-                      child: FloatingActionButton(
-                        onPressed: () async {
-                          TimeOfDay? newTime = await showTimePicker(
-                            context: context,
-                            initialTime: time!,
-                          );
-                          if (newTime != null) {
-                            setState(() {
-                              time = newTime;
-                              isTimeChosen = true;
-                            });
-                          }
-                        },
-                        backgroundColor: Colors.blue[100],
-                        child: const Icon(
-                          Icons.access_time,
-                          color: Colors.white,
+                      child: TextField(
+                        controller: _dateController,
+                        decoration: const InputDecoration(
+                          filled: true,
+                          prefixIcon:
+                              Icon(Icons.calendar_today, color: Colors.white),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue),
+                          ),
+                          fillColor: Color.fromRGBO(187, 222, 251, 1),
                         ),
+                        readOnly: true,
+                        onTap: () {
+                          _selectDate();
+                        },
                       ),
+                    ),
+                    const SizedBox(height: 5),
+                    const Text(
+                      'Heure',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    ),
+                    Stack(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(left: 50, top: 10),
+                          width: double.infinity,
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.blue[100],
+                          ),
+                          child: Text(
+                            '${time!.hour.toString().padLeft(2, '0')}:${time!.minute.toString().padLeft(2, '0')}',
+                            style: const TextStyle(fontSize: 20),
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 5),
+                          child: FloatingActionButton(
+                            onPressed: () async {
+                              TimeOfDay? newTime = await showTimePicker(
+                                context: context,
+                                initialTime: time!,
+                              );
+                              if (newTime != null) {
+                                setState(() {
+                                  time = newTime;
+                                  isTimeChosen = true;
+                                });
+                              }
+                            },
+                            backgroundColor: Colors.blue[100],
+                            child: const Icon(
+                              Icons.access_time,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
-                      ),
-                    ),
+              ),
             ),
 
-
-
-
-
-
             const SizedBox(height: 20),
-
-
-
 
             Padding(
               padding: const EdgeInsets.only(left: 20.0, right: 20.0),
@@ -451,37 +460,41 @@ await prefs.setStringList('saved_appointments', savedAppointments);
                 ),
               ),
             ),
-                SizedBox(height: 30),
-
+            SizedBox(height: 30),
 
             Padding(
-             padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+              padding: const EdgeInsets.only(left: 20.0, right: 20.0),
               child: SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      envoyerDateEtHeure();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue[800],
-                      padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 23),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    envoyerDateEtHeure();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue[800],
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 50, vertical: 23),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
                     ),
-                    child: const Text(
-                      'Prendre rendez-vous',
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,),
+                  ),
+                  child: const Text(
+                    'Prendre rendez-vous',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
+              ),
             ),
             const SizedBox(height: 50),
-
           ],
         ));
   }
-    Future<void> _selectDate() async {
+
+// l'utilisation de la date
+  Future<void> _selectDate() async {
     DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
