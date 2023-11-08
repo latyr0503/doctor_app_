@@ -1,10 +1,47 @@
 import 'package:doctor_app/components/navigation_menu.dart';
 import 'package:doctor_app/pages/page_specialist.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
-// ignore: camel_case_types
-class validation extends StatelessWidget {
-  const validation({super.key});
+class Validation extends StatefulWidget {
+  const Validation({Key? key});
+
+  @override
+  State<Validation> createState() => _ValidationState();
+}
+
+class _ValidationState extends State<Validation> {
+  List<Map<String, String>> appointments = [];
+
+  void loadAppointments() async {
+    final prefs = await SharedPreferences.getInstance();
+    final savedAppointments = prefs.getStringList('saved_appointments') ?? [];
+    if (savedAppointments.isNotEmpty) {
+      final jsonString = savedAppointments.last; // Accédez au dernier élément
+      final Map<String, dynamic> jsonMap = jsonDecode(jsonString);
+      final lastAppointment = Map<String, String>.from(jsonMap);
+
+      setState(() {
+        appointments.add(lastAppointment);
+      });
+    }
+  }
+
+  late String username;
+
+  @override
+  void initState() {
+    super.initState();
+
+      loadAppointments();
+    // Initialisation de SharedPreferences pour récupérer les données sauvegardées
+    SharedPreferences.getInstance().then((preferences) {
+      setState(() {
+        username = preferences.getString('username') ?? '';
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +77,7 @@ class validation extends StatelessWidget {
             Container(
               margin: const EdgeInsets.only(top: 15),
               child: const Text(
-                "you have succesfully bocked appoitment with",
+                "you have successfully booked an appointment with",
                 style: TextStyle(
                   fontSize: 15,
                   color: Colors.grey,
@@ -69,16 +106,16 @@ class validation extends StatelessWidget {
                       children: [
                         Container(
                           alignment: Alignment.topLeft,
-                          child: const Row(
+                          child: Row(
                             children: [
-                              Icon(Icons.person, color: Colors.blue),
-                              SizedBox(
+                              const Icon(Icons.person, color: Colors.blue),
+                              const SizedBox(
                                 width: 5,
                               ),
                               Text(
-                                'Eshter Howard',
+                                username,
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -128,53 +165,65 @@ class validation extends StatelessWidget {
                   Expanded(
                     child: Column(
                       children: [
-                        Container(
-                          alignment: Alignment.topLeft,
-                          child: const Row(
-                            children: [
-                              Icon(Icons.calendar_month, color: Colors.blue),
-                              SizedBox(
-                                width: 5,
+                        Column(
+                          children: appointments.map((appointment) {
+                            return Container(
+                              child: Container(
+                              margin: const EdgeInsets.only(top:8.0),
+                                child: Row(
+                                  
+                                    children: [
+                                      Expanded(
+                                        child: Container(
+                                          child: Row(
+                                            children: [
+                                             const Icon(Icons.calendar_month,
+                                                  color: Colors.blue),
+                                              const SizedBox(
+                                                width: 5,
+                                              ),
+                                              Text(
+                                                '${appointment['date']}',
+                                                textAlign: TextAlign.center,
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                     SizedBox(width: 16,),
+                                      Expanded(
+                                        child: Container(
+                                       alignment: Alignment.topLeft,
+                                          child: Row(
+                                            children: [
+                                              const Icon(
+                                                Icons.timer_rounded,
+                                                color: Colors.blue,
+                                              ),
+                                              const SizedBox(
+                                                width: 5,
+                                              ),
+                                              Text(
+                                                '${appointment['heure']}',
+                                                textAlign: TextAlign.center,
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
                               ),
-                              Text(
-                                '16 Aug, 2023',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(width: 16.0),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Container(
-                          alignment: Alignment.topLeft,
-                          child: const Row(
-                            children: [
-                              Icon(
-                                Icons.timer_rounded,
-                                color: Colors.blue,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                '10:00 AM',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
+                            );
+                          }).toList(), // N'oubliez pas d'appeler .toList() à la fin pour obtenir une liste de widgets
                         ),
                       ],
                     ),

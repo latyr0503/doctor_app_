@@ -4,12 +4,14 @@ import 'back.dart';
 import 'front.dart';
 
 class CreditCard extends StatefulWidget {
+  final String name;
   final String cvv;
   final String number;
   final String expiry;
 
   const CreditCard({
     Key? key,
+    required this.name,
     required this.cvv,
     required this.number,
     required this.expiry,
@@ -43,6 +45,7 @@ class _CreditCardState extends State<CreditCard> {
                 ..rotateY(angle),
               child: frontSide
                   ? CreditCardFront(
+                      name: widget.name,
                       cardNo: widget.number,
                       exp: widget.expiry,
                     )

@@ -48,6 +48,6 @@ class NavigationController extends GetxController {
     const HopitalDetail(),
     const SystemesOnglet(),
     // const Chat(),
-    const Profile()
+     Profile()
   ];
 }

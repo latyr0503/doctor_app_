@@ -1,4 +1,4 @@
-  import 'package:doctor_app/components/doctor.dart';
+import 'package:doctor_app/components/doctor.dart';
   import 'package:doctor_app/pages/validation.dart';
   import 'package:flutter/material.dart';
   import 'dart:convert';
@@ -16,35 +16,35 @@
   class _SummeState extends State<Summary> {
 
 Future<void> sendAppointmentsToDjango() async {
-  final prefs = await SharedPreferences.getInstance();
-  final savedAppointments = prefs.getStringList('saved_appointments') ?? [];
+    final prefs = await SharedPreferences.getInstance();
+    final savedAppointments = prefs.getStringList('saved_appointments') ?? [];
 
-  for (String jsonString in savedAppointments) {
-    final Map<String, dynamic> jsonMap = jsonDecode(jsonString);
+    for (String jsonString in savedAppointments) {
+      final Map<String, dynamic> jsonMap = jsonDecode(jsonString);
 
-    final response = await http.post(
-      Uri.parse('https://doctor-app-h45i.onrender.com/rendez_vous/create_rendez_vous/'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(jsonMap),
-    );
+      final response = await http.post(
+        Uri.parse('https://doctor-app-h45i.onrender.com/rendez_vous/create_rendez_vous/'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(jsonMap),
+      );
 
-    if (response.statusCode == 201) {
-      print('Requête correcte');
-      // La donnée a été enregistrée avec succès sur le serveur Django.
-      // Vous pouvez également supprimer la donnée de SharedPreferences si nécessaire.
-    } else if (response.statusCode == 400) {
-      // Gérez l'erreur 400 (Bad Request) ici.
-      print('Erreur 400: Requête incorrecte');
-      // Vous pouvez afficher un message d'erreur à l'utilisateur ou effectuer d'autres actions nécessaires.
-    } else {
-      // Gérez d'autres codes d'erreur ici.
-      print('Erreur ${response.statusCode}: ${response.reasonPhrase}');
-      // Vous pouvez afficher un message d'erreur à l'utilisateur ou effectuer d'autres actions nécessaires.
+      if (response.statusCode == 201) {
+        print('Requête correcte');
+        // La donnée a été enregistrée avec succès sur le serveur Django.
+        // Vous pouvez également supprimer la donnée de SharedPreferences si nécessaire.
+      } else if (response.statusCode == 400) {
+        // Gérez l'erreur 400 (Bad Request) ici.
+        print('Erreur 400: Requête incorrecte');
+        // Vous pouvez afficher un message d'erreur à l'utilisateur ou effectuer d'autres actions nécessaires.
+      } else {
+        // Gérez d'autres codes d'erreur ici.
+        print('Erreur ${response.statusCode}: ${response.reasonPhrase}');
+        // Vous pouvez afficher un message d'erreur à l'utilisateur ou effectuer d'autres actions nécessaires.
+      }
     }
   }
-}
 
     //  Durée et Package
 
@@ -67,15 +67,15 @@ Future<void> sendAppointmentsToDjango() async {
 
     String? booking;
     String? gender;
-    String? age;
     String? probleme;
-
+     int? age;
     Future<void> fetchPatientDetails() async {
       final prefs = await SharedPreferences.getInstance();
       booking = prefs.getString('booking_for') ?? '';
       gender = prefs.getString('gender') ?? '';
-      age = prefs.getString('age') ?? '';
       probleme = prefs.getString('problem_text') ?? '';
+      age = (prefs.getInt('age_text') ?? 0);
+
 
       // Mettez à jour l'interface avec les données récupérées, par exemple, en utilisant setState.
       setState(() {});
@@ -97,21 +97,6 @@ Future<void> sendAppointmentsToDjango() async {
     }
     }
 
-    List<Map<String, dynamic>> dummyAppoint = [];
-
-    // Votre fonction fetchSpecialists
-    Future<List<Map<String, dynamic>>> fetchAppoint() async {
-      final response = await http.get(Uri.parse(
-          'https://doctor-app-h45i.onrender.com/rendez_vous/list_rendez_vous/'));
-      if (response.statusCode == 200) {
-        // Si la requête est réussie, convertissez la réponse en une liste de Map
-        List<dynamic> data = json.decode(response.body);
-        return data.map((item) => item as Map<String, dynamic>).toList();
-      } else {
-        // Si la requête échoue, lancez une exception.
-        throw Exception('Échec de la récupération des données depuis l\'API');
-      }
-    }
 
     @override
     void initState() {
@@ -164,7 +149,7 @@ Future<void> sendAppointmentsToDjango() async {
                         return Container(
                           margin: const EdgeInsets.all(8.0),
                           child: Padding(
-                            padding: EdgeInsets.only(left: 16.0, right: 16.0,),
+                            padding: const EdgeInsets.only(left: 16.0, right: 16.0,),
                             child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
@@ -235,6 +220,8 @@ Future<void> sendAppointmentsToDjango() async {
                   children: [
                     const Text('Age', style: TextStyle(fontWeight: FontWeight.w600, color: Colors.grey),),
                     Text('$age',style: const TextStyle(fontWeight: FontWeight.w600)),
+
+                    // TEXTFIELD....
                   ],
                 ),  
               ),
@@ -304,7 +291,7 @@ Future<void> sendAppointmentsToDjango() async {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const validation()),
+                            builder: (context) => const Validation()),
                       );
                     },
                     child: const Text('Change'),
@@ -322,7 +309,7 @@ Future<void> sendAppointmentsToDjango() async {
                   sendAppointmentsToDjango(); 
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const validation()),
+                    MaterialPageRoute(builder: (context) => const Validation()),
                   );
                 },
                 style: ElevatedButton.styleFrom(

@@ -42,7 +42,7 @@ class _AddCardState extends State<AddCard> {
       'expire': expire,
       'cvv': cvv,
     };
-
+   
     if (name.isEmpty || number.isEmpty || expire.isEmpty || cvv.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(

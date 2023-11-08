@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class CreditCardFront extends StatefulWidget {
+  final String name;
   final String cardNo;
   final String exp;
 
   const CreditCardFront({
     Key? key,
+    required this.name,
     required this.cardNo,
     required this.exp,
   }) : super(key: key);
@@ -81,10 +83,15 @@ class _CreditCardFrontState extends State<CreditCardFront> {
                         : Colors.white,
                     fontSize: 19),
               ),
-              const Image(
-                image: AssetImage('assets/logocard.jpg'),
-                height: 25,
-              ),
+               Text(
+            widget.name.isEmpty ? 'name user' : widget.name,
+            style: TextStyle(
+                color: widget.name.isEmpty
+                    ? Colors.white.withOpacity(0.3)
+                    : Colors.white,
+                fontSize: 20,
+                letterSpacing: 1),
+          ),
             ],
           ),
           const Spacer(),

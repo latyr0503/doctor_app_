@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Package extends StatelessWidget {
   final String title;
   final String subTitle;
-  final String money;
+  final int money;
   final String min;
   final IconData leadingIcon;
   final IconData trailingIcon;
@@ -28,11 +28,9 @@ class Package extends StatelessWidget {
       children: [
          Row(
            children: [
-             Container(
-               child: CircleAvatar(
-                 backgroundColor: iconColors,
-                 child: Icon(leadingIcon, color: listTitleColor,),
-               )
+             CircleAvatar(
+               backgroundColor: iconColors,
+               child: Icon(leadingIcon, color: listTitleColor,),
              ),
 
              Container(
@@ -52,7 +50,7 @@ class Package extends StatelessWidget {
                    child: Column(
                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                      children: [
-                     Text(money, style: TextStyle(fontWeight: FontWeight.bold)),
+                     Text(money.toString(), style: TextStyle(fontWeight: FontWeight.bold)),
                      Text(min)
                    ],),
                  )

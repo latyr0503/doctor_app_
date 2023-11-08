@@ -15,32 +15,56 @@ class Patient extends StatefulWidget {
 class _PatientState extends State<Patient> {
   String? valueChoose;
   String? valueGenre;
-  String? valueAge;
+  String? valueProbleme;
   List<String> listItem = ['Pour moi', 'Pour une autre'];
   List<String> genre = ['Macsulin', 'Feminin'];
-  List<String> age = ['24 ans', '23 ans', '22 ans', '21 ans', '20 ans'];
 
-  final _problemController =
-      TextEditingController(); // Ajoutez un TextEditingController pour le champ de texte
+  final _problemController = TextEditingController();
+  final _ageController = TextEditingController();
 
-  Future<void> savePatientDetails() async {
+  // Ajoutez un TextEditingController pour le champ de texte
+  void savePatientDetails() async {
+    if (valueChoose == null || valueGenre == null) {
+      // Afficher un dialogue d'erreur
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Veuillez sélectionner tous les champs',
+            style: TextStyle(color: Colors.white),
+          ),
+          duration: Duration(seconds: 3),
+          backgroundColor: Colors.red, // Durée d'affichage du message
+        ),
+      );
+      return;
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          'Données enregistrées avec succès!',
+          style: TextStyle(fontSize: 15, color: Colors.black),
+        ),
+        duration:
+            Duration(seconds: 3), // Durée d'affichage du message de succès
+        backgroundColor: Color.fromRGBO(
+            187, 222, 251, 1), // Couleur d'arrière-plan du message de succès
+      ),
+    );
+
     final prefs = await SharedPreferences.getInstance();
 
     // Sauvegarde des valeurs des DropdownButton
-    prefs.setString('booking_for',
-        valueChoose ?? ''); // Valeur par défaut vide si rien n'est sélectionné
-    prefs.setString('gender',
-        valueGenre ?? ''); // Valeur par défaut vide si rien n'est sélectionné
-    prefs.setString('age',
-        valueAge ?? ''); // Valeur par défaut vide si rien n'est sélectionné
+    prefs.setString('booking_for', valueChoose ?? '');
+    prefs.setString('gender', valueGenre ?? '');
 
-    // Sauvegarde du texte du champ de texte
-    final problemText = _problemController
-        .text; // Récupérez le texte à partir de la TextEditingController
+    final problemText = _problemController.text;
     prefs.setString('problem_text', problemText);
-    // ignore: use_build_context_synchronously
+
+    final ageText = _ageController.text;
+    prefs.setString('age_text', ageText);
+    // Redirection vers la page Payer
     Navigator.pop(context);
-    // ignore: use_build_context_synchronously
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const Payer()),
@@ -50,6 +74,9 @@ class _PatientState extends State<Patient> {
   String? bookingFor;
   String? gender;
   String? problemText;
+  int? ageText;
+
+
 
   @override
   void initState() {
@@ -61,8 +88,9 @@ class _PatientState extends State<Patient> {
     final prefs = await SharedPreferences.getInstance();
     bookingFor = prefs.getString('booking_for') ?? '';
     gender = prefs.getString('gender') ?? '';
-    age = (prefs.getString('age') ?? '') as List<String>;
     problemText = prefs.getString('problem_text') ?? '';
+    ageText = (prefs.getInt('age_text') ?? 0);
+
   }
 
   @override
@@ -175,36 +203,19 @@ class _PatientState extends State<Patient> {
             Container(
               decoration: BoxDecoration(
                 border: Border.all(
-                    width: 1.0, color: Color.fromRGBO(243, 237, 237, 1)),
+                  width: 1.0,
+                  color: Color.fromRGBO(243, 237, 237, 1),
+                ),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Container(
-                  width: double.infinity,
-                  child: DropdownButton<String>(
-                    hint: Text('24 years'),
-                    dropdownColor: Colors.blue[100],
-                    icon: Icon(Icons.keyboard_arrow_down_sharp),
-                    style: TextStyle(
-                      color: Colors.black,
-                    ),
-                    iconSize: 36,
-                    isExpanded: true,
-                    iconEnabledColor: Colors.blue,
-                    value: valueAge,
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        valueAge = newValue;
-                      });
-                    },
-                    items: age.map((String valueItem) {
-                      return DropdownMenuItem<String>(
-                        value: valueItem,
-                        child: Text(valueItem),
-                      );
-                    }).toList(),
-                    underline: Container(),
+                padding: EdgeInsets.symmetric(horizontal: 8),
+                child: TextField(
+                  keyboardType: TextInputType.number,
+                  controller: _ageController,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: "Entrez votre âge",
                   ),
                 ),
               ),
@@ -261,11 +272,5 @@ class _PatientState extends State<Patient> {
         ),
       ),
     );
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(StringProperty('age', age as String?));
   }
 }

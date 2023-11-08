@@ -20,6 +20,14 @@ class _SelectPackageState extends State<SelectPackage> {
   // cette  variable est pour les bouton radios
   int _value = 0;
 
+  int money = 20;
+  int money1 = 40;
+  int money2 = 60;
+  int money3 = 80;
+  int money4 = 100;
+
+
+
 //  Envoie des donnees dans le local storage au niveau sharedpreferences
   late SharedPreferences prefs;
 
@@ -109,7 +117,7 @@ class _SelectPackageState extends State<SelectPackage> {
                 Container(
                   child: const Text('Select Package',
                       style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+                           TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
                 ),
                 Card(
                   child: Container(
@@ -118,11 +126,11 @@ class _SelectPackageState extends State<SelectPackage> {
                     child: Row(
                       children: [
                         // Utilisation du composent package utilisee comme props
-                        const Package(
+                         Package(
                           title: "Messaging",
                           subTitle: "Avec le docteur",
-                          money: "2000cfa",
-                          min: "/30min",
+                          money: money,
+                          min: "en \$ /30min",
                           listTitleColor: Colors.blue,
                           iconColors: Color.fromRGBO(187, 222, 251,
                               1), // J'ai corrigé le nom de la propriété 'iconColor'.
@@ -151,13 +159,13 @@ class _SelectPackageState extends State<SelectPackage> {
                     child: Row(
                       children: [
                         // Utilisation du composent package utilisee comme props
-                        const Package(
+                         Package(
                           title: "Appel Vocal",
                           subTitle: "Avec le docteur",
-                          money: "4000cfa",
-                          min: "/30min",
+                          money: money1,
+                          min: "en \$ /30min",
                           listTitleColor: Colors.blue,
-                          iconColors: Color.fromRGBO(187, 222, 251,
+                          iconColors: const Color.fromRGBO(187, 222, 251,
                               1), // J'ai corrigé le nom de la propriété 'iconColor'.
                           leadingIcon: Icons.call,
                         ),
@@ -184,13 +192,13 @@ class _SelectPackageState extends State<SelectPackage> {
                     child: Row(
                       children: [
                         // Utilisation du composent package utilisee comme props
-                        const Package(
+                         Package(
                           title: "Appel Vidéo",
                           subTitle: "Avec le docteur",
-                          money: "6000cfa",
-                          min: "/30min",
+                          money: money2,
+                          min: "en \$ /30min",
                           listTitleColor: Colors.blue,
-                          iconColors: Color.fromRGBO(187, 222, 251, 1),
+                          iconColors: const Color.fromRGBO(187, 222, 251, 1),
                           leadingIcon: Icons.video_camera_front,
                         ),
                         const Spacer(),
@@ -217,13 +225,13 @@ class _SelectPackageState extends State<SelectPackage> {
                       children: [
                         // Utilisation du composent package utilisee comme props
                         // pour consulter les fichiers Packages il suffit de faire ctrl + click sur Package au dessous
-                        const Package(
+                        Package(
+                          money: money3,
                           title: "En personne",
                           subTitle: "Avec le docteur",
-                          money: "8000cfa",
-                          min: "/30min",
+                          min: "en \$ /30min",
                           listTitleColor: Colors.blue,
-                          iconColors: Color.fromRGBO(187, 222, 251, 1),
+                          iconColors: const Color.fromRGBO(187, 222, 251, 1),
                           leadingIcon: Icons.person,
                         ),
                         const Spacer(),
@@ -280,11 +288,36 @@ class _SelectPackageState extends State<SelectPackage> {
   }
 
 //  Envoie des données dans le local storage avec sharedpreferences
-  void envoyerDuree() async {
-    if (valueChoose == null || _value == 0) {
-      // Gérez la validation ici, par exemple, en affichant une alerte à l'utilisateur.
+void envoyerDuree() async {
+  if (valueChoose == null || _value == 0) {
+    // Afficher un dialogue d'erreur
+    // Afficher un message d'erreur si la date ou l'heure n'a pas été sélectionnée.
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Veuillez sélectionner une durée et un forfait.',
+            style: TextStyle(color: Colors.white),
+          ),
+          duration: Duration(seconds: 3),
+          backgroundColor: Colors.red, // Durée d'affichage du message
+        ),
+      );
       return;
-    }
+
+  }
+   
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          'Données enregistrées avec succès!',
+          style: TextStyle(fontSize: 15, color: Colors.black),
+        ),
+        duration:
+            Duration(seconds: 3), // Durée d'affichage du message de succès
+        backgroundColor: Color.fromRGBO(
+            187, 222, 251, 1), // Couleur d'arrière-plan du message de succès
+      ),
+    );
 
     prefs = await SharedPreferences.getInstance();
 
