@@ -135,11 +135,11 @@ await prefs.setStringList('saved_appointments', savedAppointments);
                           });
                         }
                       },
+                      backgroundColor: Colors.blue[100],
                       child: const Icon(
                         Icons.access_time,
                         color: Colors.white,
                       ),
-                      backgroundColor: Colors.blue[100],
                     ),
                   ),
                 ],
@@ -152,7 +152,7 @@ await prefs.setStringList('saved_appointments', savedAppointments);
                     envoyerDateEtHeure();
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.blue[800],
+                    backgroundColor: Colors.blue,
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),

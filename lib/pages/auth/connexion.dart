@@ -21,82 +21,11 @@ class _ConnexionState extends State<Connexion> {
   TextEditingController passwordController = TextEditingController();
   bool _isLoading = false;
   bool _obscureText = true;
-  void signIn(
-      BuildContext context, String name, String password, String email) async {
-    try {
-      setState(() {
-        _isLoading = true;
-      });
-
-      var response = await post(
-        Uri.parse('https://doctor-app-h45i.onrender.com/users/login/'),
-        body: {
-          'name': name,
-          'email': email,
-          'password': password,
-        },
-      );
-
-      if (response.statusCode == 200) {
-        setState(() {
-          _isLoading = false;
-        });
-        print("Connexion réussie");
-
-        // ignore: use_build_context_synchronously
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text('Connexion réussie'),
-              content: const Text('Vous êtes connecté avec succès.'),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const AccessLocation()),
-                    );
-                  },
-                  child: const Text('OK'),
-                ),
-              ],
-            );
-          },
-        );
-      } else {
-        setState(() {
-          _isLoading = false;
-        });
-        print("Échec de la connexion");
-
-        // ignore: use_build_context_synchronously
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text('Échec de la connexion'),
-              content: const Text('Vérifiez vos informations et réessayez.'),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('OK'),
-                ),
-              ],
-            );
-          },
-        );
-      }
-    } catch (e) {
-      setState(() {
-        _isLoading = false;
-      });
-      print(e.toString());
-    }
+  void signIn(BuildContext context, String name, String password, String email) {
+        Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const AccessLocation()),
+    );
   }
 
   @override

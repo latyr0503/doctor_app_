@@ -21,7 +21,7 @@ class Welcome_page extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<Welcome_page> {
-  bool isLoading = true;
+  bool isLoading = false;
 
   // liste des spécialité
   final List<Map<String, dynamic>> dummySpecialities = [
@@ -43,105 +43,83 @@ class _WelcomePageState extends State<Welcome_page> {
     },
   ];
 
-  List<Map<String, dynamic>> dummyHopital = [];
+  // données factices pour les hôpitaux
+  List<Map<String, dynamic>> dummyHopital = [
+    {
+      'name': 'Hôpital Central',
+      'date': 'Ouvert 24h',
+      'adresse': 'Rue Principale, Dakar',
+      'image': null,
+    },
+    {
+      'name': 'Clinique Est',
+      'date': 'Lun - Ven',
+      'adresse': 'Av. Sud, Dakar',
+      'image': null,
+    },
+  ];
 
-  Future<List<Map<String, dynamic>>> fetchHospitals() async {
-    final response = await http.get(Uri.parse(
-        'https://doctor-app-h45i.onrender.com/hopital/list_hopital/'));
-
-    if (response.statusCode == 200) {
-      List<dynamic> data = json.decode(response.body);
-      return data.map((item) => item as Map<String, dynamic>).toList();
-    } else {
-      throw Exception('Failed to retrieve data from API');
-    }
-  }
-
-  // Votre liste de spécialistes
-  List<Map<String, dynamic>> dummySpecialists = [];
-  // Votre fonction fetchSpecialists
-  Future<List<Map<String, dynamic>>> fetchSpecialists() async {
-    final response = await http.get(
-        Uri.parse('https://doctor-app-h45i.onrender.com/doctor/list_doctor/'));
-    if (response.statusCode == 200) {
-      // Si la requête est réussie, convertissez la réponse en une liste de Map
-      List<dynamic> data = json.decode(response.body);
-      return data.map((item) => item as Map<String, dynamic>).toList();
-    } else {
-      // Si la requête échoue, lancez une exception.
-      throw Exception('Échec de la récupération des données depuis l\'API');
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    fetchSpecialists().then((data) {
-      setState(() {
-        // Mettez à jour votre liste de spécialistes avec les données obtenues
-        dummySpecialists = data;
-        // print(dummySpecialists);
-        isLoading = false;
-      });
-    });
-    fetchHospitals().then((data) {
-      setState(() {
-        dummyHopital = data;
-        // print(dummyHopital);
-        isLoading = false;
-      });
-    });
-  }
+  // données factices pour les spécialistes
+  List<Map<String, dynamic>> dummySpecialists = [
+    {
+      'name': 'Dr. Amadou Diallo',
+      'proffession': 'Cardiologue',
+      'image': null,
+      'note': 4.8,
+      'experience': 10,
+      'adresse': 'Dakar',
+      'about': 'Spécialiste en cardiologie avec 10 ans d\'expérience',
+      'jours': ['Lun', 'Mer', 'Ven'],
+    },
+    {
+      'name': 'Dr. Fatou Ndiaye',
+      'proffession': 'Dentiste',
+      'image': null,
+      'note': 4.6,
+      'experience': 6,
+      'adresse': 'Dakar',
+      'about': 'Dentiste spécialisé en orthodontie',
+      'jours': ['Mar', 'Jeu'],
+    },
+    {
+      'name': 'Dr. Ousmane Fall',
+      'proffession': 'Neurologue',
+      'image': null,
+      'note': 4.9,
+      'experience': 12,
+      'adresse': 'Dakar',
+      'about': 'Neurologue reconnu pour ses recherches cliniques',
+      'jours': ['Lun', 'Mar', 'Jeu'],
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
     ImageProvider getImage(String? url) {
+      const placeholderHopital =
+          'https://img.freepik.com/vecteurs-libre/gens-qui-marchent-assis-au-batiment-hopital-exterieur-verre-clinique-ville-illustration-vectorielle-plane-pour-aide-medicale-urgence-architecture-concept-soins-sante_74855-10130.jpg';
       if (url == null || url.isEmpty) {
-        return const NetworkImage(
-          'https://img.freepik.com/vecteurs-libre/gens-qui-marchent-assis-au-batiment-hopital-exterieur-verre-clinique-ville-illustration-vectorielle-plane-pour-aide-medicale-urgence-architecture-concept-soins-sante_74855-10130.jpg?size=626&ext=jpg&uid=R65302706&ga=GA1.1.1564638247.1697411010&semt=sph',
-        );
-      } else {
-        http
-            .head(Uri.parse('https://doctor-app-h45i.onrender.com$url'))
-            .then((response) {
-          if (response.statusCode == 404) {
-            return const NetworkImage(
-              'https://img.freepik.com/vecteurs-libre/gens-qui-marchent-assis-au-batiment-hopital-exterieur-verre-clinique-ville-illustration-vectorielle-plane-pour-aide-medicale-urgence-architecture-concept-soins-sante_74855-10130.jpg?size=626&ext=jpg&uid=R65302706&ga=GA1.1.1564638247.1697411010&semt=sph',
-            );
-          } else {
-            return NetworkImage('https://doctor-app-h45i.onrender.com$url');
-          }
-        });
-        return const NetworkImage(
-          'https://img.freepik.com/vecteurs-libre/gens-qui-marchent-assis-au-batiment-hopital-exterieur-verre-clinique-ville-illustration-vectorielle-plane-pour-aide-medicale-urgence-architecture-concept-soins-sante_74855-10130.jpg?size=626&ext=jpg&uid=R65302706&ga=GA1.1.1564638247.1697411010&semt=sph',
-        );
+        return NetworkImage(placeholderHopital);
       }
+      // si c'est une URL complète fournie, l'utiliser ; sinon utiliser l'image de secours
+      if (url.startsWith('http')) {
+        return NetworkImage(url);
+      }
+      return NetworkImage(placeholderHopital);
     }
 
     ImageProvider getImageSpecialist(String? url) {
+      const placeholderSpecialist =
+          'https://img.freepik.com/photos-gratuite/vue-face-homme-souriant-portant-blouse-laboratoire_23-2149633830.jpg';
       if (url == null || url.isEmpty) {
-        return const NetworkImage(
-          'https://img.freepik.com/photos-gratuite/vue-face-homme-souriant-portant-blouse-laboratoire_23-2149633830.jpg?size=626&ext=jpg&uid=R65302706&ga=GA1.1.1564638247.1697411010&semt=ais',
-        );
-      } else {
-        http
-            .head(Uri.parse('https://doctor-app-h45i.onrender.com$url'))
-            .then((response) {
-          if (response.statusCode == 404) {
-            return const NetworkImage(
-              'https://img.freepik.com/photos-gratuite/vue-face-homme-souriant-portant-blouse-laboratoire_23-2149633830.jpg?size=626&ext=jpg&uid=R65302706&ga=GA1.1.1564638247.1697411010&semt=ais',
-            );
-          } else {
-            return NetworkImage('https://doctor-app-h45i.onrender.com$url');
-          }
-        });
+        return NetworkImage(placeholderSpecialist);
       }
-      return const NetworkImage(
-        'https://img.freepik.com/photos-gratuite/vue-face-homme-souriant-portant-blouse-laboratoire_23-2149633830.jpg?size=626&ext=jpg&uid=R65302706&ga=GA1.1.1564638247.1697411010&semt=ais',
-      );
+      if (url.startsWith('http')) {
+        return NetworkImage(url);
+      }
+      return NetworkImage(placeholderSpecialist);
     }
 
-    // print(getImage("url"));
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -250,10 +228,9 @@ class _WelcomePageState extends State<Welcome_page> {
                             subTitle: "${dummyHopital[index]['date']}",
                             subTitleBis: "${dummyHopital[index]['adresse']}",
                             imageCard: getImage(dummyHopital[index]['image']),
-
-                            // NetworkImage('https://doctor-app-h45i.onrender.com${dummyHopital[index]['image']}'),
                             width: 250,
                             onTap: () {
+                              // action de test
                               print("view card");
                             },
                           ),
@@ -267,17 +244,14 @@ class _WelcomePageState extends State<Welcome_page> {
                     textTitle: "Spécialiste",
                     pros: PageSpecialist(),
                   ),
-                  // map des donnés des doctors au niveau de la base de donné
+                  // map des donnés des doctors (factices)
                   Column(
                     children: dummySpecialists.take(3).map((specialist) {
-                      print(specialist['jours']);
                       return Specialist(
                         id: Key,
                         name: specialist['name'],
                         proffession: specialist['proffession'],
                         image: getImageSpecialist(specialist['image']),
-                        // NetworkImage(
-                        //     'https://doctor-app-h45i.onrender.com${specialist['image']}'),
                         note: specialist['note'],
                         experience: specialist['experience'],
                         adresse: specialist['adresse'],
@@ -291,8 +265,7 @@ class _WelcomePageState extends State<Welcome_page> {
                             specialist['about'],
                             specialist['note'].toString(),
                             specialist['experience'].toString(),
-                            specialist['image'].toString(),
-                            // specialist['jours']
+                            specialist['image']?.toString() ?? '',
                           );
                         },
                       );
@@ -313,8 +286,10 @@ class _WelcomePageState extends State<Welcome_page> {
     String experience,
     String image,
   ) {
-    ImageProvider imageProvider =
-        NetworkImage('https://doctor-app-h45i.onrender.com$image');
+    ImageProvider imageProvider = image.startsWith('http') && image.isNotEmpty
+        ? NetworkImage(image)
+        : const NetworkImage(
+            'https://img.freepik.com/photos-gratuite/vue-face-homme-souriant-portant-blouse-laboratoire_23-2149633830.jpg');
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -326,29 +301,8 @@ class _WelcomePageState extends State<Welcome_page> {
           note: note,
           experience: experience,
           imageProvider: imageProvider,
-          // jours: jours,
         ),
       ),
     );
   }
-
-  // void handleHopitalSelection(
-  //   String name,
-  //   String date,
-  //   String adresse,
-  // ) {
-  //   ImageProvider imageProvider =
-  //       NetworkImage('https://doctor-app-h45i.onrender.com$image');
-  //   Navigator.push(
-  //     context,
-  //     MaterialPageRoute(
-  //       builder: (context) => Details_doctor(
-  //         name: name,
-  //         imageProvider: imageProvider,
-  //         imageProvider: imageProvider,
-  //         // jours: jours,
-  //       ),
-  //     ),
-  //   );
-  // }
 }
